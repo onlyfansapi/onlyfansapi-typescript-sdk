@@ -1,5 +1,5 @@
 {
-  "name": "onlyfansapi",
+  "name": "@onlyfansapi/typescript-sdk",
   "version": "0.0.1",
   "description": "The official TypeScript library for the Onlyfansapi API",
   "author": "Onlyfansapi <>",

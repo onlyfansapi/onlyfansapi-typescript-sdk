@@ -1,5 +1,5 @@
-import { multipartFormRequestOptions, createForm } from 'onlyfansapi/internal/uploads';
-import { toFile } from 'onlyfansapi/core/uploads';
+import { multipartFormRequestOptions, createForm } from '@onlyfansapi/typescript-sdk/internal/uploads';
+import { toFile } from '@onlyfansapi/typescript-sdk/core/uploads';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

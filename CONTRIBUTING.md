@@ -55,12 +55,12 @@ $ cd onlyfansapi-typescript-sdk
 # With yarn
 $ yarn link
 $ cd ../my-package
-$ yarn link onlyfansapi
+$ yarn link @onlyfansapi/typescript-sdk
 
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global onlyfansapi
+$ pnpm link -—global @onlyfansapi/typescript-sdk
 ```
 
 ## Running tests

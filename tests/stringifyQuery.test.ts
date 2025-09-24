@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Onlyfansapi } from 'onlyfansapi';
+import { Onlyfansapi } from '@onlyfansapi/typescript-sdk';
 
 const { stringifyQuery } = Onlyfansapi.prototype as any;
 

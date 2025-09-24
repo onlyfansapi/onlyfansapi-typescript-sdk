@@ -7,8 +7,8 @@ const config: JestConfigWithTsJest = {
     '^.+\\.(t|j)sx?$': ['@swc/jest', { sourceMaps: 'inline' }],
   },
   moduleNameMapper: {
-    '^onlyfansapi$': '<rootDir>/src/index.ts',
-    '^onlyfansapi/(.*)$': '<rootDir>/src/$1',
+    '^@onlyfansapi/typescript-sdk$': '<rootDir>/src/index.ts',
+    '^@onlyfansapi/typescript-sdk/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: [
     '<rootDir>/ecosystem-tests/',
