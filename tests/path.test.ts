@@ -1,4 +1,4 @@
-import { createPathTagFunction, encodeURIPath } from 'onlyfansapi/internal/utils/path';
+import { createPathTagFunction, encodeURIPath } from '@onlyfansapi/typescript-sdk/internal/utils/path';
 import { inspect } from 'node:util';
 import { runInNewContext } from 'node:vm';
 
