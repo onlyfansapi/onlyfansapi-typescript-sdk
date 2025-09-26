@@ -7,10 +7,9 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "baseUrl": "./",
     "paths": {
-      "@onlyfansapi/typescript-sdk/*": ["src/*"],
-      "@onlyfansapi/typescript-sdk": ["src/index.ts"]
+      "@onlyfansapi/typescript-sdk/*": ["./src/*"],
+      "@onlyfansapi/typescript-sdk": ["./src/index.ts"]
     },
     "noEmit": true,
 
