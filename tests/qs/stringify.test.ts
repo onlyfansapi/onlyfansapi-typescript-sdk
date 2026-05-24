@@ -1,7 +1,7 @@
 import iconv from 'iconv-lite';
-import { stringify } from 'onlyfansapi/internal/qs';
-import { encode } from 'onlyfansapi/internal/qs/utils';
-import { StringifyOptions } from 'onlyfansapi/internal/qs/types';
+import { stringify } from '@onlyfansapi/onlyfans-sdk/internal/qs';
+import { encode } from '@onlyfansapi/onlyfans-sdk/internal/qs/utils';
+import { StringifyOptions } from '@onlyfansapi/onlyfans-sdk/internal/qs/types';
 import { empty_test_cases } from './empty-keys-cases';
 import assert from 'assert';
 

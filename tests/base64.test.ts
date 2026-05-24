@@ -1,4 +1,4 @@
-import { fromBase64, toBase64 } from 'onlyfansapi/internal/utils/base64';
+import { fromBase64, toBase64 } from '@onlyfansapi/onlyfans-sdk/internal/utils/base64';
 
 describe.each(['Buffer', 'atob'])('with %s', (mode) => {
   let originalBuffer: BufferConstructor;

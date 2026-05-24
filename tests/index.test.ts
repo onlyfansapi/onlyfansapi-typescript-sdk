@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIPromise } from 'onlyfansapi/core/api-promise';
+import { APIPromise } from '@onlyfansapi/onlyfans-sdk/core/api-promise';
 
 import util from 'node:util';
-import OnlyFansAPI from 'onlyfansapi';
-import { APIUserAbortError } from 'onlyfansapi';
+import OnlyFansAPI from '@onlyfansapi/onlyfans-sdk';
+import { APIUserAbortError } from '@onlyfansapi/onlyfans-sdk';
 const defaultFetch = fetch;
 
 describe('instantiate client', () => {
