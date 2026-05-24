@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource reach', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getProfileVisitors: only required params', async () => {
     const responsePromise = client.statistics.reach.getProfileVisitors('acct_XXXXXXXXXXXXXXX', {
       end_date: '2025-03-31 23:59:59',
@@ -23,7 +23,7 @@ describe('resource reach', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getProfileVisitors: required and optional params', async () => {
     const response = await client.statistics.reach.getProfileVisitors('acct_XXXXXXXXXXXXXXX', {
       end_date: '2025-03-31 23:59:59',

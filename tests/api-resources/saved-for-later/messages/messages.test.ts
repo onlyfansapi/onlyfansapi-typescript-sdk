@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource messages', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.savedForLater.messages.list('acct_XXXXXXXXXXXXXXX', {
       limit: 10,
@@ -23,7 +23,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.savedForLater.messages.list('acct_XXXXXXXXXXXXXXX', {
       limit: 10,

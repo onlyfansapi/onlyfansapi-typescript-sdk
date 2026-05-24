@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource messages', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.chats.messages.list('458485726', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.chats.messages.list('458485726', {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -30,7 +30,7 @@ describe('resource messages', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.chats.messages.delete('123456789', {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -45,7 +45,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.chats.messages.delete('123456789', {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -53,7 +53,7 @@ describe('resource messages', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('send: only required params', async () => {
     const responsePromise = client.chats.messages.send('458485726', {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -68,7 +68,7 @@ describe('resource messages', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('send: required and optional params', async () => {
     const response = await client.chats.messages.send('458485726', {
       account: 'acct_XXXXXXXXXXXXXXX',

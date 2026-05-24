@@ -5,6 +5,9 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * APIs for managing tracking links
+ */
 export class TrackingLinks extends APIResource {
   /**
    * Create a new Tracking Link for the account
@@ -93,7 +96,11 @@ export class TrackingLinks extends APIResource {
    * ```ts
    * const response = await client.trackingLinks.listSubscribers(
    *   'tracking_link_id',
-   *   { account: 'acct_XXXXXXXXXXXXXXX', limit: 10, offset: 0 },
+   *   {
+   *     account: 'acct_XXXXXXXXXXXXXXX',
+   *     limit: 10,
+   *     offset: 0,
+   *   },
    * );
    * ```
    */

@@ -14,6 +14,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Operations related to user banking details, payout methods, legal and tax information, and account country settings.
+ */
 export class Banking extends APIResource {
   details: DetailsAPI.Details = new DetailsAPI.Details(this._client);
 

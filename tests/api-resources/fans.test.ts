@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource fans', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listActive', async () => {
     const responsePromise = client.fans.listActive('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -20,14 +20,19 @@ describe('resource fans', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listActive: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.fans.listActive(
         'acct_XXXXXXXXXXXXXXX',
         {
-          filter: { duration: 'duration', online: 'online', tips: 'tips', total_spent: 'total_spent' },
+          filter: {
+            duration: 'duration',
+            online: 'online',
+            tips: 'tips',
+            total_spent: 'total_spent',
+          },
           limit: 'limit',
           offset: 'offset',
           type: 'active',
@@ -37,7 +42,7 @@ describe('resource fans', () => {
     ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listAll', async () => {
     const responsePromise = client.fans.listAll('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -49,14 +54,19 @@ describe('resource fans', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listAll: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.fans.listAll(
         'acct_XXXXXXXXXXXXXXX',
         {
-          filter: { duration: 'duration', online: 'online', tips: 'tips', total_spent: 'total_spent' },
+          filter: {
+            duration: 'duration',
+            online: 'online',
+            tips: 'tips',
+            total_spent: 'total_spent',
+          },
           limit: 'limit',
           offset: 'offset',
           type: 'active',
@@ -66,7 +76,7 @@ describe('resource fans', () => {
     ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listExpired', async () => {
     const responsePromise = client.fans.listExpired('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -78,14 +88,19 @@ describe('resource fans', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listExpired: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.fans.listExpired(
         'acct_XXXXXXXXXXXXXXX',
         {
-          filter: { duration: 'duration', online: 'online', tips: 'tips', total_spent: 'total_spent' },
+          filter: {
+            duration: 'duration',
+            online: 'online',
+            tips: 'tips',
+            total_spent: 'total_spent',
+          },
           limit: 'limit',
           offset: 'offset',
           type: 'expired',
@@ -95,7 +110,7 @@ describe('resource fans', () => {
     ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listLatest', async () => {
     const responsePromise = client.fans.listLatest('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -107,13 +122,19 @@ describe('resource fans', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listLatest: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.fans.listLatest(
         'acct_XXXXXXXXXXXXXXX',
-        { end_date: '2024-12-31', limit: 'limit', offset: 'offset', start_date: '2024-01-01', type: 'total' },
+        {
+          end_date: '2024-12-31',
+          limit: 'limit',
+          offset: 'offset',
+          start_date: '2024-01-01',
+          type: 'total',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Onlyfansapi.NotFoundError);

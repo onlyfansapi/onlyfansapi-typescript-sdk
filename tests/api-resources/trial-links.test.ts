@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource trialLinks', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.trialLinks.create('acct_XXXXXXXXXXXXXXX', {
       duration: 7,
@@ -24,7 +24,7 @@ describe('resource trialLinks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.trialLinks.create('acct_XXXXXXXXXXXXXXX', {
       duration: 7,
@@ -34,7 +34,7 @@ describe('resource trialLinks', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.trialLinks.list('acct_XXXXXXXXXXXXXXX', { limit: 10, offset: 0 });
     const rawResponse = await responsePromise.asResponse();
@@ -46,7 +46,7 @@ describe('resource trialLinks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.trialLinks.list('acct_XXXXXXXXXXXXXXX', {
       limit: 10,
@@ -57,7 +57,7 @@ describe('resource trialLinks', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.trialLinks.delete(123456789, { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
@@ -69,12 +69,12 @@ describe('resource trialLinks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.trialLinks.delete(123456789, { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listSpenders: only required params', async () => {
     const responsePromise = client.trialLinks.listSpenders('trial_link_id', {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -88,7 +88,7 @@ describe('resource trialLinks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listSpenders: required and optional params', async () => {
     const response = await client.trialLinks.listSpenders('trial_link_id', {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -98,7 +98,7 @@ describe('resource trialLinks', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listSubscribers: only required params', async () => {
     const responsePromise = client.trialLinks.listSubscribers('excepturi', {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -114,7 +114,7 @@ describe('resource trialLinks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listSubscribers: required and optional params', async () => {
     const response = await client.trialLinks.listSubscribers('excepturi', {
       account: 'acct_XXXXXXXXXXXXXXX',

@@ -5,6 +5,9 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * APIs for managing OnlyFans fans (subscribers)
+ */
 export class Fans extends APIResource {
   /**
    * Get a paginated list of fans for an Account. Newest fans are first.

@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource settings', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.savedForLater.posts.settings.retrieve('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource settings', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('disableAutomaticPosting', async () => {
     const responsePromise =
       client.savedForLater.posts.settings.disableAutomaticPosting('acct_XXXXXXXXXXXXXXX');
@@ -33,7 +33,7 @@ describe('resource settings', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('enableOrUpdateAutomaticPosting: only required params', async () => {
     const responsePromise = client.savedForLater.posts.settings.enableOrUpdateAutomaticPosting(
       'acct_XXXXXXXXXXXXXXX',
@@ -48,7 +48,7 @@ describe('resource settings', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('enableOrUpdateAutomaticPosting: required and optional params', async () => {
     const response = await client.savedForLater.posts.settings.enableOrUpdateAutomaticPosting(
       'acct_XXXXXXXXXXXXXXX',

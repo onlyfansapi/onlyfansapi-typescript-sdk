@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource comments', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.posts.comments.create('id', {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -23,7 +23,7 @@ describe('resource comments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.posts.comments.create('id', {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -33,7 +33,7 @@ describe('resource comments', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.posts.comments.list('id', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
@@ -45,7 +45,7 @@ describe('resource comments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.posts.comments.list('id', {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -55,7 +55,7 @@ describe('resource comments', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.posts.comments.delete(123, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -70,7 +70,7 @@ describe('resource comments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.posts.comments.delete(123, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -78,7 +78,7 @@ describe('resource comments', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('likeComment: only required params', async () => {
     const responsePromise = client.posts.comments.likeComment(123, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -93,7 +93,7 @@ describe('resource comments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('likeComment: required and optional params', async () => {
     const response = await client.posts.comments.likeComment(123, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -101,7 +101,7 @@ describe('resource comments', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('pinComment: only required params', async () => {
     const responsePromise = client.posts.comments.pinComment(123, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -116,7 +116,7 @@ describe('resource comments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('pinComment: required and optional params', async () => {
     const response = await client.posts.comments.pinComment(123, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -124,7 +124,7 @@ describe('resource comments', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('unlikeComment: only required params', async () => {
     const responsePromise = client.posts.comments.unlikeComment(123, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -139,7 +139,7 @@ describe('resource comments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('unlikeComment: required and optional params', async () => {
     const response = await client.posts.comments.unlikeComment(123, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -147,7 +147,7 @@ describe('resource comments', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('unpinComment: only required params', async () => {
     const responsePromise = client.posts.comments.unpinComment(123, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -162,7 +162,7 @@ describe('resource comments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('unpinComment: required and optional params', async () => {
     const response = await client.posts.comments.unpinComment(123, {
       account: 'acct_XXXXXXXXXXXXXXX',

@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource banking', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listAvailablePayoutSystems', async () => {
     const responsePromise = client.banking.listAvailablePayoutSystems('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource banking', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listCountries', async () => {
     const responsePromise = client.banking.listCountries('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();

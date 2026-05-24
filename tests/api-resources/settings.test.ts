@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource settings', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.settings.retrieve('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource settings', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('checkUsernameExists: only required params', async () => {
     const responsePromise = client.settings.checkUsernameExists('acct_XXXXXXXXXXXXXXX', {
       username: 'MyNewUsername',
@@ -34,14 +34,14 @@ describe('resource settings', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('checkUsernameExists: required and optional params', async () => {
     const response = await client.settings.checkUsernameExists('acct_XXXXXXXXXXXXXXX', {
       username: 'MyNewUsername',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateProfile', async () => {
     const responsePromise = client.settings.updateProfile('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -53,7 +53,7 @@ describe('resource settings', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateProfile: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(

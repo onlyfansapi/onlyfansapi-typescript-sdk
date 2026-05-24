@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource users', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('add: only required params', async () => {
     const responsePromise = client.userLists.users.add(1224114714, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -23,7 +23,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('add: required and optional params', async () => {
     const response = await client.userLists.users.add(1224114714, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -31,7 +31,7 @@ describe('resource users', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('remove: only required params', async () => {
     const responsePromise = client.userLists.users.remove(123456, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -46,7 +46,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('remove: required and optional params', async () => {
     const response = await client.userLists.users.remove(123456, {
       account: 'acct_XXXXXXXXXXXXXXX',

@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource queue', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.queue.list('acct_XXXXXXXXXXXXXXX', {
       limit: 20,
@@ -25,7 +25,7 @@ describe('resource queue', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.queue.list('acct_XXXXXXXXXXXXXXX', {
       limit: 20,
@@ -35,7 +35,7 @@ describe('resource queue', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('count: only required params', async () => {
     const responsePromise = client.queue.count('acct_XXXXXXXXXXXXXXX', {
       publishDateEnd: '2025-01-01',
@@ -51,7 +51,7 @@ describe('resource queue', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('count: required and optional params', async () => {
     const response = await client.queue.count('acct_XXXXXXXXXXXXXXX', {
       publishDateEnd: '2025-01-01',
@@ -60,7 +60,7 @@ describe('resource queue', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('publish: only required params', async () => {
     const responsePromise = client.queue.publish('queue_id', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
@@ -72,7 +72,7 @@ describe('resource queue', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('publish: required and optional params', async () => {
     const response = await client.queue.publish('queue_id', { account: 'acct_XXXXXXXXXXXXXXX' });
   });

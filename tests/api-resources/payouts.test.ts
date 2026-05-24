@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource payouts', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listPayoutRequests', async () => {
     const responsePromise = client.payouts.listPayoutRequests('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource payouts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listPayoutRequests: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -32,7 +32,7 @@ describe('resource payouts', () => {
     ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listTransactions', async () => {
     const responsePromise = client.payouts.listTransactions('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -44,7 +44,7 @@ describe('resource payouts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listTransactions: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -56,7 +56,7 @@ describe('resource payouts', () => {
     ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('requestManualWithdrawal: only required params', async () => {
     const responsePromise = client.payouts.requestManualWithdrawal('acct_XXXXXXXXXXXXXXX', { amount: 50 });
     const rawResponse = await responsePromise.asResponse();
@@ -68,12 +68,12 @@ describe('resource payouts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('requestManualWithdrawal: required and optional params', async () => {
     const response = await client.payouts.requestManualWithdrawal('acct_XXXXXXXXXXXXXXX', { amount: 50 });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveBalances', async () => {
     const responsePromise = client.payouts.retrieveBalances('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -85,7 +85,7 @@ describe('resource payouts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveEarningStatistics', async () => {
     const responsePromise = client.payouts.retrieveEarningStatistics('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -97,7 +97,7 @@ describe('resource payouts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveEarningStatistics: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -109,7 +109,7 @@ describe('resource payouts', () => {
     ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveEligibility', async () => {
     const responsePromise = client.payouts.retrieveEligibility('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -121,7 +121,7 @@ describe('resource payouts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updatePayoutFrequency: only required params', async () => {
     const responsePromise = client.payouts.updatePayoutFrequency('acct_XXXXXXXXXXXXXXX', {
       frequency: 'manual',
@@ -135,7 +135,7 @@ describe('resource payouts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updatePayoutFrequency: required and optional params', async () => {
     const response = await client.payouts.updatePayoutFrequency('acct_XXXXXXXXXXXXXXX', {
       frequency: 'manual',

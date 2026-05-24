@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource media', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('scrape: only required params', async () => {
     const responsePromise = client.media.scrape('acct_XXXXXXXXXXXXXXX', {
       url: 'https://cdn2.onlyfans.com/files/e/e5/123/600x400_123.jpg?Tag=2&u=123&Policy=123&Signature=signature&Key-Pair-Id=123',
@@ -22,7 +22,7 @@ describe('resource media', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('scrape: required and optional params', async () => {
     const response = await client.media.scrape('acct_XXXXXXXXXXXXXXX', {
       url: 'https://cdn2.onlyfans.com/files/e/e5/123/600x400_123.jpg?Tag=2&u=123&Policy=123&Signature=signature&Key-Pair-Id=123',
@@ -30,7 +30,7 @@ describe('resource media', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('upload: only required params', async () => {
     const responsePromise = client.media.upload('acct_XXXXXXXXXXXXXXX', { file: 'file.jpg' });
     const rawResponse = await responsePromise.asResponse();
@@ -42,7 +42,7 @@ describe('resource media', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('upload: required and optional params', async () => {
     const response = await client.media.upload('acct_XXXXXXXXXXXXXXX', { file: 'file.jpg', type: 'avatar' });
   });

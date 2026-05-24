@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource details', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveAccountCountryDetails', async () => {
     const responsePromise = client.banking.details.retrieveAccountCountryDetails('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource details', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveBankDetails', async () => {
     const responsePromise = client.banking.details.retrieveBankDetails('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource details', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveDac7FormDetails', async () => {
     const responsePromise = client.banking.details.retrieveDac7FormDetails('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -44,7 +44,7 @@ describe('resource details', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveLegalAndTaxStatus', async () => {
     const responsePromise = client.banking.details.retrieveLegalAndTaxStatus('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -56,7 +56,7 @@ describe('resource details', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveLegalFormDetails', async () => {
     const responsePromise = client.banking.details.retrieveLegalFormDetails('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
