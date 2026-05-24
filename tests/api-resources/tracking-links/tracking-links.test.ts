@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import OnlyFansAPI from 'onlyfansapi';
+import OnlyFansAPI from '@onlyfansapi/onlyfans-sdk';
 
 const client = new OnlyFansAPI({
   apiKey: 'My API Key',
