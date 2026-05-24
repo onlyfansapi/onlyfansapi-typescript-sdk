@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.1 (2026-05-24)
+
+Full Changelog: [v0.1.0...v0.1.1](https://github.com/onlyfansapi/onlyfansapi-typescript-sdk/compare/v0.1.0...v0.1.1)
+
+### Chores
+
+* update SDK settings ([c7cd6fa](https://github.com/onlyfansapi/onlyfansapi-typescript-sdk/commit/c7cd6fa58db82056067d9c045b3c747da8a2245d))
+
 ## 0.1.0 (2026-05-24)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/onlyfansapi/onlyfansapi-typescript-sdk/compare/v0.0.1...v0.1.0)
