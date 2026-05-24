@@ -11,16 +11,16 @@ export class Payouts extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.payouts.listPayoutRequests(
+   * const response = await client.payouts.listRequests(
    *   'acct_XXXXXXXXXXXXXXX',
    * );
    * ```
    */
-  listPayoutRequests(
+  listRequests(
     account: string,
-    query: PayoutListPayoutRequestsParams | null | undefined = {},
+    query: PayoutListRequestsParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<PayoutListPayoutRequestsResponse> {
+  ): APIPromise<PayoutListRequestsResponse> {
     return this._client.get(path`/api/${account}/payouts/payout-requests`, { query, ...options });
   }
 
@@ -101,28 +101,28 @@ export class Payouts extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.payouts.updatePayoutFrequency(
+   * const response = await client.payouts.updateFrequency(
    *   'acct_XXXXXXXXXXXXXXX',
    *   { frequency: 'manual' },
    * );
    * ```
    */
-  updatePayoutFrequency(
+  updateFrequency(
     account: string,
-    body: PayoutUpdatePayoutFrequencyParams,
+    body: PayoutUpdateFrequencyParams,
     options?: RequestOptions,
-  ): APIPromise<PayoutUpdatePayoutFrequencyResponse> {
+  ): APIPromise<PayoutUpdateFrequencyResponse> {
     return this._client.patch(path`/api/${account}/payouts/payout-frequency`, { body, ...options });
   }
 }
 
-export interface PayoutListPayoutRequestsResponse {
-  _meta?: PayoutListPayoutRequestsResponse._Meta;
+export interface PayoutListRequestsResponse {
+  _meta?: PayoutListRequestsResponse._Meta;
 
-  data?: PayoutListPayoutRequestsResponse.Data;
+  data?: PayoutListRequestsResponse.Data;
 }
 
-export namespace PayoutListPayoutRequestsResponse {
+export namespace PayoutListRequestsResponse {
   export interface _Meta {
     _cache?: _Meta._Cache;
 
@@ -546,13 +546,13 @@ export namespace PayoutRetrieveEligibilityResponse {
   }
 }
 
-export interface PayoutUpdatePayoutFrequencyResponse {
-  _meta?: PayoutUpdatePayoutFrequencyResponse._Meta;
+export interface PayoutUpdateFrequencyResponse {
+  _meta?: PayoutUpdateFrequencyResponse._Meta;
 
-  data?: PayoutUpdatePayoutFrequencyResponse.Data;
+  data?: PayoutUpdateFrequencyResponse.Data;
 }
 
-export namespace PayoutUpdatePayoutFrequencyResponse {
+export namespace PayoutUpdateFrequencyResponse {
   export interface _Meta {
     _cache?: _Meta._Cache;
 
@@ -592,7 +592,7 @@ export namespace PayoutUpdatePayoutFrequencyResponse {
   }
 }
 
-export interface PayoutListPayoutRequestsParams {
+export interface PayoutListRequestsParams {
   /**
    * Number of payout requests to return
    */
@@ -623,7 +623,7 @@ export interface PayoutRetrieveEarningStatisticsParams {
   startDate?: string | null;
 }
 
-export interface PayoutUpdatePayoutFrequencyParams {
+export interface PayoutUpdateFrequencyParams {
   /**
    * The new payout frequency
    */
@@ -632,15 +632,15 @@ export interface PayoutUpdatePayoutFrequencyParams {
 
 export declare namespace Payouts {
   export {
-    type PayoutListPayoutRequestsResponse as PayoutListPayoutRequestsResponse,
+    type PayoutListRequestsResponse as PayoutListRequestsResponse,
     type PayoutRequestManualWithdrawalResponse as PayoutRequestManualWithdrawalResponse,
     type PayoutRetrieveBalancesResponse as PayoutRetrieveBalancesResponse,
     type PayoutRetrieveEarningStatisticsResponse as PayoutRetrieveEarningStatisticsResponse,
     type PayoutRetrieveEligibilityResponse as PayoutRetrieveEligibilityResponse,
-    type PayoutUpdatePayoutFrequencyResponse as PayoutUpdatePayoutFrequencyResponse,
-    type PayoutListPayoutRequestsParams as PayoutListPayoutRequestsParams,
+    type PayoutUpdateFrequencyResponse as PayoutUpdateFrequencyResponse,
+    type PayoutListRequestsParams as PayoutListRequestsParams,
     type PayoutRequestManualWithdrawalParams as PayoutRequestManualWithdrawalParams,
     type PayoutRetrieveEarningStatisticsParams as PayoutRetrieveEarningStatisticsParams,
-    type PayoutUpdatePayoutFrequencyParams as PayoutUpdatePayoutFrequencyParams,
+    type PayoutUpdateFrequencyParams as PayoutUpdateFrequencyParams,
   };
 }

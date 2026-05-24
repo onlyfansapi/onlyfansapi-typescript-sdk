@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Onlyfansapi from '@onlyfansapi/typescript-sdk';
+import OnlyFansAPI from 'onlyfansapi';
 
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
@@ -79,8 +79,8 @@ describe('resource comments', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('likeComment: only required params', async () => {
-    const responsePromise = client.posts.comments.likeComment(123, {
+  test.skip('like: only required params', async () => {
+    const responsePromise = client.posts.comments.like(123, {
       account: 'acct_XXXXXXXXXXXXXXX',
       post_id: 123,
     });
@@ -94,16 +94,30 @@ describe('resource comments', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('likeComment: required and optional params', async () => {
-    const response = await client.posts.comments.likeComment(123, {
-      account: 'acct_XXXXXXXXXXXXXXX',
-      post_id: 123,
-    });
+  test.skip('like: required and optional params', async () => {
+    const response = await client.posts.comments.like(123, { account: 'acct_XXXXXXXXXXXXXXX', post_id: 123 });
   });
 
   // Mock server tests are disabled
-  test.skip('pinComment: only required params', async () => {
-    const responsePromise = client.posts.comments.pinComment(123, {
+  test.skip('pin: only required params', async () => {
+    const responsePromise = client.posts.comments.pin(123, { account: 'acct_XXXXXXXXXXXXXXX', post_id: 123 });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('pin: required and optional params', async () => {
+    const response = await client.posts.comments.pin(123, { account: 'acct_XXXXXXXXXXXXXXX', post_id: 123 });
+  });
+
+  // Mock server tests are disabled
+  test.skip('unlike: only required params', async () => {
+    const responsePromise = client.posts.comments.unlike(123, {
       account: 'acct_XXXXXXXXXXXXXXX',
       post_id: 123,
     });
@@ -117,39 +131,16 @@ describe('resource comments', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('pinComment: required and optional params', async () => {
-    const response = await client.posts.comments.pinComment(123, {
+  test.skip('unlike: required and optional params', async () => {
+    const response = await client.posts.comments.unlike(123, {
       account: 'acct_XXXXXXXXXXXXXXX',
       post_id: 123,
     });
   });
 
   // Mock server tests are disabled
-  test.skip('unlikeComment: only required params', async () => {
-    const responsePromise = client.posts.comments.unlikeComment(123, {
-      account: 'acct_XXXXXXXXXXXXXXX',
-      post_id: 123,
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('unlikeComment: required and optional params', async () => {
-    const response = await client.posts.comments.unlikeComment(123, {
-      account: 'acct_XXXXXXXXXXXXXXX',
-      post_id: 123,
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('unpinComment: only required params', async () => {
-    const responsePromise = client.posts.comments.unpinComment(123, {
+  test.skip('unpin: only required params', async () => {
+    const responsePromise = client.posts.comments.unpin(123, {
       account: 'acct_XXXXXXXXXXXXXXX',
       post_id: 123,
     });
@@ -163,8 +154,8 @@ describe('resource comments', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('unpinComment: required and optional params', async () => {
-    const response = await client.posts.comments.unpinComment(123, {
+  test.skip('unpin: required and optional params', async () => {
+    const response = await client.posts.comments.unpin(123, {
       account: 'acct_XXXXXXXXXXXXXXX',
       post_id: 123,
     });

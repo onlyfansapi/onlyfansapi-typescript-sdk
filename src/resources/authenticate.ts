@@ -42,6 +42,22 @@ export class Authenticate extends APIResource {
   }
 
   /**
+   * Send 2FA verification e-mail to the creator's email so they can verify login on
+   * their device without your input. The e-mail will be sent to the e-mail address
+   * used for signing into OnlyFans.
+   *
+   * @example
+   * ```ts
+   * const response = await client.authenticate.send2faEmail(
+   *   'auth_XXXXXXX',
+   * );
+   * ```
+   */
+  send2faEmail(attemptID: string, options?: RequestOptions): APIPromise<AuthenticateSend2faEmailResponse> {
+    return this._client.post(path`/api/authenticate/${attemptID}/send-email-to-creator`, options);
+  }
+
+  /**
    * Start the authentication process for a new account. Supports three methods:
    * email/password (default), cookies & headers (raw_data), or FansAPI Auth+ mobile
    * app (mobile_app). For email/password, our systems will bypass Captcha and ask
@@ -399,6 +415,12 @@ export interface AuthenticateReauthenticateResponse {
   success?: boolean;
 }
 
+export interface AuthenticateSend2faEmailResponse {
+  message?: string;
+
+  success?: boolean;
+}
+
 /**
  * For email_password or raw_data auth types
  */
@@ -539,13 +561,14 @@ export interface AuthenticateSubmit2faParams {
   /**
    * This field is required when <code>code</code> is not present.
    */
-  selfie_verification_completed?;
+  selfie_verification_completed?: unknown;
 }
 
 export declare namespace Authenticate {
   export {
     type AuthenticatePollStatusResponse as AuthenticatePollStatusResponse,
     type AuthenticateReauthenticateResponse as AuthenticateReauthenticateResponse,
+    type AuthenticateSend2faEmailResponse as AuthenticateSend2faEmailResponse,
     type AuthenticateStartResponse as AuthenticateStartResponse,
     type AuthenticateSubmit2faResponse as AuthenticateSubmit2faResponse,
     type AuthenticateStartParams as AuthenticateStartParams,

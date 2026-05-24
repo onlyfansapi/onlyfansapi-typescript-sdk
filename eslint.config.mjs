@@ -22,7 +22,7 @@ export default tseslint.config(
         {
           patterns: [
             {
-              regex: '^@onlyfansapi/typescript-sdk(/.*)?',
+              regex: '^onlyfansapi(/.*)?',
               message: 'Use a relative import, not a package import.',
             },
           ],

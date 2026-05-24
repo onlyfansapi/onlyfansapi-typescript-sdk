@@ -8,8 +8,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "paths": {
-      "@onlyfansapi/typescript-sdk/*": ["./src/*"],
-      "@onlyfansapi/typescript-sdk": ["./src/index.ts"]
+      "onlyfansapi/*": ["./src/*"],
+      "onlyfansapi": ["./src/index.ts"]
     },
     "noEmit": true,
 

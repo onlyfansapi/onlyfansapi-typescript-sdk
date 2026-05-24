@@ -34,6 +34,20 @@ export class Me extends APIResource {
   getModelStartDate(account: string, options?: RequestOptions): APIPromise<MeGetModelStartDateResponse> {
     return this._client.get(path`/api/${account}/me/model-start-date`, options);
   }
+
+  /**
+   * Get the top percentage of the model (e.g., top 0.02% of all creators)
+   *
+   * @example
+   * ```ts
+   * const response = await client.me.getTopPercentage(
+   *   'acct_XXXXXXXXXXXXXXX',
+   * );
+   * ```
+   */
+  getTopPercentage(account: string, options?: RequestOptions): APIPromise<MeGetTopPercentageResponse> {
+    return this._client.get(path`/api/${account}/me/top-percentage`, options);
+  }
 }
 
 export interface MeRetrieveResponse {
@@ -512,9 +526,58 @@ export namespace MeGetModelStartDateResponse {
   }
 }
 
+export interface MeGetTopPercentageResponse {
+  _meta?: MeGetTopPercentageResponse._Meta;
+
+  data?: MeGetTopPercentageResponse.Data;
+}
+
+export namespace MeGetTopPercentageResponse {
+  export interface _Meta {
+    _cache?: _Meta._Cache;
+
+    _credits?: _Meta._Credits;
+
+    _rate_limits?: _Meta._RateLimits;
+  }
+
+  export namespace _Meta {
+    export interface _Cache {
+      is_cached?: boolean;
+
+      note?: string;
+    }
+
+    export interface _Credits {
+      balance?: number;
+
+      note?: string;
+
+      used?: number;
+    }
+
+    export interface _RateLimits {
+      limit_day?: number;
+
+      limit_minute?: number;
+
+      remaining_day?: number;
+
+      remaining_minute?: number;
+    }
+  }
+
+  export interface Data {
+    message?: string | null;
+
+    top_percentage?: number;
+  }
+}
+
 export declare namespace Me {
   export {
     type MeRetrieveResponse as MeRetrieveResponse,
     type MeGetModelStartDateResponse as MeGetModelStartDateResponse,
+    type MeGetTopPercentageResponse as MeGetTopPercentageResponse,
   };
 }
