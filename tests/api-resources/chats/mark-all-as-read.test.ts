@@ -7,10 +7,10 @@ const client = new OnlyFansAPI({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource markAsRead', () => {
+describe('resource markAllAsRead', () => {
   // Mock server tests are disabled
   test.skip('all', async () => {
-    const responsePromise = client.chats.markAsRead.all('acct_XXXXXXXXXXXXXXX');
+    const responsePromise = client.chats.markAllAsRead.all('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

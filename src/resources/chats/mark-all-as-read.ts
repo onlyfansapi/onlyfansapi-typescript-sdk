@@ -5,29 +5,29 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
-export class MarkAsRead extends APIResource {
+export class MarkAllAsRead extends APIResource {
   /**
    * Mark all chats as read.
    *
    * @example
    * ```ts
-   * const response = await client.chats.markAsRead.all(
+   * const response = await client.chats.markAllAsRead.all(
    *   'acct_XXXXXXXXXXXXXXX',
    * );
    * ```
    */
-  all(account: string, options?: RequestOptions): APIPromise<MarkAsReadAllResponse> {
+  all(account: string, options?: RequestOptions): APIPromise<MarkAllAsReadAllResponse> {
     return this._client.post(path`/api/${account}/chats/mark-as-read`, options);
   }
 }
 
-export interface MarkAsReadAllResponse {
-  _meta?: MarkAsReadAllResponse._Meta;
+export interface MarkAllAsReadAllResponse {
+  _meta?: MarkAllAsReadAllResponse._Meta;
 
-  data?: MarkAsReadAllResponse.Data;
+  data?: MarkAllAsReadAllResponse.Data;
 }
 
-export namespace MarkAsReadAllResponse {
+export namespace MarkAllAsReadAllResponse {
   export interface _Meta {
     _cache?: _Meta._Cache;
 
@@ -67,6 +67,6 @@ export namespace MarkAsReadAllResponse {
   }
 }
 
-export declare namespace MarkAsRead {
-  export { type MarkAsReadAllResponse as MarkAsReadAllResponse };
+export declare namespace MarkAllAsRead {
+  export { type MarkAllAsReadAllResponse as MarkAllAsReadAllResponse };
 }
