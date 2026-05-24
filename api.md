@@ -136,6 +136,7 @@ Types:
 - <code><a href="./src/resources/chats/chats.ts">ChatDeleteResponse</a></code>
 - <code><a href="./src/resources/chats/chats.ts">ChatHideResponse</a></code>
 - <code><a href="./src/resources/chats/chats.ts">ChatListMediaResponse</a></code>
+- <code><a href="./src/resources/chats/chats.ts">ChatMarkAsReadResponse</a></code>
 - <code><a href="./src/resources/chats/chats.ts">ChatMarkAsUnreadResponse</a></code>
 - <code><a href="./src/resources/chats/chats.ts">ChatMuteResponse</a></code>
 - <code><a href="./src/resources/chats/chats.ts">ChatStartTypingResponse</a></code>
@@ -147,6 +148,7 @@ Methods:
 - <code title="delete /api/{account}/chats/{chat_id}">client.chats.<a href="./src/resources/chats/chats.ts">delete</a>(chatID, { ...params }) -> ChatDeleteResponse</code>
 - <code title="post /api/{account}/chats/{chat_id}/hide">client.chats.<a href="./src/resources/chats/chats.ts">hide</a>(chatID, { ...params }) -> ChatHideResponse</code>
 - <code title="get /api/{account}/chats/{chat_id}/media">client.chats.<a href="./src/resources/chats/chats.ts">listMedia</a>(chatID, { ...params }) -> ChatListMediaResponse</code>
+- <code title="post /api/{account}/chats/{chat_id}/mark-as-read">client.chats.<a href="./src/resources/chats/chats.ts">markAsRead</a>(chatID, { ...params }) -> ChatMarkAsReadResponse</code>
 - <code title="post /api/{account}/chats/{chat_id}/mark-as-unread">client.chats.<a href="./src/resources/chats/chats.ts">markAsUnread</a>(chatID, { ...params }) -> ChatMarkAsUnreadResponse</code>
 - <code title="post /api/{account}/chats/{chat_id}/mute">client.chats.<a href="./src/resources/chats/chats.ts">mute</a>(chatID, { ...params }) -> ChatMuteResponse</code>
 - <code title="post /api/{account}/chats/{chat_id}/typing">client.chats.<a href="./src/resources/chats/chats.ts">startTyping</a>(chatID, { ...params }) -> ChatStartTypingResponse</code>
@@ -178,15 +180,15 @@ Methods:
 - <code title="delete /api/{account}/chats/{chat_id}/messages/{message_id}/unlike">client.chats.messages.<a href="./src/resources/chats/messages.ts">unlike</a>(messageID, { ...params }) -> MessageUnlikeResponse</code>
 - <code title="delete /api/{account}/chats/{chat_id}/messages/{message_id}/unpin">client.chats.messages.<a href="./src/resources/chats/messages.ts">unpin</a>(messageID, { ...params }) -> MessageUnpinResponse</code>
 
-## MarkAsRead
+## MarkAllAsRead
 
 Types:
 
-- <code><a href="./src/resources/chats/mark-as-read.ts">MarkAsReadAllResponse</a></code>
+- <code><a href="./src/resources/chats/mark-all-as-read.ts">MarkAllAsReadAllResponse</a></code>
 
 Methods:
 
-- <code title="post /api/{account}/chats/mark-as-read">client.chats.markAsRead.<a href="./src/resources/chats/mark-as-read.ts">all</a>(account) -> MarkAsReadAllResponse</code>
+- <code title="post /api/{account}/chats/mark-as-read">client.chats.markAllAsRead.<a href="./src/resources/chats/mark-all-as-read.ts">all</a>(account) -> MarkAllAsReadAllResponse</code>
 
 # Messages
 

@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as MarkAsReadAPI from './mark-as-read';
-import { MarkAsRead, MarkAsReadAllResponse } from './mark-as-read';
+import * as MarkAllAsReadAPI from './mark-all-as-read';
+import { MarkAllAsRead, MarkAllAsReadAllResponse } from './mark-all-as-read';
 import * as MessagesAPI from './messages';
 import {
   MessageDeleteParams,
@@ -31,7 +31,7 @@ import { path } from '../../internal/utils/path';
 
 export class Chats extends APIResource {
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
-  markAsRead: MarkAsReadAPI.MarkAsRead = new MarkAsReadAPI.MarkAsRead(this._client);
+  markAllAsRead: MarkAllAsReadAPI.MarkAllAsRead = new MarkAllAsReadAPI.MarkAllAsRead(this._client);
 
   /**
    * Get the list of chats for an Account.
@@ -99,6 +99,26 @@ export class Chats extends APIResource {
   ): APIPromise<ChatListMediaResponse> {
     const { account, ...query } = params;
     return this._client.get(path`/api/${account}/chats/${chatID}/media`, { query, ...options });
+  }
+
+  /**
+   * Mark a specific chat as read. Alternative to List Chat Messages endpoint, if you
+   * just want to mark the chat as read without fetching messages.
+   *
+   * @example
+   * ```ts
+   * const response = await client.chats.markAsRead('123', {
+   *   account: 'acct_XXXXXXXXXXXXXXX',
+   * });
+   * ```
+   */
+  markAsRead(
+    chatID: string,
+    params: ChatMarkAsReadParams,
+    options?: RequestOptions,
+  ): APIPromise<ChatMarkAsReadResponse> {
+    const { account } = params;
+    return this._client.post(path`/api/${account}/chats/${chatID}/mark-as-read`, options);
   }
 
   /**
@@ -992,6 +1012,52 @@ export namespace ChatListMediaResponse {
   }
 }
 
+export interface ChatMarkAsReadResponse {
+  _meta?: ChatMarkAsReadResponse._Meta;
+
+  data?: ChatMarkAsReadResponse.Data;
+}
+
+export namespace ChatMarkAsReadResponse {
+  export interface _Meta {
+    _cache?: _Meta._Cache;
+
+    _credits?: _Meta._Credits;
+
+    _rate_limits?: _Meta._RateLimits;
+  }
+
+  export namespace _Meta {
+    export interface _Cache {
+      is_cached?: boolean;
+
+      note?: string;
+    }
+
+    export interface _Credits {
+      balance?: number;
+
+      note?: string;
+
+      used?: number;
+    }
+
+    export interface _RateLimits {
+      limit_day?: number;
+
+      limit_minute?: number;
+
+      remaining_day?: number;
+
+      remaining_minute?: number;
+    }
+  }
+
+  export interface Data {
+    success?: boolean;
+  }
+}
+
 export interface ChatMarkAsUnreadResponse {
   _meta?: ChatMarkAsUnreadResponse._Meta;
 
@@ -1254,6 +1320,13 @@ export interface ChatListMediaParams {
   type?: 'photos' | 'videos' | 'audios' | null;
 }
 
+export interface ChatMarkAsReadParams {
+  /**
+   * The Account ID
+   */
+  account: string;
+}
+
 export interface ChatMarkAsUnreadParams {
   /**
    * The Account ID
@@ -1283,7 +1356,7 @@ export interface ChatUnmuteParams {
 }
 
 Chats.Messages = Messages;
-Chats.MarkAsRead = MarkAsRead;
+Chats.MarkAllAsRead = MarkAllAsRead;
 
 export declare namespace Chats {
   export {
@@ -1291,6 +1364,7 @@ export declare namespace Chats {
     type ChatDeleteResponse as ChatDeleteResponse,
     type ChatHideResponse as ChatHideResponse,
     type ChatListMediaResponse as ChatListMediaResponse,
+    type ChatMarkAsReadResponse as ChatMarkAsReadResponse,
     type ChatMarkAsUnreadResponse as ChatMarkAsUnreadResponse,
     type ChatMuteResponse as ChatMuteResponse,
     type ChatStartTypingResponse as ChatStartTypingResponse,
@@ -1299,6 +1373,7 @@ export declare namespace Chats {
     type ChatDeleteParams as ChatDeleteParams,
     type ChatHideParams as ChatHideParams,
     type ChatListMediaParams as ChatListMediaParams,
+    type ChatMarkAsReadParams as ChatMarkAsReadParams,
     type ChatMarkAsUnreadParams as ChatMarkAsUnreadParams,
     type ChatMuteParams as ChatMuteParams,
     type ChatStartTypingParams as ChatStartTypingParams,
@@ -1327,5 +1402,5 @@ export declare namespace Chats {
     type MessageUnpinParams as MessageUnpinParams,
   };
 
-  export { MarkAsRead as MarkAsRead, type MarkAsReadAllResponse as MarkAsReadAllResponse };
+  export { MarkAllAsRead as MarkAllAsRead, type MarkAllAsReadAllResponse as MarkAllAsReadAllResponse };
 }

@@ -6,6 +6,7 @@ export {
   type ChatDeleteResponse,
   type ChatHideResponse,
   type ChatListMediaResponse,
+  type ChatMarkAsReadResponse,
   type ChatMarkAsUnreadResponse,
   type ChatMuteResponse,
   type ChatStartTypingResponse,
@@ -14,12 +15,13 @@ export {
   type ChatDeleteParams,
   type ChatHideParams,
   type ChatListMediaParams,
+  type ChatMarkAsReadParams,
   type ChatMarkAsUnreadParams,
   type ChatMuteParams,
   type ChatStartTypingParams,
   type ChatUnmuteParams,
 } from './chats';
-export { MarkAsRead, type MarkAsReadAllResponse } from './mark-as-read';
+export { MarkAllAsRead, type MarkAllAsReadAllResponse } from './mark-all-as-read';
 export {
   Messages,
   type MessageRetrieveResponse,
