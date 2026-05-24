@@ -151,11 +151,11 @@ export namespace VaultListResponse {
       export interface Files {
         full?: Files.Full;
 
-        preview?: string;
+        preview?: string | null;
 
-        squarePreview?: string;
+        squarePreview?: string | null;
 
-        thumb?: string;
+        thumb?: string | null;
       }
 
       export namespace Files {
@@ -185,9 +185,9 @@ export namespace VaultListResponse {
       }
 
       export interface VideoSources {
-        '240'?: string;
+        '240'?: string | null;
 
-        '720'?: string;
+        '720'?: string | null;
       }
     }
   }
@@ -246,7 +246,7 @@ export interface VaultListParams {
   field?: 'recent' | 'most-liked' | 'highest-tips';
 
   /**
-   * Number of media to return per page. Default: `24`
+   * Number of media to return per page (10 - 100). Default: `24`
    */
   limit?: number;
 
@@ -264,7 +264,7 @@ export interface VaultListParams {
   /**
    * Optionally, search for a text query.
    */
-  query?: string;
+  query?: string | null;
 
   /**
    * Sort the results. Default `desc`

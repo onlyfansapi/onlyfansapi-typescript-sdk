@@ -32,11 +32,8 @@ describe('resource statistics', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('getOverview: only required params', async () => {
-    const responsePromise = client.statistics.getOverview('acct_XXXXXXXXXXXXXXX', {
-      end_date: '2025-03-31 23:59:59',
-      start_date: '2025-01-01 00:00:00',
-    });
+  test.skip('getOverview', async () => {
+    const responsePromise = client.statistics.getOverview('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -47,12 +44,19 @@ describe('resource statistics', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('getOverview: required and optional params', async () => {
-    const response = await client.statistics.getOverview('acct_XXXXXXXXXXXXXXX', {
-      end_date: '2025-03-31 23:59:59',
-      start_date: '2025-01-01 00:00:00',
-      type: 'fans',
-    });
+  test.skip('getOverview: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.statistics.getOverview(
+        'acct_XXXXXXXXXXXXXXX',
+        {
+          end_date: '2025-03-31 23:59:59',
+          start_date: '2025-01-01 00:00:00',
+          type: 'fans',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 
   // Mock server tests are disabled

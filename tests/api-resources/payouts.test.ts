@@ -33,30 +33,6 @@ describe('resource payouts', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('listTransactions', async () => {
-    const responsePromise = client.payouts.listTransactions('acct_XXXXXXXXXXXXXXX');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('listTransactions: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.payouts.listTransactions(
-        'acct_XXXXXXXXXXXXXXX',
-        { limit: 'limit', marker: '1739155047' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Onlyfansapi.NotFoundError);
-  });
-
-  // Mock server tests are disabled
   test.skip('requestManualWithdrawal: only required params', async () => {
     const responsePromise = client.payouts.requestManualWithdrawal('acct_XXXXXXXXXXXXXXX', { amount: 50 });
     const rawResponse = await responsePromise.asResponse();

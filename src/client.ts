@@ -26,6 +26,7 @@ import {
 import {
   Authenticate,
   AuthenticatePollStatusResponse,
+  AuthenticateReauthenticateResponse,
   AuthenticateStartParams,
   AuthenticateStartResponse,
   AuthenticateSubmit2faParams,
@@ -50,16 +51,17 @@ import {
 import {
   Following,
   FollowingListActiveParams,
+  FollowingListActiveResponse,
   FollowingListAllParams,
+  FollowingListAllResponse,
   FollowingListExpiredParams,
+  FollowingListExpiredResponse,
 } from './resources/following';
 import {
   MassMessaging,
   MassMessagingDeleteParams,
   MassMessagingDeleteResponse,
   MassMessagingListQueueResponse,
-  MassMessagingListStatisticsParams,
-  MassMessagingListStatisticsResponse,
   MassMessagingRetrieveParams,
   MassMessagingRetrieveResponse,
   MassMessagingSendParams,
@@ -71,8 +73,6 @@ import { Me, MeGetModelStartDateResponse, MeRetrieveResponse } from './resources
 import {
   PayoutListPayoutRequestsParams,
   PayoutListPayoutRequestsResponse,
-  PayoutListTransactionsParams,
-  PayoutListTransactionsResponse,
   PayoutRequestManualWithdrawalParams,
   PayoutRequestManualWithdrawalResponse,
   PayoutRetrieveBalancesResponse,
@@ -83,7 +83,7 @@ import {
   PayoutUpdatePayoutFrequencyResponse,
   Payouts,
 } from './resources/payouts';
-import { ProfileRetrieveResponse, Profiles } from './resources/profiles';
+import { ProfileRetrieveParams, ProfileRetrieveResponse, Profiles } from './resources/profiles';
 import {
   Queue,
   QueueCountParams,
@@ -935,9 +935,6 @@ export class Onlyfansapi {
    * Operations related to user banking details, payout methods, legal and tax information, and account country settings.
    */
   banking: API.Banking = new API.Banking(this);
-  /**
-   * APIs for managing OnlyFans chats
-   */
   chats: API.Chats = new API.Chats(this);
   clientSessions: API.ClientSessions = new API.ClientSessions(this);
   userLists: API.UserLists = new API.UserLists(this);
@@ -970,9 +967,6 @@ export class Onlyfansapi {
   search: API.Search = new API.Search(this);
   queue: API.Queue = new API.Queue(this);
   savedForLater: API.SavedForLater = new API.SavedForLater(this);
-  /**
-   * Operations related to user account settings.
-   */
   settings: API.Settings = new API.Settings(this);
   statistics: API.Statistics = new API.Statistics(this);
   subscribers: API.Subscribers = new API.Subscribers(this);
@@ -1073,6 +1067,7 @@ export declare namespace Onlyfansapi {
   export {
     Authenticate as Authenticate,
     type AuthenticatePollStatusResponse as AuthenticatePollStatusResponse,
+    type AuthenticateReauthenticateResponse as AuthenticateReauthenticateResponse,
     type AuthenticateStartResponse as AuthenticateStartResponse,
     type AuthenticateSubmit2faResponse as AuthenticateSubmit2faResponse,
     type AuthenticateStartParams as AuthenticateStartParams,
@@ -1095,6 +1090,9 @@ export declare namespace Onlyfansapi {
 
   export {
     Following as Following,
+    type FollowingListActiveResponse as FollowingListActiveResponse,
+    type FollowingListAllResponse as FollowingListAllResponse,
+    type FollowingListExpiredResponse as FollowingListExpiredResponse,
     type FollowingListActiveParams as FollowingListActiveParams,
     type FollowingListAllParams as FollowingListAllParams,
     type FollowingListExpiredParams as FollowingListExpiredParams,
@@ -1120,12 +1118,10 @@ export declare namespace Onlyfansapi {
     type MassMessagingUpdateResponse as MassMessagingUpdateResponse,
     type MassMessagingDeleteResponse as MassMessagingDeleteResponse,
     type MassMessagingListQueueResponse as MassMessagingListQueueResponse,
-    type MassMessagingListStatisticsResponse as MassMessagingListStatisticsResponse,
     type MassMessagingSendResponse as MassMessagingSendResponse,
     type MassMessagingRetrieveParams as MassMessagingRetrieveParams,
     type MassMessagingUpdateParams as MassMessagingUpdateParams,
     type MassMessagingDeleteParams as MassMessagingDeleteParams,
-    type MassMessagingListStatisticsParams as MassMessagingListStatisticsParams,
     type MassMessagingSendParams as MassMessagingSendParams,
   };
 
@@ -1150,14 +1146,12 @@ export declare namespace Onlyfansapi {
   export {
     Payouts as Payouts,
     type PayoutListPayoutRequestsResponse as PayoutListPayoutRequestsResponse,
-    type PayoutListTransactionsResponse as PayoutListTransactionsResponse,
     type PayoutRequestManualWithdrawalResponse as PayoutRequestManualWithdrawalResponse,
     type PayoutRetrieveBalancesResponse as PayoutRetrieveBalancesResponse,
     type PayoutRetrieveEarningStatisticsResponse as PayoutRetrieveEarningStatisticsResponse,
     type PayoutRetrieveEligibilityResponse as PayoutRetrieveEligibilityResponse,
     type PayoutUpdatePayoutFrequencyResponse as PayoutUpdatePayoutFrequencyResponse,
     type PayoutListPayoutRequestsParams as PayoutListPayoutRequestsParams,
-    type PayoutListTransactionsParams as PayoutListTransactionsParams,
     type PayoutRequestManualWithdrawalParams as PayoutRequestManualWithdrawalParams,
     type PayoutRetrieveEarningStatisticsParams as PayoutRetrieveEarningStatisticsParams,
     type PayoutUpdatePayoutFrequencyParams as PayoutUpdatePayoutFrequencyParams,
@@ -1185,7 +1179,11 @@ export declare namespace Onlyfansapi {
     type PostUnarchiveParams as PostUnarchiveParams,
   };
 
-  export { Profiles as Profiles, type ProfileRetrieveResponse as ProfileRetrieveResponse };
+  export {
+    Profiles as Profiles,
+    type ProfileRetrieveResponse as ProfileRetrieveResponse,
+    type ProfileRetrieveParams as ProfileRetrieveParams,
+  };
 
   export {
     Search as Search,

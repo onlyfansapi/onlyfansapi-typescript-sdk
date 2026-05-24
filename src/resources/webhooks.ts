@@ -12,6 +12,7 @@ export class Webhooks extends APIResource {
    * @example
    * ```ts
    * const webhook = await client.webhooks.create({
+   *   account_scope: 'global',
    *   endpoint_url: 'https://example.com',
    *   events: ['accounts.connected', 'subscriptions.new'],
    * });
@@ -35,33 +36,86 @@ export class Webhooks extends APIResource {
 }
 
 export interface WebhookCreateResponse {
-  id?: string;
+  _meta?: WebhookCreateResponse._Meta;
 
-  created_at?: string;
+  data?: WebhookCreateResponse.Data;
+}
 
-  events?: Array<string>;
+export namespace WebhookCreateResponse {
+  export interface _Meta {
+    _cache?: _Meta._Cache;
 
-  has_signing_secret?: boolean;
+    _credits?: _Meta._Credits;
 
-  url?: string;
+    _rate_limits?: _Meta._RateLimits;
+  }
+
+  export namespace _Meta {
+    export interface _Cache {
+      is_cached?: boolean;
+
+      note?: string;
+    }
+
+    export interface _Credits {
+      balance?: number;
+
+      note?: string;
+
+      used?: number;
+    }
+
+    export interface _RateLimits {
+      limit_day?: number;
+
+      limit_minute?: number;
+
+      remaining_day?: number;
+
+      remaining_minute?: number;
+    }
+  }
+
+  export interface Data {
+    id?: string;
+
+    created_at?: string;
+
+    enabled?: boolean;
+
+    events?: Array<string>;
+
+    has_signing_secret?: boolean;
+
+    url?: string;
+  }
 }
 
 export type WebhookDeleteResponse = unknown;
 
 export interface WebhookCreateParams {
   /**
+   * The account scope for the webhook. Use "global" for all accounts, "inclusive"
+   * for only selected accounts, or "exclusive" for all except selected accounts.
+   */
+  account_scope: string;
+
+  /**
    * The URL of your webhook endpoint.
    */
   endpoint_url: string;
 
   /**
-   * An array of webhook events to subscribe to. Options: `messages.received`,
-   * `messages.sent`, `messages.ppv.unlocked`, `subscriptions.new`, `users.typing`,
-   * `posts.liked`, `accounts.connected`, `accounts.reconnected`,
-   * `accounts.session_expired`, `accounts.authentication_failed`,
-   * `accounts.otp_code_required`, `accounts.face_otp_required`
+   * An array of webhook events to subscribe to. For all options, refer to our **List
+   * Available Events** endpoint.
    */
   events: Array<string>;
+
+  /**
+   * An array of account IDs to apply the scope to. Required unless account_scope is
+   * "global".
+   */
+  account_ids?: Array<string>;
 
   /**
    * Optionally, add a signing secret to protect your webhook.

@@ -10,7 +10,7 @@ const client = new Onlyfansapi({
 describe('resource userLists', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'scyfotubmi' });
+    const responsePromise = client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'iaxxxx' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,14 +22,14 @@ describe('resource userLists', () => {
 
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'scyfotubmi' });
+    const response = await client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'iaxxxx' });
   });
 
   // Mock server tests are disabled
   test.skip('update: only required params', async () => {
-    const responsePromise = client.userLists.update(1224114714, {
+    const responsePromise = client.userLists.update('userListId', {
       account: 'acct_XXXXXXXXXXXXXXX',
-      name: 'jqnoventcce',
+      name: 'My Updated List Name',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -42,9 +42,10 @@ describe('resource userLists', () => {
 
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
-    const response = await client.userLists.update(1224114714, {
+    const response = await client.userLists.update('userListId', {
       account: 'acct_XXXXXXXXXXXXXXX',
-      name: 'jqnoventcce',
+      name: 'My Updated List Name',
+      isPinnedToFeed: true,
     });
   });
 
@@ -74,7 +75,7 @@ describe('resource userLists', () => {
 
   // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
-    const responsePromise = client.userLists.delete(1224114714, { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.userLists.delete('userListId', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -86,6 +87,6 @@ describe('resource userLists', () => {
 
   // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
-    const response = await client.userLists.delete(1224114714, { account: 'acct_XXXXXXXXXXXXXXX' });
+    const response = await client.userLists.delete('userListId', { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 });

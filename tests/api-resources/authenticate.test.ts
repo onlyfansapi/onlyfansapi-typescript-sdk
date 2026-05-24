@@ -33,12 +33,8 @@ describe('resource authenticate', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('start: only required params', async () => {
-    const responsePromise = client.authenticate.start({
-      email: 'jalyn75@example.net',
-      password: 'vXIA}fx5Ek:',
-      proxyCountry: 'pl',
-    });
+  test.skip('start', async () => {
+    const responsePromise = client.authenticate.start();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -49,17 +45,36 @@ describe('resource authenticate', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('start: required and optional params', async () => {
-    const response = await client.authenticate.start({
-      email: 'jalyn75@example.net',
-      password: 'vXIA}fx5Ek:',
-      proxyCountry: 'pl',
-    });
+  test.skip('start: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.authenticate.start(
+        {
+          auth_id: 'unde',
+          auth_type: 'raw_data',
+          cookies: 'quas',
+          customProxy: {
+            host: 'proxy.example.com',
+            password: 'kUs%4~:w^=4XptWD]D',
+            port: 8080,
+            username: 'excepturi',
+          },
+          email: 'colleen06@example.com',
+          force_connect: true,
+          name: 'fugit',
+          password: ':#5q4Bm}|0#Qr%11',
+          proxyCountry: 'uk',
+          user_agent: 'delectus',
+          xbc: 'ut',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 
   // Mock server tests are disabled
-  test.skip('submit2fa: only required params', async () => {
-    const responsePromise = client.authenticate.submit2fa('auth_XXXXXXX', { code: '12345' });
+  test.skip('submit2fa', async () => {
+    const responsePromise = client.authenticate.submit2fa('auth_XXXXXXX');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -70,7 +85,14 @@ describe('resource authenticate', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('submit2fa: required and optional params', async () => {
-    const response = await client.authenticate.submit2fa('auth_XXXXXXX', { code: '12345' });
+  test.skip('submit2fa: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.authenticate.submit2fa(
+        'auth_XXXXXXX',
+        { code: '12345', selfie_verification_completed: undefined },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 });

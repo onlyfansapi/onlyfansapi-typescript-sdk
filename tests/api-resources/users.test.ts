@@ -10,7 +10,7 @@ const client = new Onlyfansapi({
 describe('resource users', () => {
   // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.users.retrieve('consequuntur', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.users.retrieve('exampleuser', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,6 +22,6 @@ describe('resource users', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
-    const response = await client.users.retrieve('consequuntur', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const response = await client.users.retrieve('exampleuser', { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 });

@@ -10,7 +10,7 @@ const client = new Onlyfansapi({
 describe('resource messages', () => {
   // Mock server tests are disabled
   test.skip('list: only required params', async () => {
-    const responsePromise = client.chats.messages.list('458485726', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.chats.messages.list('123', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,9 +22,12 @@ describe('resource messages', () => {
 
   // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
-    const response = await client.chats.messages.list('458485726', {
+    const response = await client.chats.messages.list('123', {
       account: 'acct_XXXXXXXXXXXXXXX',
-      id: 'id',
+      filter: 'pinned',
+      first_id: 'first_id',
+      last_id: 'last_id',
+      limit: 'limit',
       order: 'desc',
       skip_users: 'all',
     });
@@ -32,9 +35,9 @@ describe('resource messages', () => {
 
   // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
-    const responsePromise = client.chats.messages.delete('123456789', {
+    const responsePromise = client.chats.messages.delete('69696969', {
       account: 'acct_XXXXXXXXXXXXXXX',
-      chat_id: '458485726',
+      chat_id: '123',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -47,18 +50,15 @@ describe('resource messages', () => {
 
   // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
-    const response = await client.chats.messages.delete('123456789', {
+    const response = await client.chats.messages.delete('69696969', {
       account: 'acct_XXXXXXXXXXXXXXX',
-      chat_id: '458485726',
+      chat_id: '123',
     });
   });
 
   // Mock server tests are disabled
   test.skip('send: only required params', async () => {
-    const responsePromise = client.chats.messages.send('458485726', {
-      account: 'acct_XXXXXXXXXXXXXXX',
-      text: 'Hello!',
-    });
+    const responsePromise = client.chats.messages.send('123', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -70,13 +70,18 @@ describe('resource messages', () => {
 
   // Mock server tests are disabled
   test.skip('send: required and optional params', async () => {
-    const response = await client.chats.messages.send('458485726', {
+    const response = await client.chats.messages.send('123', {
       account: 'acct_XXXXXXXXXXXXXXX',
-      text: 'Hello!',
+      giphyId: 'WAGC3LeqJvXglm5H7a',
       lockedText: true,
-      mediaFiles: ['ofapi_media_abc123', 'string'],
-      previews: ['ofapi_media_abc123', 'string'],
+      mediaFiles: ['ofapi_media_abc123', 1234567890],
+      previews: ['ofapi_media_abc123', 1234567890],
       price: 10,
+      replyToMessageId: 123456789,
+      rfGuest: 'rfGuest',
+      rfPartner: 'rfPartner',
+      rfTag: 'rfTag',
+      text: 'Hello!',
     });
   });
 });

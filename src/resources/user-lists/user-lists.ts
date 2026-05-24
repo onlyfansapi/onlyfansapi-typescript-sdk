@@ -17,7 +17,7 @@ export class UserLists extends APIResource {
    * ```ts
    * const userList = await client.userLists.create(
    *   'acct_XXXXXXXXXXXXXXX',
-   *   { name: 'scyfotubmi' },
+   *   { name: 'iaxxxx' },
    * );
    * ```
    */
@@ -34,14 +34,17 @@ export class UserLists extends APIResource {
    *
    * @example
    * ```ts
-   * const userList = await client.userLists.update(1224114714, {
-   *   account: 'acct_XXXXXXXXXXXXXXX',
-   *   name: 'jqnoventcce',
-   * });
+   * const userList = await client.userLists.update(
+   *   'userListId',
+   *   {
+   *     account: 'acct_XXXXXXXXXXXXXXX',
+   *     name: 'My Updated List Name',
+   *   },
+   * );
    * ```
    */
   update(
-    userListID: number,
+    userListID: string,
     params: UserListUpdateParams,
     options?: RequestOptions,
   ): APIPromise<UserListUpdateResponse> {
@@ -72,13 +75,14 @@ export class UserLists extends APIResource {
    *
    * @example
    * ```ts
-   * const userList = await client.userLists.delete(1224114714, {
-   *   account: 'acct_XXXXXXXXXXXXXXX',
-   * });
+   * const userList = await client.userLists.delete(
+   *   'userListId',
+   *   { account: 'acct_XXXXXXXXXXXXXXX' },
+   * );
    * ```
    */
   delete(
-    userListID: number,
+    userListID: string,
     params: UserListDeleteParams,
     options?: RequestOptions,
   ): APIPromise<UserListDeleteResponse> {
@@ -381,9 +385,15 @@ export interface UserListUpdateParams {
   account: string;
 
   /**
-   * Body param: Must not be greater than 64 characters.
+   * Body param: The new name for the User List.
    */
   name: string;
+
+  /**
+   * Body param: Whether to pin the User List to feed to the OnlyFans homepage or
+   * not.
+   */
+  isPinnedToFeed?: boolean | null;
 }
 
 export interface UserListListParams {

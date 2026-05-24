@@ -324,9 +324,9 @@ export namespace NotificationSearchUsersResponse {
   export interface Data {
     id?: number;
 
-    avatar?: string;
+    avatar?: string | null;
 
-    avatarThumbs?: string;
+    avatarThumbs?: string | null;
 
     canAddSubscriber?: boolean;
 
@@ -360,11 +360,11 @@ export namespace NotificationSearchUsersResponse {
 
     hasStream?: boolean;
 
-    header?: string;
+    header?: string | null;
 
-    headerSize?: string;
+    headerSize?: string | null;
 
-    headerThumbs?: string;
+    headerThumbs?: string | null;
 
     hideChat?: boolean;
 
@@ -443,13 +443,13 @@ export namespace NotificationSearchUsersResponse {
     }
 
     export interface SubscribedByData {
-      discountFinishedAt?: string;
+      discountFinishedAt?: string | null;
 
       discountPercent?: number;
 
       discountPeriod?: number;
 
-      discountStartedAt?: string;
+      discountStartedAt?: string | null;
 
       duration?: string;
 
@@ -469,7 +469,7 @@ export namespace NotificationSearchUsersResponse {
 
       showPostsInFeed?: boolean;
 
-      status?: string;
+      status?: string | null;
 
       subscribeAt?: string;
 
@@ -486,7 +486,7 @@ export namespace NotificationSearchUsersResponse {
 
         action?: string;
 
-        cancelDate?: string;
+        cancelDate?: string | null;
 
         date?: string;
 
@@ -500,9 +500,9 @@ export namespace NotificationSearchUsersResponse {
 
         isCurrent?: boolean;
 
-        offerEnd?: string;
+        offerEnd?: string | null;
 
-        offerStart?: string;
+        offerStart?: string | null;
 
         price?: number;
 
@@ -519,13 +519,13 @@ export namespace NotificationSearchUsersResponse {
     }
 
     export interface SubscribedOnData {
-      discountFinishedAt?: string;
+      discountFinishedAt?: string | null;
 
       discountPercent?: number;
 
       discountPeriod?: number;
 
-      discountStartedAt?: string;
+      discountStartedAt?: string | null;
 
       duration?: string;
 
@@ -551,7 +551,7 @@ export namespace NotificationSearchUsersResponse {
 
       renewedAt?: string;
 
-      status?: string;
+      status?: string | null;
 
       streamsSumm?: number;
 
@@ -576,7 +576,7 @@ export namespace NotificationSearchUsersResponse {
 
         action?: string;
 
-        cancelDate?: string;
+        cancelDate?: string | null;
 
         date?: string;
 

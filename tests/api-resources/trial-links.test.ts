@@ -31,6 +31,7 @@ describe('resource trialLinks', () => {
       offerExpiration: 7,
       offerLimit: 7,
       name: 'name',
+      tags: ['string'],
     });
   });
 
@@ -59,7 +60,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
-    const responsePromise = client.trialLinks.delete(123456789, { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.trialLinks.delete('explicabo', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -71,7 +72,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
-    const response = await client.trialLinks.delete(123456789, { account: 'acct_XXXXXXXXXXXXXXX' });
+    const response = await client.trialLinks.delete('explicabo', { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 
   // Mock server tests are disabled
@@ -100,7 +101,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('listSubscribers: only required params', async () => {
-    const responsePromise = client.trialLinks.listSubscribers('excepturi', {
+    const responsePromise = client.trialLinks.listSubscribers('est', {
       account: 'acct_XXXXXXXXXXXXXXX',
       limit: 10,
       offset: 0,
@@ -116,7 +117,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('listSubscribers: required and optional params', async () => {
-    const response = await client.trialLinks.listSubscribers('excepturi', {
+    const response = await client.trialLinks.listSubscribers('est', {
       account: 'acct_XXXXXXXXXXXXXXX',
       limit: 10,
       offset: 0,

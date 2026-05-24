@@ -11,10 +11,13 @@ export class Comments extends APIResource {
    *
    * @example
    * ```ts
-   * const comment = await client.posts.comments.create('id', {
-   *   account: 'acct_XXXXXXXXXXXXXXX',
-   *   text: 'This is a comment.',
-   * });
+   * const comment = await client.posts.comments.create(
+   *   'ullam',
+   *   {
+   *     account: 'acct_XXXXXXXXXXXXXXX',
+   *     text: 'This is a comment.',
+   *   },
+   * );
    * ```
    */
   create(
@@ -34,7 +37,7 @@ export class Comments extends APIResource {
    *
    * @example
    * ```ts
-   * const comments = await client.posts.comments.list('id', {
+   * const comments = await client.posts.comments.list('ullam', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -195,7 +198,7 @@ export namespace CommentCreateResponse {
 
     changedAt?: string;
 
-    giphyId?: string;
+    giphyId?: string | null;
 
     isLiked?: boolean;
 
@@ -268,7 +271,7 @@ export namespace CommentCreateResponse {
 
       showMediaCount?: boolean;
 
-      subscribedOn?: string;
+      subscribedOn?: string | null;
 
       subscribePrice?: number;
 
@@ -370,7 +373,7 @@ export namespace CommentListResponse {
 
       changedAt?: string;
 
-      giphyId?: string;
+      giphyId?: string | null;
 
       isLiked?: boolean;
 

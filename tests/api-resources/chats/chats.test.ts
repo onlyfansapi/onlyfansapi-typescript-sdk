@@ -27,6 +27,7 @@ describe('resource chats', () => {
       client.chats.list(
         'acct_XXXXXXXXXXXXXXX',
         {
+          filter: 'with_tips',
           limit: 'limit',
           offset: 'offset',
           order: 'recent',
@@ -40,9 +41,7 @@ describe('resource chats', () => {
 
   // Mock server tests are disabled
   test.skip('startTypingIndicator: only required params', async () => {
-    const responsePromise = client.chats.startTypingIndicator('458485726', {
-      account: 'acct_XXXXXXXXXXXXXXX',
-    });
+    const responsePromise = client.chats.startTypingIndicator('123', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -54,8 +53,6 @@ describe('resource chats', () => {
 
   // Mock server tests are disabled
   test.skip('startTypingIndicator: required and optional params', async () => {
-    const response = await client.chats.startTypingIndicator('458485726', {
-      account: 'acct_XXXXXXXXXXXXXXX',
-    });
+    const response = await client.chats.startTypingIndicator('123', { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 });

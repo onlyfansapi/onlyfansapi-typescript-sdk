@@ -57,13 +57,13 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const trialLink = await client.trialLinks.delete(
-   *   123456789,
+   *   'explicabo',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
    */
   delete(
-    trialLinkID: number,
+    trialLinkID: string,
     params: TrialLinkDeleteParams,
     options?: RequestOptions,
   ): APIPromise<TrialLinkDeleteResponse> {
@@ -97,7 +97,7 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trialLinks.listSubscribers(
-   *   'excepturi',
+   *   'est',
    *   {
    *     account: 'acct_XXXXXXXXXXXXXXX',
    *     limit: 10,
@@ -163,7 +163,7 @@ export namespace TrialLinkCreateResponse {
   }
 
   export interface _Pagination {
-    next_page?: string;
+    next_page?: string | null;
   }
 
   export interface Data {
@@ -250,7 +250,7 @@ export namespace TrialLinkListResponse {
 
       createdAt?: string;
 
-      expiredAt?: string;
+      expiredAt?: string | null;
 
       isFinished?: boolean;
 
@@ -261,6 +261,8 @@ export namespace TrialLinkListResponse {
       subscribeCounts?: number;
 
       subscribeDays?: number;
+
+      tags?: Array<string>;
 
       trialLinkName?: string;
 
@@ -383,290 +385,14 @@ export namespace TrialLinkListSpendersResponse {
   export interface Data {
     onlyfans_id?: string;
 
-    onlyfans_user_data?: Data.OnlyfansUserData;
-
     revenue?: Data.Revenue;
 
     username?: string;
   }
 
   export namespace Data {
-    export interface OnlyfansUserData {
-      id?: number;
-
-      avatar?: string;
-
-      avatarThumbs?: string;
-
-      canAddSubscriber?: boolean;
-
-      canCommentStory?: boolean;
-
-      canEarn?: boolean;
-
-      canLookStory?: boolean;
-
-      canPayInternal?: boolean;
-
-      canReceiveChatMessage?: boolean;
-
-      canReport?: boolean;
-
-      canRestrict?: boolean;
-
-      canTrialSend?: boolean;
-
-      canUnsubscribe?: boolean;
-
-      currentSubscribePrice?: number;
-
-      displayName?: string;
-
-      hasNotViewedStory?: boolean;
-
-      hasScheduledStream?: boolean;
-
-      hasStories?: boolean;
-
-      hasStream?: boolean;
-
-      header?: string;
-
-      headerSize?: string;
-
-      headerThumbs?: string;
-
-      hideChat?: boolean;
-
-      isBlocked?: boolean;
-
-      isPendingAutoprolong?: boolean;
-
-      isPerformer?: boolean;
-
-      isRealPerformer?: boolean;
-
-      isRestricted?: boolean;
-
-      isVerified?: boolean;
-
-      lastSeen?: string;
-
-      listsStates?: Array<OnlyfansUserData.ListsState>;
-
-      name?: string;
-
-      notice?: string;
-
-      promoOffers?: Array<OnlyfansUserData.PromoOffer>;
-
-      subscribedBy?: boolean;
-
-      subscribedByAutoprolong?: boolean;
-
-      subscribedByData?: OnlyfansUserData.SubscribedByData;
-
-      subscribedByExpire?: boolean;
-
-      subscribedByExpireDate?: string;
-
-      subscribedIsExpiredNow?: boolean;
-
-      subscribedOn?: string;
-
-      subscribedOnData?: OnlyfansUserData.SubscribedOnData;
-
-      subscribedOnDuration?: string;
-
-      subscribedOnExpiredNow?: boolean;
-
-      subscribePrice?: number;
-
-      tipsEnabled?: boolean;
-
-      tipsMax?: number;
-
-      tipsMin?: number;
-
-      tipsMinInternal?: number;
-
-      tipsTextEnabled?: boolean;
-
-      username?: string;
-
-      view?: string;
-    }
-
-    export namespace OnlyfansUserData {
-      export interface ListsState {
-        id?: string;
-
-        canAddUser?: boolean;
-
-        cannotAddUserReason?: string;
-
-        hasUser?: boolean;
-
-        name?: string;
-
-        type?: string;
-      }
-
-      export interface PromoOffer {
-        id?: number;
-
-        createdAt?: string;
-
-        expiredAt?: string;
-
-        finishedAt?: string;
-
-        subscribeDays?: number;
-
-        subscriberId?: string;
-
-        userId?: string;
-      }
-
-      export interface SubscribedByData {
-        discountFinishedAt?: string;
-
-        discountPercent?: number;
-
-        discountPeriod?: number;
-
-        discountStartedAt?: string;
-
-        duration?: string;
-
-        expiredAt?: string;
-
-        hasActivePaidSubscriptions?: boolean;
-
-        isMuted?: boolean;
-
-        newPrice?: number;
-
-        price?: number;
-
-        regularPrice?: number;
-
-        renewedAt?: string;
-
-        showPostsInFeed?: boolean;
-
-        status?: string;
-
-        subscribeAt?: string;
-
-        subscribePrice?: number;
-
-        subscribes?: Array<SubscribedByData.Subscribe>;
-
-        unsubscribeReason?: string;
-      }
-
-      export namespace SubscribedByData {
-        export interface Subscribe {
-          id?: number;
-
-          action?: string;
-
-          cancelDate?: string;
-
-          date?: string;
-
-          discount?: number;
-
-          duration?: number;
-
-          earningId?: number;
-
-          expireDate?: string;
-
-          isCurrent?: boolean;
-
-          offerEnd?: string;
-
-          offerStart?: string;
-
-          price?: number;
-
-          regularPrice?: number;
-
-          startDate?: string;
-
-          subscriberId?: number;
-
-          type?: string;
-
-          userId?: number;
-        }
-      }
-
-      export interface SubscribedOnData {
-        discountFinishedAt?: string;
-
-        discountPercent?: number;
-
-        discountPeriod?: number;
-
-        discountStartedAt?: string;
-
-        duration?: string;
-
-        expiredAt?: string;
-
-        hasActivePaidSubscriptions?: boolean;
-
-        isMuted?: boolean;
-
-        lastActivity?: string;
-
-        messagesSumm?: number;
-
-        newPrice?: number;
-
-        postsSumm?: number;
-
-        price?: number;
-
-        recommendations?: number;
-
-        regularPrice?: number;
-
-        renewedAt?: string;
-
-        status?: string;
-
-        streamsSumm?: number;
-
-        subscribeAt?: string;
-
-        subscribePrice?: number;
-
-        subscribes?: Array<unknown>;
-
-        subscribesSumm?: number;
-
-        tipsSumm?: number;
-
-        totalSumm?: number;
-
-        unsubscribeReason?: string;
-      }
-    }
-
     export interface Revenue {
-      messages?: number;
-
-      posts?: number;
-
-      streams?: number;
-
-      subscriptions?: number;
-
-      tips?: number;
+      calculated_at?: string;
 
       total?: number;
     }
@@ -865,7 +591,7 @@ export namespace TrialLinkListSubscribersResponse {
 
         createdAt?: string;
 
-        expiredAt?: string;
+        expiredAt?: string | null;
 
         finishedAt?: string;
 
@@ -877,13 +603,13 @@ export namespace TrialLinkListSubscribersResponse {
       }
 
       export interface SubscribedByData {
-        discountFinishedAt?: string;
+        discountFinishedAt?: string | null;
 
         discountPercent?: number;
 
         discountPeriod?: number;
 
-        discountStartedAt?: string;
+        discountStartedAt?: string | null;
 
         duration?: string;
 
@@ -903,7 +629,7 @@ export namespace TrialLinkListSubscribersResponse {
 
         showPostsInFeed?: boolean;
 
-        status?: string;
+        status?: string | null;
 
         subscribeAt?: string;
 
@@ -920,7 +646,7 @@ export namespace TrialLinkListSubscribersResponse {
 
           action?: string;
 
-          cancelDate?: string;
+          cancelDate?: string | null;
 
           date?: string;
 
@@ -934,9 +660,9 @@ export namespace TrialLinkListSubscribersResponse {
 
           isCurrent?: boolean;
 
-          offerEnd?: string;
+          offerEnd?: string | null;
 
-          offerStart?: string;
+          offerStart?: string | null;
 
           price?: number;
 
@@ -953,13 +679,13 @@ export namespace TrialLinkListSubscribersResponse {
       }
 
       export interface SubscribedOnData {
-        discountFinishedAt?: string;
+        discountFinishedAt?: string | null;
 
         discountPercent?: number;
 
         discountPeriod?: number;
 
-        discountStartedAt?: string;
+        discountStartedAt?: string | null;
 
         duration?: string;
 
@@ -983,7 +709,7 @@ export namespace TrialLinkListSubscribersResponse {
 
         regularPrice?: number;
 
-        renewedAt?: string;
+        renewedAt?: string | null;
 
         status?: string;
 
@@ -1010,7 +736,7 @@ export namespace TrialLinkListSubscribersResponse {
 
           action?: string;
 
-          cancelDate?: string;
+          cancelDate?: string | null;
 
           date?: string;
 
@@ -1024,7 +750,7 @@ export namespace TrialLinkListSubscribersResponse {
 
           isCurrent?: boolean;
 
-          offerEnd?: string;
+          offerEnd?: string | null;
 
           offerStart?: string;
 
@@ -1068,6 +794,11 @@ export interface TrialLinkCreateParams {
    * The name of the trail link (optional). Cannot be longer than 64 characters.
    */
   name?: string | null;
+
+  /**
+   * Array of tag names to add to the trial link.
+   */
+  tags?: Array<string>;
 }
 
 export interface TrialLinkListParams {

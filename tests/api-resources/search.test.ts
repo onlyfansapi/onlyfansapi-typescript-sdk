@@ -9,8 +9,8 @@ const client = new Onlyfansapi({
 
 describe('resource search', () => {
   // Mock server tests are disabled
-  test.skip('profiles: only required params', async () => {
-    const responsePromise = client.search.profiles({ query: 'milf' });
+  test.skip('profiles', async () => {
+    const responsePromise = client.search.profiles();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,13 +21,26 @@ describe('resource search', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('profiles: required and optional params', async () => {
-    const response = await client.search.profiles({
-      query: 'milf',
-      limit: 'limit',
-      location: 'New York',
-      max_subscribe_price: 'max_subscribe_price',
-      min_subscribe_price: 'min_subscribe_price',
-    });
+  test.skip('profiles: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.search.profiles(
+        {
+          cursor: null,
+          filter: { gender: 'female' },
+          instagram: 'instagram',
+          limit: 10,
+          location: 'location',
+          max_subscribe_price: 200,
+          min_subscribe_price: 0,
+          query: 'query',
+          sort: 'likes',
+          sortDirection: 'desc',
+          tiktok: 'tiktok',
+          website: 'website',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 });

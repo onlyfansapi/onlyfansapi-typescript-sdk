@@ -25,24 +25,6 @@ export class Payouts extends APIResource {
   }
 
   /**
-   * List all transactions for the account.
-   *
-   * @example
-   * ```ts
-   * const response = await client.payouts.listTransactions(
-   *   'acct_XXXXXXXXXXXXXXX',
-   * );
-   * ```
-   */
-  listTransactions(
-    account: string,
-    query: PayoutListTransactionsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<PayoutListTransactionsResponse> {
-    return this._client.get(path`/api/${account}/payouts/transactions`, { query, ...options });
-  }
-
-  /**
    * Request a payout withdrawal, if the frequency is set to manual. Refer to our
    * `/payouts/balances` endpoint to retrieve the minimum and maximum withdrawal
    * amounts.
@@ -191,109 +173,9 @@ export namespace PayoutListPayoutRequestsResponse {
 
       invoiceId?: string;
 
-      rejectReason?: string;
+      rejectReason?: string | null;
 
       state?: string;
-    }
-  }
-}
-
-export interface PayoutListTransactionsResponse {
-  _meta?: PayoutListTransactionsResponse._Meta;
-
-  data?: PayoutListTransactionsResponse.Data;
-}
-
-export namespace PayoutListTransactionsResponse {
-  export interface _Meta {
-    _cache?: _Meta._Cache;
-
-    _credits?: _Meta._Credits;
-
-    _rate_limits?: _Meta._RateLimits;
-  }
-
-  export namespace _Meta {
-    export interface _Cache {
-      is_cached?: boolean;
-
-      note?: string;
-    }
-
-    export interface _Credits {
-      balance?: number;
-
-      note?: string;
-
-      used?: number;
-    }
-
-    export interface _RateLimits {
-      limit_day?: number;
-
-      limit_minute?: number;
-
-      remaining_day?: number;
-
-      remaining_minute?: number;
-    }
-  }
-
-  export interface Data {
-    hasMore?: boolean;
-
-    list?: Array<Data.List>;
-
-    marker?: number;
-
-    nextMarker?: number;
-  }
-
-  export namespace Data {
-    export interface List {
-      id?: string;
-
-      amount?: number;
-
-      createdAt?: string;
-
-      currency?: string;
-
-      description?: string;
-
-      fee?: number;
-
-      mediaTaxAmount?: number;
-
-      net?: number;
-
-      payoutPendingDays?: number;
-
-      status?: string;
-
-      taxAmount?: number;
-
-      user?: List.User;
-
-      vatAmount?: number;
-    }
-
-    export namespace List {
-      export interface User {
-        id?: number;
-
-        avatar?: string;
-
-        avatarThumbs?: string;
-
-        isVerified?: boolean;
-
-        name?: string;
-
-        username?: string;
-
-        view?: string;
-      }
     }
   }
 }
@@ -350,7 +232,7 @@ export namespace PayoutRequestManualWithdrawalResponse {
 
     export namespace Data {
       export interface List {
-        rejectReason?: string;
+        rejectReason?: string | null;
 
         state?: string;
       }
@@ -404,7 +286,7 @@ export namespace PayoutRequestManualWithdrawalResponse {
 
     export namespace Data {
       export interface List {
-        rejectReason?: string;
+        rejectReason?: string | null;
 
         state?: string;
       }
@@ -722,18 +604,6 @@ export interface PayoutListPayoutRequestsParams {
   offset?: string;
 }
 
-export interface PayoutListTransactionsParams {
-  /**
-   * Number of transactions to return
-   */
-  limit?: string;
-
-  /**
-   * The marker used for pagination. Default: `null`
-   */
-  marker?: string;
-}
-
 export interface PayoutRequestManualWithdrawalParams {
   /**
    * The amount to withdraw. Amount may not be higher than the current balance.
@@ -763,14 +633,12 @@ export interface PayoutUpdatePayoutFrequencyParams {
 export declare namespace Payouts {
   export {
     type PayoutListPayoutRequestsResponse as PayoutListPayoutRequestsResponse,
-    type PayoutListTransactionsResponse as PayoutListTransactionsResponse,
     type PayoutRequestManualWithdrawalResponse as PayoutRequestManualWithdrawalResponse,
     type PayoutRetrieveBalancesResponse as PayoutRetrieveBalancesResponse,
     type PayoutRetrieveEarningStatisticsResponse as PayoutRetrieveEarningStatisticsResponse,
     type PayoutRetrieveEligibilityResponse as PayoutRetrieveEligibilityResponse,
     type PayoutUpdatePayoutFrequencyResponse as PayoutUpdatePayoutFrequencyResponse,
     type PayoutListPayoutRequestsParams as PayoutListPayoutRequestsParams,
-    type PayoutListTransactionsParams as PayoutListTransactionsParams,
     type PayoutRequestManualWithdrawalParams as PayoutRequestManualWithdrawalParams,
     type PayoutRetrieveEarningStatisticsParams as PayoutRetrieveEarningStatisticsParams,
     type PayoutUpdatePayoutFrequencyParams as PayoutUpdatePayoutFrequencyParams,

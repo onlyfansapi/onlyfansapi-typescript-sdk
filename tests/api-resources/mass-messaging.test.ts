@@ -45,6 +45,7 @@ describe('resource massMessaging', () => {
     const response = await client.massMessaging.update('id', {
       account: 'acct_XXXXXXXXXXXXXXX',
       text: 'Hello!',
+      giphyId: 'WAGC3LeqJvXglm5H7a',
       lockedText: true,
       mediaFiles: ['ofapi_media_abc123', 'string'],
       previews: ['ofapi_media_abc123', 'string'],
@@ -85,35 +86,6 @@ describe('resource massMessaging', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('listStatistics', async () => {
-    const responsePromise = client.massMessaging.listStatistics('acct_XXXXXXXXXXXXXXX');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('listStatistics: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.massMessaging.listStatistics(
-        'acct_XXXXXXXXXXXXXXX',
-        {
-          limit: 20,
-          offset: 0,
-          query: 'My message text',
-          type: 'sent',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Onlyfansapi.NotFoundError);
-  });
-
-  // Mock server tests are disabled
   test.skip('send: only required params', async () => {
     const responsePromise = client.massMessaging.send('acct_XXXXXXXXXXXXXXX', { text: 'Hello!' });
     const rawResponse = await responsePromise.asResponse();
@@ -129,10 +101,15 @@ describe('resource massMessaging', () => {
   test.skip('send: required and optional params', async () => {
     const response = await client.massMessaging.send('acct_XXXXXXXXXXXXXXX', {
       text: 'Hello!',
+      excludedLists: ['fans', 'recent', 'following', 'rebill_off', 'tagged', 'string'],
+      giphyId: 'WAGC3LeqJvXglm5H7a',
       lockedText: true,
-      mediaFiles: ['ofapi_media_abc123', 'string'],
-      previews: ['ofapi_media_abc123', 'string'],
+      mediaFiles: ['ofapi_media_abc123', 1234567890],
+      previews: ['ofapi_media_abc123', 1234567890],
       price: 100,
+      rfGuest: 'rfGuest',
+      rfPartner: 'rfPartner',
+      rfTag: 'rfTag',
       saveForLater: true,
       scheduledDate: '2025-01-01T00:00:00.000Z',
       userIds: ['string'],
