@@ -27,8 +27,7 @@ describe('resource stored', () => {
       client.stored.listSharedTrackingLinks(
         'acct_XXXXXXXXXXXXXXX',
         {
-          'filter[search]': 'twitter',
-          'filter[tags]': 'collab,sfs',
+          filter: { search: 'frlrfllcwpizfmb', tags: ['vkmteppnp'] },
           limit: 10,
           offset: 0,
         },
@@ -56,8 +55,7 @@ describe('resource stored', () => {
       client.stored.listSharedTrialLinks(
         'acct_XXXXXXXXXXXXXXX',
         {
-          'filter[search]': 'collab',
-          'filter[tags]': 'collab,july',
+          filter: { search: 'ijgyh', tags: ['xtonuh'] },
           limit: 10,
           offset: 0,
         },
@@ -85,9 +83,11 @@ describe('resource stored', () => {
       client.stored.listTrackingLinks(
         'acct_XXXXXXXXXXXXXXX',
         {
-          'filter[include_smart_links]': false,
-          'filter[search]': 'Instagram',
-          'filter[tags]': 'instagram,twitter',
+          filter: {
+            include_smart_links: false,
+            search: 'ugcqnjiolnpwhfy',
+            tags: ['nyknmwiekktwgnhggxo'],
+          },
           limit: 10,
           offset: 0,
         },
@@ -115,9 +115,11 @@ describe('resource stored', () => {
       client.stored.listTrialLinks(
         'acct_XXXXXXXXXXXXXXX',
         {
-          'filter[include_smart_links]': false,
-          'filter[search]': 'Instagram',
-          'filter[tags]': 'instagram,twitter',
+          filter: {
+            include_smart_links: true,
+            search: 'kb',
+            tags: ['ok'],
+          },
           limit: 10,
           offset: 0,
         },

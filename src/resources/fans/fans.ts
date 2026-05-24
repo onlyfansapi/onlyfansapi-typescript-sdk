@@ -2082,29 +2082,32 @@ export namespace FanListExpiredParams {
 
 export interface FanListLatestParams {
   /**
-   * End date for filtering (required with start_date)
+   * End date for filtering (required with start_date). This field is required when
+   * <code>start_date</code> is present.
    */
   end_date?: string | null;
 
   /**
-   * Number of fans to return (1-50)
+   * Number of fans to return (1-50). Must be at least 1. Must not be greater
+   * than 100.
    */
-  limit?: string | null;
+  limit?: number;
 
   /**
-   * Number of fans to skip
+   * Number of fans to skip. Must be at least 0.
    */
-  offset?: string | null;
+  offset?: number;
 
   /**
-   * Start date for filtering (required with end_date)
+   * Start date for filtering (required with end_date). This field is required when
+   * <code>end_date</code> is present.
    */
   start_date?: string | null;
 
   /**
-   * Filter by type: total, renew, or new
+   * Filter by type: total, renew, or new.
    */
-  type?: string | null;
+  type?: 'total' | 'renew' | 'new' | null;
 }
 
 export interface FanListTopParams {

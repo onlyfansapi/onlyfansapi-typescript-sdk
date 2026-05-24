@@ -9,8 +9,10 @@ const client = new OnlyFansAPI({
 
 describe('resource profitability', () => {
   // Mock server tests are disabled
-  test.skip('getHistory', async () => {
-    const responsePromise = client.analytics.financial.profitability.getHistory('acct_XXXXXXXXXXXXXXX', {});
+  test.skip('getHistory: only required params', async () => {
+    const responsePromise = client.analytics.financial.profitability.getHistory('acct_XXXXXXXXXXXXXXX', {
+      account_prefixed_id: 'acct_abc123',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -18,6 +20,14 @@ describe('resource profitability', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('getHistory: required and optional params', async () => {
+    const response = await client.analytics.financial.profitability.getHistory('acct_XXXXXXXXXXXXXXX', {
+      account_prefixed_id: 'acct_abc123',
+      months: 12,
+    });
   });
 
   // Mock server tests are disabled
