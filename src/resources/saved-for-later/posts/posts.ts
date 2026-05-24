@@ -89,7 +89,7 @@ export namespace PostListResponse {
 
       entity?: List.Entity;
 
-      publishDateTime?: string;
+      publishDateTime?: string | null;
 
       type?: string;
     }

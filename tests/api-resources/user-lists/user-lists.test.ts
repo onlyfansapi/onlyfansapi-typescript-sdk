@@ -1,16 +1,16 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Onlyfansapi from 'onlyfansapi';
+import OnlyFansAPI from 'onlyfansapi';
 
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource userLists', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'scyfotubmi' });
+    const responsePromise = client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'eujuvuhkododglgiobt' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,16 +20,33 @@ describe('resource userLists', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'scyfotubmi' });
+    const response = await client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'eujuvuhkododglgiobt' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
+  test.skip('retrieve: only required params', async () => {
+    const responsePromise = client.userLists.retrieve('userListId', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: required and optional params', async () => {
+    const response = await client.userLists.retrieve('userListId', { account: 'acct_XXXXXXXXXXXXXXX' });
+  });
+
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
-    const responsePromise = client.userLists.update(1224114714, {
+    const responsePromise = client.userLists.update('userListId', {
       account: 'acct_XXXXXXXXXXXXXXX',
-      name: 'jqnoventcce',
+      name: 'My Updated List Name',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -40,15 +57,16 @@ describe('resource userLists', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
-    const response = await client.userLists.update(1224114714, {
+    const response = await client.userLists.update('userListId', {
       account: 'acct_XXXXXXXXXXXXXXX',
-      name: 'jqnoventcce',
+      name: 'My Updated List Name',
+      isPinnedToFeed: true,
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.userLists.list('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -60,7 +78,7 @@ describe('resource userLists', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -69,12 +87,12 @@ describe('resource userLists', () => {
         { limit: 10, offset: 0 },
         { path: '/_stainless_unknown_path' },
       ),
-    ).rejects.toThrow(Onlyfansapi.NotFoundError);
+    ).rejects.toThrow(OnlyFansAPI.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
-    const responsePromise = client.userLists.delete(1224114714, { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.userLists.delete('userListId', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -84,8 +102,8 @@ describe('resource userLists', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
-    const response = await client.userLists.delete(1224114714, { account: 'acct_XXXXXXXXXXXXXXX' });
+    const response = await client.userLists.delete('userListId', { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 });

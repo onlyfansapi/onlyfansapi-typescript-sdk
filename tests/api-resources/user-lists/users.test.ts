@@ -1,16 +1,37 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Onlyfansapi from 'onlyfansapi';
+import OnlyFansAPI from 'onlyfansapi';
 
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource users', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
+  test.skip('list: only required params', async () => {
+    const responsePromise = client.userLists.users.list('userListId', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('list: required and optional params', async () => {
+    const response = await client.userLists.users.list('userListId', {
+      account: 'acct_XXXXXXXXXXXXXXX',
+      limit: 'limit',
+      offset: 'offset',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('add: only required params', async () => {
-    const responsePromise = client.userLists.users.add(1224114714, {
+    const responsePromise = client.userLists.users.add('userListId', {
       account: 'acct_XXXXXXXXXXXXXXX',
       ids: ['string', 'string', 'string'],
     });
@@ -23,19 +44,80 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('add: required and optional params', async () => {
-    const response = await client.userLists.users.add(1224114714, {
+    const response = await client.userLists.users.add('userListId', {
       account: 'acct_XXXXXXXXXXXXXXX',
       ids: ['string', 'string', 'string'],
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
+  test.skip('clear: only required params', async () => {
+    const responsePromise = client.userLists.users.clear('userListId', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('clear: required and optional params', async () => {
+    const response = await client.userLists.users.clear('userListId', { account: 'acct_XXXXXXXXXXXXXXX' });
+  });
+
+  // Mock server tests are disabled
+  test.skip('listPinned: only required params', async () => {
+    const responsePromise = client.userLists.users.listPinned('friends', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('listPinned: required and optional params', async () => {
+    const response = await client.userLists.users.listPinned('friends', {
+      account: 'acct_XXXXXXXXXXXXXXX',
+      limit: 'limit',
+      offset: 'offset',
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('pin: only required params', async () => {
+    const responsePromise = client.userLists.users.pin(1145988, {
+      account: 'acct_XXXXXXXXXXXXXXX',
+      userListId: 'friends',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('pin: required and optional params', async () => {
+    const response = await client.userLists.users.pin(1145988, {
+      account: 'acct_XXXXXXXXXXXXXXX',
+      userListId: 'friends',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('remove: only required params', async () => {
     const responsePromise = client.userLists.users.remove(123456, {
       account: 'acct_XXXXXXXXXXXXXXX',
-      userListId: 1224114714,
+      userListId: 'userListId',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -46,11 +128,11 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('remove: required and optional params', async () => {
     const response = await client.userLists.users.remove(123456, {
       account: 'acct_XXXXXXXXXXXXXXX',
-      userListId: 1224114714,
+      userListId: 'userListId',
     });
   });
 });

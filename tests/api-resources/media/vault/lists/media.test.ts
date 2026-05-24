@@ -1,16 +1,16 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Onlyfansapi from 'onlyfansapi';
+import OnlyFansAPI from 'onlyfansapi';
 
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource media', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('add: only required params', async () => {
-    const responsePromise = client.media.vault.lists.media.add('ut', {
+    const responsePromise = client.media.vault.lists.media.add('sapiente', {
       account: 'acct_XXXXXXXXXXXXXXX',
       mediaIds: ['string'],
     });
@@ -23,17 +23,17 @@ describe('resource media', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('add: required and optional params', async () => {
-    const response = await client.media.vault.lists.media.add('ut', {
+    const response = await client.media.vault.lists.media.add('sapiente', {
       account: 'acct_XXXXXXXXXXXXXXX',
       mediaIds: ['string'],
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('remove: only required params', async () => {
-    const responsePromise = client.media.vault.lists.media.remove('ut', {
+    const responsePromise = client.media.vault.lists.media.remove('sapiente', {
       account: 'acct_XXXXXXXXXXXXXXX',
       mediaIds: ['string'],
     });
@@ -46,9 +46,9 @@ describe('resource media', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('remove: required and optional params', async () => {
-    const response = await client.media.vault.lists.media.remove('ut', {
+    const response = await client.media.vault.lists.media.remove('sapiente', {
       account: 'acct_XXXXXXXXXXXXXXX',
       mediaIds: ['string'],
     });

@@ -16,8 +16,12 @@ export class Profiles extends APIResource {
    * );
    * ```
    */
-  retrieve(username: string, options?: RequestOptions): APIPromise<ProfileRetrieveResponse> {
-    return this._client.get(path`/api/profiles/${username}`, options);
+  retrieve(
+    username: string,
+    query: ProfileRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ProfileRetrieveResponse> {
+    return this._client.get(path`/api/profiles/${username}`, { query, ...options });
   }
 }
 
@@ -101,7 +105,7 @@ export namespace ProfileRetrieveResponse {
 
     canTrialSend?: boolean;
 
-    currentSubscribePrice?: string;
+    currentSubscribePrice?: string | null;
 
     favoritedCount?: number;
 
@@ -157,11 +161,15 @@ export namespace ProfileRetrieveResponse {
 
     lastSeen?: string;
 
-    location?: string;
+    location?: string | null;
 
     mediasCount?: number;
 
     name?: string;
+
+    ofapi_gender?: string;
+
+    ofapi_gender_confidence?: number;
 
     photosCount?: number;
 
@@ -179,27 +187,27 @@ export namespace ProfileRetrieveResponse {
 
     subscribedBy?: boolean;
 
-    subscribedByAutoprolong?: string;
+    subscribedByAutoprolong?: string | null;
 
-    subscribedByData?: string;
+    subscribedByData?: string | null;
 
-    subscribedByExpire?: string;
+    subscribedByExpire?: string | null;
 
-    subscribedByExpireDate?: string;
+    subscribedByExpireDate?: string | null;
 
-    subscribedIsExpiredNow?: string;
+    subscribedIsExpiredNow?: string | null;
 
     subscribedOn?: boolean;
 
-    subscribedOnData?: string;
+    subscribedOnData?: string | null;
 
-    subscribedOnDuration?: string;
+    subscribedOnDuration?: string | null;
 
-    subscribedOnExpiredNow?: string;
+    subscribedOnExpiredNow?: string | null;
 
     subscribePrice?: number;
 
-    subscribersCount?: string;
+    subscribersCount?: string | null;
 
     tipsEnabled?: boolean;
 
@@ -219,7 +227,7 @@ export namespace ProfileRetrieveResponse {
 
     website?: string;
 
-    wishlist?: string;
+    wishlist?: string | null;
   }
 
   export namespace Data {
@@ -243,6 +251,17 @@ export namespace ProfileRetrieveResponse {
   }
 }
 
+export interface ProfileRetrieveParams {
+  /**
+   * If `true` then OnlyFansAPI will always return the real time information about
+   * profile (eg. when was the profile last online).
+   */
+  fresh?: boolean | null;
+}
+
 export declare namespace Profiles {
-  export { type ProfileRetrieveResponse as ProfileRetrieveResponse };
+  export {
+    type ProfileRetrieveResponse as ProfileRetrieveResponse,
+    type ProfileRetrieveParams as ProfileRetrieveParams,
+  };
 }

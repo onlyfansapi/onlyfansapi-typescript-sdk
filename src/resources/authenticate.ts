@@ -2,7 +2,6 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -10,6 +9,8 @@ export class Authenticate extends APIResource {
   /**
    * Poll the status of the authentication process. Eg. if 2FA is required, we will
    * ask you for the code using the `twoFactorPending = true` in the response body.
+   * For `mobile_app` auth, the response includes `mobile_auth_session_deeplink`
+   * while the session is pending.
    *
    * @example
    * ```ts
@@ -28,48 +29,70 @@ export class Authenticate extends APIResource {
    *
    * @example
    * ```ts
-   * await client.authenticate.reauthenticate('acct_XXXXXXXXXX');
+   * const response = await client.authenticate.reauthenticate(
+   *   'acct_XXXXXXXXXX',
+   * );
    * ```
    */
-  reauthenticate(accountID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/api/authenticate/${accountID}/reauthenticate`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  reauthenticate(
+    accountID: string,
+    options?: RequestOptions,
+  ): APIPromise<AuthenticateReauthenticateResponse> {
+    return this._client.post(path`/api/authenticate/${accountID}/reauthenticate`, options);
   }
 
   /**
-   * Start the authentication process for a new account. Our systems will bypass
-   * Captcha and also ask you for 2FA code if required. All credentials are stored
-   * securely using bcrypt and only used during login.
+   * Send 2FA verification e-mail to the creator's email so they can verify login on
+   * their device without your input. The e-mail will be sent to the e-mail address
+   * used for signing into OnlyFans.
    *
    * @example
    * ```ts
-   * const response = await client.authenticate.start({
-   *   email: 'jalyn75@example.net',
-   *   password: 'vXIA}fx5Ek:',
-   *   proxyCountry: 'pl',
-   * });
+   * const response = await client.authenticate.send2faEmail(
+   *   'auth_XXXXXXX',
+   * );
    * ```
    */
-  start(body: AuthenticateStartParams, options?: RequestOptions): APIPromise<AuthenticateStartResponse> {
+  send2faEmail(attemptID: string, options?: RequestOptions): APIPromise<AuthenticateSend2faEmailResponse> {
+    return this._client.post(path`/api/authenticate/${attemptID}/send-email-to-creator`, options);
+  }
+
+  /**
+   * Start the authentication process for a new account. Supports three methods:
+   * email/password (default), cookies & headers (raw_data), or FansAPI Auth+ mobile
+   * app (mobile_app). For email/password, our systems will bypass Captcha and ask
+   * you for 2FA if required. For raw_data, provide session cookies directly for
+   * instant authentication. For mobile_app, the response includes a
+   * `mobile_auth_session_deeplink` that the creator opens on their phone (or scans
+   * as a QR code) to complete authentication via the FansAPI Auth+ mobile app. All
+   * credentials are stored securely and encrypted at rest.
+   *
+   * @example
+   * ```ts
+   * const response = await client.authenticate.start();
+   * ```
+   */
+  start(
+    body: AuthenticateStartParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<AuthenticateStartResponse> {
     return this._client.post('/api/authenticate', { body, ...options });
   }
 
   /**
-   * Submit the 2FA code for the authentication process.
+   * Submit the 2FA code, or Selfie Verification status, for the authentication
+   * process.
    *
    * @example
    * ```ts
    * const response = await client.authenticate.submit2fa(
    *   'auth_XXXXXXX',
-   *   { code: '12345' },
    * );
    * ```
    */
   submit2fa(
     attemptID: string,
-    body: AuthenticateSubmit2faParams,
+    body: AuthenticateSubmit2faParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<AuthenticateSubmit2faResponse> {
     return this._client.put(path`/api/authenticate/${attemptID}`, { body, ...options });
@@ -99,7 +122,7 @@ export namespace AuthenticatePollStatusResponse {
     export interface OnlyfansData {
       id?: number;
 
-      about?: string;
+      about?: string | null;
 
       advBlock?: Array<string>;
 
@@ -111,11 +134,11 @@ export namespace AuthenticatePollStatusResponse {
 
       audiosCount?: number;
 
-      avatar?: string;
+      avatar?: string | null;
 
       avatarHeaderConverterUpload?: boolean;
 
-      avatarThumbs?: string;
+      avatarThumbs?: string | null;
 
       canAddCard?: boolean;
 
@@ -193,11 +216,11 @@ export namespace AuthenticatePollStatusResponse {
 
       hasWatermarkVideo?: boolean;
 
-      header?: string;
+      header?: string | null;
 
-      headerSize?: string;
+      headerSize?: string | null;
 
-      headerThumbs?: string;
+      headerThumbs?: string | null;
 
       ip?: string;
 
@@ -247,19 +270,19 @@ export namespace AuthenticatePollStatusResponse {
 
       isWantComments?: boolean;
 
-      ivCountry?: string;
+      ivCountry?: string | null;
 
       ivFailReason?: string;
 
       ivFlow?: string;
 
-      ivStatus?: string;
+      ivStatus?: string | null;
 
       joinDate?: string;
 
       lastSeen?: string;
 
-      location?: string;
+      location?: string | null;
 
       maxPinnedPostsCount?: number;
 
@@ -291,7 +314,7 @@ export namespace AuthenticatePollStatusResponse {
 
       subscribesCount?: number;
 
-      twitterUsername?: string;
+      twitterUsername?: string | null;
 
       upload?: OnlyfansData.Upload;
 
@@ -311,9 +334,9 @@ export namespace AuthenticatePollStatusResponse {
 
       watermarkText?: string;
 
-      website?: string;
+      website?: string | null;
 
-      wishlist?: string;
+      wishlist?: string | null;
 
       wsAuthToken?: string;
 
@@ -370,11 +393,13 @@ export namespace AuthenticatePollStatusResponse {
   export interface LastAttempt {
     completed_at?: string;
 
-    error_message?: string;
+    error_code?: string | null;
+
+    error_message?: string | null;
 
     needs_otp?: boolean;
 
-    otp_phone_ending?: string;
+    otp_phone_ending?: string | null;
 
     started_at?: string;
 
@@ -382,12 +407,52 @@ export namespace AuthenticatePollStatusResponse {
   }
 }
 
-export interface AuthenticateStartResponse {
-  attempt_id?: string;
-
+export interface AuthenticateReauthenticateResponse {
   message?: string;
 
   polling_url?: string;
+
+  success?: boolean;
+}
+
+export interface AuthenticateSend2faEmailResponse {
+  message?: string;
+
+  success?: boolean;
+}
+
+/**
+ * For email_password or raw_data auth types
+ */
+export type AuthenticateStartResponse =
+  | AuthenticateStartResponse.UnionMember0
+  | AuthenticateStartResponse.UnionMember1;
+
+export namespace AuthenticateStartResponse {
+  /**
+   * For email_password or raw_data auth types
+   */
+  export interface UnionMember0 {
+    attempt_id?: string;
+
+    message?: string;
+
+    polling_url?: string;
+  }
+
+  /**
+   * For mobile_app auth type — includes the session code to scan with the FansAPI
+   * Auth+ app
+   */
+  export interface UnionMember1 {
+    attempt_id?: string;
+
+    message?: string;
+
+    mobile_auth_session_deeplink?: string;
+
+    polling_url?: string;
+  }
 }
 
 export interface AuthenticateSubmit2faResponse {
@@ -396,31 +461,114 @@ export interface AuthenticateSubmit2faResponse {
 
 export interface AuthenticateStartParams {
   /**
-   * The email address of the OnlyFans account
+   * The auth_id from OnlyFans session cookies. Required when auth_type is
+   * `raw_data`.
    */
-  email: string;
+  auth_id?: string;
 
   /**
-   * The password of the OnlyFans account
+   * The authentication method to use. Defaults to `email_password` if omitted. Use
+   * `mobile_app` to authenticate via the FansAPI Auth+ mobile app (no credential
+   * fields required).
    */
-  password: string;
+  auth_type?: 'email_password' | 'raw_data' | 'mobile_app';
 
   /**
-   * The country of the proxy server you want to use. Eg. "us" for United States
+   * The full cookie string (semicolon-separated). Required when auth_type is
+   * `raw_data`.
    */
-  proxyCountry: 'us' | 'uk' | 'de' | 'es' | 'fr' | 'it' | 'ua' | 'pl' | 'ro' | 'cz' | 'hu' | 'sk';
+  cookies?: string;
+
+  /**
+   * Custom proxy configuration. Cannot be used together with proxyCountry.
+   */
+  customProxy?: AuthenticateStartParams.CustomProxy;
+
+  /**
+   * The email address of the OnlyFans account. Required when auth_type is
+   * `email_password`.
+   */
+  email?: string;
+
+  /**
+   * Set to true to connect the account even if it already exists
+   */
+  force_connect?: boolean;
+
+  /**
+   * A display name for the account. If omitted, defaults to the email address or
+   * auth_id.
+   */
+  name?: string;
+
+  /**
+   * The password of the OnlyFans account. Required when auth_type is
+   * `email_password`.
+   */
+  password?: string;
+
+  /**
+   * The country of the managed proxy server you want to use. Eg. "us" for United
+   * States. Cannot be used together with customProxy.
+   */
+  proxyCountry?: 'us' | 'uk';
+
+  /**
+   * The browser User-Agent string. Required when auth_type is `raw_data`.
+   */
+  user_agent?: string;
+
+  /**
+   * The X-BC token from request headers. Required when auth_type is `raw_data`.
+   */
+  xbc?: string;
+}
+
+export namespace AuthenticateStartParams {
+  /**
+   * Custom proxy configuration. Cannot be used together with proxyCountry.
+   */
+  export interface CustomProxy {
+    /**
+     * The hostname or IP address of your custom proxy server
+     */
+    host?: string;
+
+    /**
+     * The password for proxy authentication (optional)
+     */
+    password?: string;
+
+    /**
+     * The port number of your custom proxy server (1-65535)
+     */
+    port?: number;
+
+    /**
+     * The username for proxy authentication (optional)
+     */
+    username?: string;
+  }
 }
 
 export interface AuthenticateSubmit2faParams {
   /**
-   * The 2FA code you received on your phone
+   * The 2FA code you received on your phone. Must be empty if
+   * `selfie_verification_completed` is `true`.
    */
-  code: string;
+  code?: string;
+
+  /**
+   * This field is required when <code>code</code> is not present.
+   */
+  selfie_verification_completed?: unknown;
 }
 
 export declare namespace Authenticate {
   export {
     type AuthenticatePollStatusResponse as AuthenticatePollStatusResponse,
+    type AuthenticateReauthenticateResponse as AuthenticateReauthenticateResponse,
+    type AuthenticateSend2faEmailResponse as AuthenticateSend2faEmailResponse,
     type AuthenticateStartResponse as AuthenticateStartResponse,
     type AuthenticateSubmit2faResponse as AuthenticateSubmit2faResponse,
     type AuthenticateStartParams as AuthenticateStartParams,

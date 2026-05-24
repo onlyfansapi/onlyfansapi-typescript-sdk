@@ -5,10 +5,13 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * APIs for managing OnlyFans transactions
+ */
 export class Transactions extends APIResource {
   /**
    * Get a paginated list of transactions for an Account. Newest transactions are
-   * first.
+   * first. You can filter by transaction type and tips source.
    *
    * @example
    * ```ts
@@ -105,6 +108,8 @@ export namespace TransactionListResponse {
 
       taxAmount?: number;
 
+      type?: string;
+
       user?: List.User;
 
       vatAmount?: number;
@@ -153,6 +158,18 @@ export interface TransactionListParams {
    * The start date for transactions list. Default: `-30days`
    */
   startDate?: string;
+
+  /**
+   * Filter tips by source. Only applies when `type=tips`. Options: `profile`,
+   * `post_all`, `chat`, `stream`, `story`
+   */
+  tipsSource?: string;
+
+  /**
+   * Filter by transaction type. Options: `subscribes`, `tips`, `post`,
+   * `chat_messages`, `stream`
+   */
+  type?: string;
 }
 
 export declare namespace Transactions {

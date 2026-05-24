@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Endpoints for managingr account notifications
+ */
 export class TabsOrder extends APIResource {
   /**
    * Update the order of an account's notification tabs as displayed on the OnlyFans

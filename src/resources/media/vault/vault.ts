@@ -16,11 +16,33 @@ import {
   Lists,
 } from './lists/lists';
 import { APIPromise } from '../../../core/api-promise';
+import { type Uploadable } from '../../../core/uploads';
 import { RequestOptions } from '../../../internal/request-options';
+import { multipartFormRequestOptions } from '../../../internal/uploads';
 import { path } from '../../../internal/utils/path';
 
 export class Vault extends APIResource {
   lists: ListsAPI.Lists = new ListsAPI.Lists(this._client);
+
+  /**
+   * Retrieve details about a specific media item in your vault.
+   *
+   * @example
+   * ```ts
+   * const vault = await client.media.vault.retrieve(
+   *   1234567890,
+   *   { account: 'acct_XXXXXXXXXXXXXXX' },
+   * );
+   * ```
+   */
+  retrieve(
+    mediaID: number,
+    params: VaultRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<VaultRetrieveResponse> {
+    const { account } = params;
+    return this._client.get(path`/api/${account}/media/vault/${mediaID}`, options);
+  }
 
   /**
    * List media items stored in your vault. See how many likes and how much tips did
@@ -58,6 +80,171 @@ export class Vault extends APIResource {
     options?: RequestOptions,
   ): APIPromise<VaultDeleteResponse> {
     return this._client.delete(path`/api/${account}/media/vault/delete-media`, { body, ...options });
+  }
+
+  /**
+   * Upload a media file directly to your vault.
+   *
+   * @example
+   * ```ts
+   * const response = await client.media.vault.upload(
+   *   'acct_XXXXXXXXXXXXXXX',
+   * );
+   * ```
+   */
+  upload(
+    account: string,
+    body: VaultUploadParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<VaultUploadResponse> {
+    return this._client.post(
+      path`/api/${account}/media/vault`,
+      multipartFormRequestOptions({ body, ...options }, this._client),
+    );
+  }
+}
+
+export interface VaultRetrieveResponse {
+  _meta?: VaultRetrieveResponse._Meta;
+
+  data?: VaultRetrieveResponse.Data;
+}
+
+export namespace VaultRetrieveResponse {
+  export interface _Meta {
+    _cache?: _Meta._Cache;
+
+    _credits?: _Meta._Credits;
+
+    _rate_limits?: _Meta._RateLimits;
+  }
+
+  export namespace _Meta {
+    export interface _Cache {
+      is_cached?: boolean;
+
+      note?: string;
+    }
+
+    export interface _Credits {
+      balance?: number;
+
+      note?: string;
+
+      used?: number;
+    }
+
+    export interface _RateLimits {
+      limit_day?: number;
+
+      limit_minute?: number;
+
+      remaining_day?: number;
+
+      remaining_minute?: number;
+    }
+  }
+
+  export interface Data {
+    id?: number;
+
+    canView?: boolean;
+
+    convertedToVideo?: boolean;
+
+    createdAt?: string;
+
+    duration?: number;
+
+    files?: Data.Files;
+
+    hasCustomPreview?: boolean;
+
+    hasError?: boolean;
+
+    hasPosts?: boolean;
+
+    isReady?: boolean;
+
+    listStates?: Array<Data.ListState>;
+
+    type?: string;
+
+    videoSources?: Data.VideoSources;
+  }
+
+  export namespace Data {
+    export interface Files {
+      full?: Files.Full;
+
+      preview?: Files.Preview;
+
+      squarePreview?: Files.SquarePreview;
+
+      thumb?: Files.Thumb;
+    }
+
+    export namespace Files {
+      export interface Full {
+        height?: number;
+
+        size?: number;
+
+        sources?: Array<unknown>;
+
+        url?: string;
+
+        width?: number;
+      }
+
+      export interface Preview {
+        height?: number;
+
+        size?: number;
+
+        url?: string;
+
+        width?: number;
+      }
+
+      export interface SquarePreview {
+        height?: number;
+
+        size?: number;
+
+        url?: string;
+
+        width?: number;
+      }
+
+      export interface Thumb {
+        height?: number;
+
+        size?: number;
+
+        url?: string;
+
+        width?: number;
+      }
+    }
+
+    export interface ListState {
+      id?: number;
+
+      canAddMedia?: boolean;
+
+      hasMedia?: boolean;
+
+      name?: string;
+
+      type?: string;
+    }
+
+    export interface VideoSources {
+      '240'?: string | null;
+
+      '720'?: string | null;
+    }
   }
 }
 
@@ -151,11 +338,11 @@ export namespace VaultListResponse {
       export interface Files {
         full?: Files.Full;
 
-        preview?: string;
+        preview?: string | null;
 
-        squarePreview?: string;
+        squarePreview?: string | null;
 
-        thumb?: string;
+        thumb?: string | null;
       }
 
       export namespace Files {
@@ -185,9 +372,9 @@ export namespace VaultListResponse {
       }
 
       export interface VideoSources {
-        '240'?: string;
+        '240'?: string | null;
 
-        '720'?: string;
+        '720'?: string | null;
       }
     }
   }
@@ -239,6 +426,105 @@ export namespace VaultDeleteResponse {
   }
 }
 
+export interface VaultUploadResponse {
+  _meta?: VaultUploadResponse._Meta;
+
+  data?: VaultUploadResponse.Data;
+}
+
+export namespace VaultUploadResponse {
+  export interface _Meta {
+    _cache?: _Meta._Cache;
+
+    _credits?: _Meta._Credits;
+
+    _rate_limits?: _Meta._RateLimits;
+  }
+
+  export namespace _Meta {
+    export interface _Cache {
+      is_cached?: boolean;
+
+      note?: string;
+    }
+
+    export interface _Credits {
+      balance?: number;
+
+      note?: string;
+
+      used?: number;
+    }
+
+    export interface _RateLimits {
+      limit_day?: string | null;
+
+      limit_minute?: number;
+
+      remaining_day?: string | null;
+
+      remaining_minute?: number;
+    }
+  }
+
+  export interface Data {
+    id?: number;
+
+    canView?: boolean;
+
+    convertedToVideo?: boolean;
+
+    createdAt?: string;
+
+    duration?: number;
+
+    files?: Data.Files;
+
+    hasCustomPreview?: boolean;
+
+    hasError?: boolean;
+
+    isReady?: boolean;
+
+    releaseForms?: Array<unknown>;
+
+    type?: string;
+  }
+
+  export namespace Data {
+    export interface Files {
+      full?: Files.Full;
+
+      preview?: string | null;
+
+      squarePreview?: string | null;
+
+      thumb?: string | null;
+    }
+
+    export namespace Files {
+      export interface Full {
+        height?: number;
+
+        size?: number;
+
+        sources?: Array<unknown>;
+
+        url?: string | null;
+
+        width?: number;
+      }
+    }
+  }
+}
+
+export interface VaultRetrieveParams {
+  /**
+   * The Account ID
+   */
+  account: string;
+}
+
 export interface VaultListParams {
   /**
    * Sort the results by a field. Default `recent`
@@ -246,7 +532,7 @@ export interface VaultListParams {
   field?: 'recent' | 'most-liked' | 'highest-tips';
 
   /**
-   * Number of media to return per page. Default: `24`
+   * Number of media to return per page (10 - 100). Default: `24`
    */
   limit?: number;
 
@@ -264,7 +550,7 @@ export interface VaultListParams {
   /**
    * Optionally, search for a text query.
    */
-  query?: string;
+  query?: string | null;
 
   /**
    * Sort the results. Default `desc`
@@ -284,14 +570,38 @@ export interface VaultDeleteParams {
   mediaIds: Array<string>;
 }
 
+export interface VaultUploadParams {
+  /**
+   * Set to `true` to process uploads in the background. Returns a `polling_url` to
+   * check status. Recommended for large files.
+   */
+  async?: boolean;
+
+  /**
+   * The file to upload. Required if `file_url` is not provided. Maximum file size:
+   * 100 MB (limited by Cloudflare).
+   */
+  file?: Uploadable;
+
+  /**
+   * A URL to download the file from. Required if `file` is not provided. Maximum
+   * file size depends on the subscription configuration.
+   */
+  file_url?: string;
+}
+
 Vault.Lists = Lists;
 
 export declare namespace Vault {
   export {
+    type VaultRetrieveResponse as VaultRetrieveResponse,
     type VaultListResponse as VaultListResponse,
     type VaultDeleteResponse as VaultDeleteResponse,
+    type VaultUploadResponse as VaultUploadResponse,
+    type VaultRetrieveParams as VaultRetrieveParams,
     type VaultListParams as VaultListParams,
     type VaultDeleteParams as VaultDeleteParams,
+    type VaultUploadParams as VaultUploadParams,
   };
 
   export {

@@ -1,7 +1,6 @@
 import fs from 'fs';
 import type { ResponseLike } from 'onlyfansapi/internal/to-file';
 import { toFile } from 'onlyfansapi/core/uploads';
-import { File } from 'node:buffer';
 
 class MyClass {
   name: string = 'foo';

@@ -11,12 +11,13 @@ export class Search extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.search.profiles({
-   *   query: 'milf',
-   * });
+   * const response = await client.search.profiles();
    * ```
    */
-  profiles(query: SearchProfilesParams, options?: RequestOptions): APIPromise<SearchProfilesResponse> {
+  profiles(
+    query: SearchProfilesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<SearchProfilesResponse> {
     return this._client.get('/api/search', { query, ...options });
   }
 }
@@ -65,39 +66,33 @@ export namespace SearchProfilesResponse {
   }
 
   export interface _Pagination {
+    next_cursor?: string;
+
     next_page_url?: string;
 
     total_results?: number;
   }
 
   export interface Data {
-    id?: number;
-
     about?: string;
 
     audios_count?: number;
 
     avatar_url?: string;
 
-    browsable?: boolean;
+    bundles?: string | null;
 
-    bundles?: string;
+    facebook?: string | null;
 
-    created_at?: string;
-
-    facebook?: string;
-
-    fansly?: string;
+    fansly?: string | null;
 
     favorited_count?: number;
 
     favorites_count?: number;
 
-    gender?: string;
-
     header_url?: string;
 
-    instagram?: string;
+    instagram?: string | null;
 
     is_adult_content?: boolean;
 
@@ -109,37 +104,39 @@ export namespace SearchProfilesResponse {
 
     join_date?: string;
 
-    last_seen_at?: string;
+    last_seen_at?: string | null;
 
     location?: string;
 
-    manyvids?: string;
+    manyvids?: string | null;
 
     min_subscribe_price?: number;
 
     name?: string;
 
-    onlyfans_id?: string;
+    ofapi_gender?: string;
+
+    ofapi_gender_confidence?: number;
+
+    onlyfans_id?: number;
 
     photos_count?: number;
 
-    pornhub?: string;
+    pornhub?: string | null;
 
     posts_count?: number;
 
-    promotions?: string;
+    promotions?: string | null;
 
     stats_updated_at?: string;
 
     subscribe_price?: number;
 
-    subscribers_count?: string;
+    subscribers_count?: string | null;
 
-    tiktok?: string;
+    tiktok?: string | null;
 
-    twitter?: string;
-
-    updated_at?: string;
+    twitter?: string | null;
 
     username?: string;
 
@@ -147,36 +144,90 @@ export namespace SearchProfilesResponse {
 
     website?: string;
 
-    wishlist?: string;
+    wishlist?: string | null;
   }
 }
 
 export interface SearchProfilesParams {
   /**
-   * Query for full text search in username, display name, bio
+   * Cursor for pagination. Use the `next_cursor` from the previous response to get
+   * the next page of results.
    */
-  query: string;
+  cursor?: string | null;
+
+  filter?: SearchProfilesParams.Filter;
+
+  /**
+   * Filter by Instagram username.
+   */
+  instagram?: string;
 
   /**
    * The number of profiles to return. For each returned profile we charge your
-   * account 1 credit. Default: `10`
+   * account 1 credit. Default: `10`. Must be at least 1. Must not be greater
+   * than 100.
    */
-  limit?: string;
+  limit?: number;
 
   /**
-   * Location
+   * Filter by location.
    */
   location?: string;
 
   /**
-   * Maximum subscribe price
+   * Filter by maximum subscribe price. Must be at least 0.00.
    */
-  max_subscribe_price?: string;
+  max_subscribe_price?: number;
 
   /**
-   * Minimum subscribe price
+   * Filter by minimum subscribe price. Must be at least 0.00.
    */
-  min_subscribe_price?: string;
+  min_subscribe_price?: number;
+
+  /**
+   * Query for full text search in username, display name, bio. Must be at least 3
+   * characters.
+   */
+  query?: string;
+
+  /**
+   * Field to sort by. ⭐️ Only available on the Pro and Enterprise plan.
+   */
+  sort?:
+    | 'likes'
+    | 'photos'
+    | 'videos'
+    | 'subscribers'
+    | 'subscribe_price'
+    | 'min_subscribe_price'
+    | 'join_date'
+    | 'last_seen';
+
+  /**
+   * Direction for sorting. `desc` - highest value first. `asc` - lowest value first.
+   */
+  sortDirection?: 'desc' | 'asc';
+
+  /**
+   * Filter by TikTok username.
+   */
+  tiktok?: string;
+
+  /**
+   * Filter by website.
+   */
+  website?: string;
+}
+
+export namespace SearchProfilesParams {
+  export interface Filter {
+    /**
+     * Filter by gender (available: `female`, `male`, `trans`, `trans_ftm`
+     * (Female-to-Male), `trans_mft` (Male-to-Female), `couple`). ⭐️ Only available on
+     * the Pro and Enterprise plan.
+     */
+    gender?: 'female' | 'male' | 'trans' | 'trans_ftm' | 'trans_mtf' | 'couple';
+  }
 }
 
 export declare namespace Search {

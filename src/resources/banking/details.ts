@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Operations related to user banking details, payout methods, legal and tax information, and account country settings.
+ */
 export class Details extends APIResource {
   /**
    * Returns the account owner's country details for banking, including country code,
@@ -603,13 +606,13 @@ export namespace DetailRetrieveLegalAndTaxStatusResponse {
 
     isXXX?: boolean;
 
-    ivFailReason?: string;
+    ivFailReason?: string | null;
 
     ivStatus?: string;
 
     needShowEditW9?: boolean;
 
-    payoutLegalApproveRejectReason?: string;
+    payoutLegalApproveRejectReason?: string | null;
 
     showIvButton?: boolean;
 
@@ -620,7 +623,7 @@ export namespace DetailRetrieveLegalAndTaxStatusResponse {
     export interface Dac7 {
       countryIds?: Array<number>;
 
-      error?: string;
+      error?: string | null;
 
       required?: boolean;
 

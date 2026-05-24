@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "onlyfansapi/*": ["dist/src/*"],
-      "onlyfansapi": ["dist/src/index.ts"]
+      "onlyfansapi/*": ["./dist/src/*"],
+      "onlyfansapi": ["./dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,

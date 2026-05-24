@@ -43,16 +43,12 @@ export class Statistics extends APIResource {
    * ```ts
    * const response = await client.statistics.getOverview(
    *   'acct_XXXXXXXXXXXXXXX',
-   *   {
-   *     end_date: '2025-03-31 23:59:59',
-   *     start_date: '2025-01-01 00:00:00',
-   *   },
    * );
    * ```
    */
   getOverview(
     account: string,
-    query: StatisticGetOverviewParams,
+    query: StatisticGetOverviewParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<StatisticGetOverviewResponse> {
     return this._client.get(path`/api/${account}/statistics/overview`, { query, ...options });
@@ -404,19 +400,20 @@ export interface StatisticCalculateTotalTransactionsParams {
 
 export interface StatisticGetOverviewParams {
   /**
-   * The end date for the statistics.
+   * The end date for the statistics. Keep empty to retrieve until now.
    */
-  end_date: string;
+  end_date?: string;
 
   /**
-   * The start date for the statistics.
+   * The start date for the statistics. Keep empty to retrieve from the model's start
+   * date.
    */
-  start_date: string;
+  start_date?: string;
 
   /**
    * The type of statistics to retrieve (default = empty)
    */
-  type?: 'fans' | 'visitors' | 'posts' | null;
+  type?: 'fans' | 'visitors' | 'posts' | 'messages' | null;
 }
 
 export interface StatisticGetSubscriberMetricsParams {

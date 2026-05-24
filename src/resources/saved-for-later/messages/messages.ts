@@ -89,7 +89,7 @@ export namespace MessageListResponse {
 
       entity?: List.Entity;
 
-      publishDateTime?: string;
+      publishDateTime?: string | null;
 
       type?: string;
     }
@@ -108,7 +108,7 @@ export namespace MessageListResponse {
 
         createdAt?: string;
 
-        giphyId?: string;
+        giphyId?: string | null;
 
         isFree?: boolean;
 
@@ -144,7 +144,7 @@ export namespace MessageListResponse {
 
         responseType?: string;
 
-        scheduledAt?: string;
+        scheduledAt?: string | null;
 
         sentRulesExtra?: string;
 

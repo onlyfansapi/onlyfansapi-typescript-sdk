@@ -1,14 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Onlyfansapi from 'onlyfansapi';
+import OnlyFansAPI from 'onlyfansapi';
 
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource banking', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listAvailablePayoutSystems', async () => {
     const responsePromise = client.banking.listAvailablePayoutSystems('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource banking', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listCountries', async () => {
     const responsePromise = client.banking.listCountries('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();

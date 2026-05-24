@@ -11,35 +11,17 @@ export class Payouts extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.payouts.listPayoutRequests(
+   * const response = await client.payouts.listRequests(
    *   'acct_XXXXXXXXXXXXXXX',
    * );
    * ```
    */
-  listPayoutRequests(
+  listRequests(
     account: string,
-    query: PayoutListPayoutRequestsParams | null | undefined = {},
+    query: PayoutListRequestsParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<PayoutListPayoutRequestsResponse> {
+  ): APIPromise<PayoutListRequestsResponse> {
     return this._client.get(path`/api/${account}/payouts/payout-requests`, { query, ...options });
-  }
-
-  /**
-   * List all transactions for the account.
-   *
-   * @example
-   * ```ts
-   * const response = await client.payouts.listTransactions(
-   *   'acct_XXXXXXXXXXXXXXX',
-   * );
-   * ```
-   */
-  listTransactions(
-    account: string,
-    query: PayoutListTransactionsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<PayoutListTransactionsResponse> {
-    return this._client.get(path`/api/${account}/payouts/transactions`, { query, ...options });
   }
 
   /**
@@ -119,28 +101,28 @@ export class Payouts extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.payouts.updatePayoutFrequency(
+   * const response = await client.payouts.updateFrequency(
    *   'acct_XXXXXXXXXXXXXXX',
    *   { frequency: 'manual' },
    * );
    * ```
    */
-  updatePayoutFrequency(
+  updateFrequency(
     account: string,
-    body: PayoutUpdatePayoutFrequencyParams,
+    body: PayoutUpdateFrequencyParams,
     options?: RequestOptions,
-  ): APIPromise<PayoutUpdatePayoutFrequencyResponse> {
+  ): APIPromise<PayoutUpdateFrequencyResponse> {
     return this._client.patch(path`/api/${account}/payouts/payout-frequency`, { body, ...options });
   }
 }
 
-export interface PayoutListPayoutRequestsResponse {
-  _meta?: PayoutListPayoutRequestsResponse._Meta;
+export interface PayoutListRequestsResponse {
+  _meta?: PayoutListRequestsResponse._Meta;
 
-  data?: PayoutListPayoutRequestsResponse.Data;
+  data?: PayoutListRequestsResponse.Data;
 }
 
-export namespace PayoutListPayoutRequestsResponse {
+export namespace PayoutListRequestsResponse {
   export interface _Meta {
     _cache?: _Meta._Cache;
 
@@ -191,109 +173,9 @@ export namespace PayoutListPayoutRequestsResponse {
 
       invoiceId?: string;
 
-      rejectReason?: string;
+      rejectReason?: string | null;
 
       state?: string;
-    }
-  }
-}
-
-export interface PayoutListTransactionsResponse {
-  _meta?: PayoutListTransactionsResponse._Meta;
-
-  data?: PayoutListTransactionsResponse.Data;
-}
-
-export namespace PayoutListTransactionsResponse {
-  export interface _Meta {
-    _cache?: _Meta._Cache;
-
-    _credits?: _Meta._Credits;
-
-    _rate_limits?: _Meta._RateLimits;
-  }
-
-  export namespace _Meta {
-    export interface _Cache {
-      is_cached?: boolean;
-
-      note?: string;
-    }
-
-    export interface _Credits {
-      balance?: number;
-
-      note?: string;
-
-      used?: number;
-    }
-
-    export interface _RateLimits {
-      limit_day?: number;
-
-      limit_minute?: number;
-
-      remaining_day?: number;
-
-      remaining_minute?: number;
-    }
-  }
-
-  export interface Data {
-    hasMore?: boolean;
-
-    list?: Array<Data.List>;
-
-    marker?: number;
-
-    nextMarker?: number;
-  }
-
-  export namespace Data {
-    export interface List {
-      id?: string;
-
-      amount?: number;
-
-      createdAt?: string;
-
-      currency?: string;
-
-      description?: string;
-
-      fee?: number;
-
-      mediaTaxAmount?: number;
-
-      net?: number;
-
-      payoutPendingDays?: number;
-
-      status?: string;
-
-      taxAmount?: number;
-
-      user?: List.User;
-
-      vatAmount?: number;
-    }
-
-    export namespace List {
-      export interface User {
-        id?: number;
-
-        avatar?: string;
-
-        avatarThumbs?: string;
-
-        isVerified?: boolean;
-
-        name?: string;
-
-        username?: string;
-
-        view?: string;
-      }
     }
   }
 }
@@ -350,7 +232,7 @@ export namespace PayoutRequestManualWithdrawalResponse {
 
     export namespace Data {
       export interface List {
-        rejectReason?: string;
+        rejectReason?: string | null;
 
         state?: string;
       }
@@ -404,7 +286,7 @@ export namespace PayoutRequestManualWithdrawalResponse {
 
     export namespace Data {
       export interface List {
-        rejectReason?: string;
+        rejectReason?: string | null;
 
         state?: string;
       }
@@ -664,13 +546,13 @@ export namespace PayoutRetrieveEligibilityResponse {
   }
 }
 
-export interface PayoutUpdatePayoutFrequencyResponse {
-  _meta?: PayoutUpdatePayoutFrequencyResponse._Meta;
+export interface PayoutUpdateFrequencyResponse {
+  _meta?: PayoutUpdateFrequencyResponse._Meta;
 
-  data?: PayoutUpdatePayoutFrequencyResponse.Data;
+  data?: PayoutUpdateFrequencyResponse.Data;
 }
 
-export namespace PayoutUpdatePayoutFrequencyResponse {
+export namespace PayoutUpdateFrequencyResponse {
   export interface _Meta {
     _cache?: _Meta._Cache;
 
@@ -710,7 +592,7 @@ export namespace PayoutUpdatePayoutFrequencyResponse {
   }
 }
 
-export interface PayoutListPayoutRequestsParams {
+export interface PayoutListRequestsParams {
   /**
    * Number of payout requests to return
    */
@@ -720,18 +602,6 @@ export interface PayoutListPayoutRequestsParams {
    * Number of payout requests to skip for pagination
    */
   offset?: string;
-}
-
-export interface PayoutListTransactionsParams {
-  /**
-   * Number of transactions to return
-   */
-  limit?: string;
-
-  /**
-   * The marker used for pagination. Default: `null`
-   */
-  marker?: string;
 }
 
 export interface PayoutRequestManualWithdrawalParams {
@@ -753,7 +623,7 @@ export interface PayoutRetrieveEarningStatisticsParams {
   startDate?: string | null;
 }
 
-export interface PayoutUpdatePayoutFrequencyParams {
+export interface PayoutUpdateFrequencyParams {
   /**
    * The new payout frequency
    */
@@ -762,17 +632,15 @@ export interface PayoutUpdatePayoutFrequencyParams {
 
 export declare namespace Payouts {
   export {
-    type PayoutListPayoutRequestsResponse as PayoutListPayoutRequestsResponse,
-    type PayoutListTransactionsResponse as PayoutListTransactionsResponse,
+    type PayoutListRequestsResponse as PayoutListRequestsResponse,
     type PayoutRequestManualWithdrawalResponse as PayoutRequestManualWithdrawalResponse,
     type PayoutRetrieveBalancesResponse as PayoutRetrieveBalancesResponse,
     type PayoutRetrieveEarningStatisticsResponse as PayoutRetrieveEarningStatisticsResponse,
     type PayoutRetrieveEligibilityResponse as PayoutRetrieveEligibilityResponse,
-    type PayoutUpdatePayoutFrequencyResponse as PayoutUpdatePayoutFrequencyResponse,
-    type PayoutListPayoutRequestsParams as PayoutListPayoutRequestsParams,
-    type PayoutListTransactionsParams as PayoutListTransactionsParams,
+    type PayoutUpdateFrequencyResponse as PayoutUpdateFrequencyResponse,
+    type PayoutListRequestsParams as PayoutListRequestsParams,
     type PayoutRequestManualWithdrawalParams as PayoutRequestManualWithdrawalParams,
     type PayoutRetrieveEarningStatisticsParams as PayoutRetrieveEarningStatisticsParams,
-    type PayoutUpdatePayoutFrequencyParams as PayoutUpdatePayoutFrequencyParams,
+    type PayoutUpdateFrequencyParams as PayoutUpdateFrequencyParams,
   };
 }

@@ -1,14 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Onlyfansapi from 'onlyfansapi';
+import OnlyFansAPI from 'onlyfansapi';
 
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource statements', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getEarnings: only required params', async () => {
     const responsePromise = client.statistics.statements.getEarnings('acct_XXXXXXXXXXXXXXX', {
       start_date: '2025-01-01 00:00:00',
@@ -22,7 +22,7 @@ describe('resource statements', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getEarnings: required and optional params', async () => {
     const response = await client.statistics.statements.getEarnings('acct_XXXXXXXXXXXXXXX', {
       start_date: '2025-01-01 00:00:00',

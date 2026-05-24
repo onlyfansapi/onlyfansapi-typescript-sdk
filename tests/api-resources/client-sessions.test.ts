@@ -1,14 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Onlyfansapi from 'onlyfansapi';
+import OnlyFansAPI from 'onlyfansapi';
 
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource clientSessions', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.clientSessions.create({
       display_name: 'STRLCxGLVC Agency / Model: Stella',
@@ -22,12 +22,12 @@ describe('resource clientSessions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.clientSessions.create({
       display_name: 'STRLCxGLVC Agency / Model: Stella',
       client_reference_id: 'my_crm_model_12345',
-      proxy_country: 'fr',
+      proxy_country: 'uk',
     });
   });
 });

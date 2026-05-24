@@ -2,29 +2,29 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
-import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * APIs for managing OnlyFans followings (people you're subscribed to)
+ */
 export class Following extends APIResource {
   /**
    * Get a paginated list of followings for an Account. Newest followings are first.
    *
    * @example
    * ```ts
-   * await client.following.listActive('acct_XXXXXXXXXXXXXXX');
+   * const response = await client.following.listActive(
+   *   'acct_XXXXXXXXXXXXXXX',
+   * );
    * ```
    */
   listActive(
     account: string,
     query: FollowingListActiveParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<void> {
-    return this._client.get(path`/api/${account}/following/active`, {
-      query,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  ): APIPromise<FollowingListActiveResponse> {
+    return this._client.get(path`/api/${account}/following/active`, { query, ...options });
   }
 
   /**
@@ -32,19 +32,17 @@ export class Following extends APIResource {
    *
    * @example
    * ```ts
-   * await client.following.listAll('acct_XXXXXXXXXXXXXXX');
+   * const response = await client.following.listAll(
+   *   'acct_XXXXXXXXXXXXXXX',
+   * );
    * ```
    */
   listAll(
     account: string,
     query: FollowingListAllParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<void> {
-    return this._client.get(path`/api/${account}/following/all`, {
-      query,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  ): APIPromise<FollowingListAllResponse> {
+    return this._client.get(path`/api/${account}/following/all`, { query, ...options });
   }
 
   /**
@@ -53,19 +51,821 @@ export class Following extends APIResource {
    *
    * @example
    * ```ts
-   * await client.following.listExpired('acct_XXXXXXXXXXXXXXX');
+   * const response = await client.following.listExpired(
+   *   'acct_XXXXXXXXXXXXXXX',
+   * );
    * ```
    */
   listExpired(
     account: string,
     query: FollowingListExpiredParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<void> {
-    return this._client.get(path`/api/${account}/following/expired`, {
-      query,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  ): APIPromise<FollowingListExpiredResponse> {
+    return this._client.get(path`/api/${account}/following/expired`, { query, ...options });
+  }
+}
+
+export interface FollowingListActiveResponse {
+  _meta?: FollowingListActiveResponse._Meta;
+
+  _pagination?: FollowingListActiveResponse._Pagination;
+
+  data?: FollowingListActiveResponse.Data;
+}
+
+export namespace FollowingListActiveResponse {
+  export interface _Meta {
+    _cache?: _Meta._Cache;
+
+    _credits?: _Meta._Credits;
+
+    _rate_limits?: _Meta._RateLimits;
+  }
+
+  export namespace _Meta {
+    export interface _Cache {
+      is_cached?: boolean;
+
+      note?: string;
+    }
+
+    export interface _Credits {
+      balance?: number;
+
+      note?: string;
+
+      used?: number;
+    }
+
+    export interface _RateLimits {
+      limit_day?: number;
+
+      limit_minute?: number;
+
+      remaining_day?: number;
+
+      remaining_minute?: number;
+    }
+  }
+
+  export interface _Pagination {
+    next_page?: string;
+  }
+
+  export interface Data {
+    hasMore?: boolean;
+
+    list?: Array<Data.List>;
+  }
+
+  export namespace Data {
+    export interface List {
+      id?: number;
+
+      avatar?: string;
+
+      avatarThumbs?: List.AvatarThumbs;
+
+      canAddSubscriber?: boolean;
+
+      canCommentStory?: boolean;
+
+      canEarn?: boolean;
+
+      canLookStory?: boolean;
+
+      canPayInternal?: boolean;
+
+      canReceiveChatMessage?: boolean;
+
+      canReport?: boolean;
+
+      canRestrict?: boolean;
+
+      canTrialSend?: boolean;
+
+      canUnsubscribe?: boolean;
+
+      currentSubscribePrice?: number;
+
+      hasNotViewedStory?: boolean;
+
+      hasScheduledStream?: boolean;
+
+      hasStories?: boolean;
+
+      hasStream?: boolean;
+
+      header?: string;
+
+      headerSize?: List.HeaderSize;
+
+      headerThumbs?: List.HeaderThumbs;
+
+      hideChat?: boolean;
+
+      isBlocked?: boolean;
+
+      isPaywallRequired?: boolean;
+
+      isPendingAutoprolong?: boolean;
+
+      isPerformer?: boolean;
+
+      isRealPerformer?: boolean;
+
+      isRestricted?: boolean;
+
+      isVerified?: boolean;
+
+      lastSeen?: string | null;
+
+      listsStates?: Array<List.ListsState>;
+
+      name?: string;
+
+      subscribedBy?: boolean;
+
+      subscribedByAutoprolong?: boolean;
+
+      subscribedByData?: List.SubscribedByData;
+
+      subscribedByExpire?: boolean;
+
+      subscribedByExpireDate?: string;
+
+      subscribedIsExpiredNow?: boolean;
+
+      subscribedOn?: boolean;
+
+      subscribedOnData?: string | null;
+
+      subscribedOnDuration?: string | null;
+
+      subscribedOnExpiredNow?: string | null;
+
+      subscribePrice?: number;
+
+      tipsEnabled?: boolean;
+
+      tipsMax?: number;
+
+      tipsMin?: number;
+
+      tipsMinInternal?: number;
+
+      tipsTextEnabled?: boolean;
+
+      username?: string;
+
+      view?: string;
+    }
+
+    export namespace List {
+      export interface AvatarThumbs {
+        c144?: string;
+
+        c50?: string;
+      }
+
+      export interface HeaderSize {
+        height?: number;
+
+        width?: number;
+      }
+
+      export interface HeaderThumbs {
+        w480?: string;
+
+        w760?: string;
+      }
+
+      export interface ListsState {
+        id?: string;
+
+        canAddUser?: boolean;
+
+        cannotAddUserReason?: string;
+
+        hasUser?: boolean;
+
+        name?: string;
+
+        type?: string;
+      }
+
+      export interface SubscribedByData {
+        discountFinishedAt?: string | null;
+
+        discountPercent?: number;
+
+        discountPeriod?: number;
+
+        discountStartedAt?: string | null;
+
+        duration?: string;
+
+        expiredAt?: string;
+
+        hasActivePaidSubscriptions?: boolean;
+
+        isMuted?: boolean;
+
+        newPrice?: number;
+
+        price?: number;
+
+        regularPrice?: number;
+
+        renewedAt?: string;
+
+        showPostsInFeed?: boolean;
+
+        status?: string | null;
+
+        subscribeAt?: string;
+
+        subscribePrice?: number;
+
+        subscribes?: Array<SubscribedByData.Subscribe>;
+
+        unsubscribeReason?: string;
+      }
+
+      export namespace SubscribedByData {
+        export interface Subscribe {
+          id?: number;
+
+          action?: string;
+
+          cancelDate?: string | null;
+
+          date?: string;
+
+          discount?: number;
+
+          duration?: number;
+
+          earningId?: number;
+
+          expireDate?: string;
+
+          isCurrent?: boolean;
+
+          offerEnd?: string | null;
+
+          offerStart?: string | null;
+
+          price?: number;
+
+          regularPrice?: number;
+
+          startDate?: string;
+
+          subscriberId?: number;
+
+          type?: string;
+
+          userId?: number;
+        }
+      }
+    }
+  }
+}
+
+export interface FollowingListAllResponse {
+  _meta?: FollowingListAllResponse._Meta;
+
+  _pagination?: FollowingListAllResponse._Pagination;
+
+  data?: FollowingListAllResponse.Data;
+}
+
+export namespace FollowingListAllResponse {
+  export interface _Meta {
+    _cache?: _Meta._Cache;
+
+    _credits?: _Meta._Credits;
+
+    _rate_limits?: _Meta._RateLimits;
+  }
+
+  export namespace _Meta {
+    export interface _Cache {
+      is_cached?: boolean;
+
+      note?: string;
+    }
+
+    export interface _Credits {
+      balance?: number;
+
+      note?: string;
+
+      used?: number;
+    }
+
+    export interface _RateLimits {
+      limit_day?: number;
+
+      limit_minute?: number;
+
+      remaining_day?: number;
+
+      remaining_minute?: number;
+    }
+  }
+
+  export interface _Pagination {
+    next_page?: string;
+  }
+
+  export interface Data {
+    hasMore?: boolean;
+
+    list?: Array<Data.List>;
+  }
+
+  export namespace Data {
+    export interface List {
+      id?: number;
+
+      avatar?: string;
+
+      avatarThumbs?: List.AvatarThumbs;
+
+      canAddSubscriber?: boolean;
+
+      canCommentStory?: boolean;
+
+      canEarn?: boolean;
+
+      canLookStory?: boolean;
+
+      canPayInternal?: boolean;
+
+      canReceiveChatMessage?: boolean;
+
+      canReport?: boolean;
+
+      canRestrict?: boolean;
+
+      canTrialSend?: boolean;
+
+      canUnsubscribe?: boolean;
+
+      currentSubscribePrice?: number;
+
+      hasNotViewedStory?: boolean;
+
+      hasScheduledStream?: boolean;
+
+      hasStories?: boolean;
+
+      hasStream?: boolean;
+
+      header?: string;
+
+      headerSize?: List.HeaderSize;
+
+      headerThumbs?: List.HeaderThumbs;
+
+      hideChat?: boolean;
+
+      isBlocked?: boolean;
+
+      isPaywallRequired?: boolean;
+
+      isPendingAutoprolong?: boolean;
+
+      isPerformer?: boolean;
+
+      isRealPerformer?: boolean;
+
+      isRestricted?: boolean;
+
+      isVerified?: boolean;
+
+      lastSeen?: string | null;
+
+      listsStates?: Array<List.ListsState>;
+
+      name?: string;
+
+      subscribedBy?: boolean;
+
+      subscribedByAutoprolong?: boolean;
+
+      subscribedByData?: List.SubscribedByData;
+
+      subscribedByExpire?: boolean;
+
+      subscribedByExpireDate?: string;
+
+      subscribedIsExpiredNow?: boolean;
+
+      subscribedOn?: boolean;
+
+      subscribedOnData?: string | null;
+
+      subscribedOnDuration?: string | null;
+
+      subscribedOnExpiredNow?: string | null;
+
+      subscribePrice?: number;
+
+      tipsEnabled?: boolean;
+
+      tipsMax?: number;
+
+      tipsMin?: number;
+
+      tipsMinInternal?: number;
+
+      tipsTextEnabled?: boolean;
+
+      username?: string;
+
+      view?: string;
+    }
+
+    export namespace List {
+      export interface AvatarThumbs {
+        c144?: string;
+
+        c50?: string;
+      }
+
+      export interface HeaderSize {
+        height?: number;
+
+        width?: number;
+      }
+
+      export interface HeaderThumbs {
+        w480?: string;
+
+        w760?: string;
+      }
+
+      export interface ListsState {
+        id?: string;
+
+        canAddUser?: boolean;
+
+        cannotAddUserReason?: string;
+
+        hasUser?: boolean;
+
+        name?: string;
+
+        type?: string;
+      }
+
+      export interface SubscribedByData {
+        discountFinishedAt?: string | null;
+
+        discountPercent?: number;
+
+        discountPeriod?: number;
+
+        discountStartedAt?: string | null;
+
+        duration?: string;
+
+        expiredAt?: string;
+
+        hasActivePaidSubscriptions?: boolean;
+
+        isMuted?: boolean;
+
+        newPrice?: number;
+
+        price?: number;
+
+        regularPrice?: number;
+
+        renewedAt?: string;
+
+        showPostsInFeed?: boolean;
+
+        status?: string | null;
+
+        subscribeAt?: string;
+
+        subscribePrice?: number;
+
+        subscribes?: Array<SubscribedByData.Subscribe>;
+
+        unsubscribeReason?: string;
+      }
+
+      export namespace SubscribedByData {
+        export interface Subscribe {
+          id?: number;
+
+          action?: string;
+
+          cancelDate?: string | null;
+
+          date?: string;
+
+          discount?: number;
+
+          duration?: number;
+
+          earningId?: number;
+
+          expireDate?: string;
+
+          isCurrent?: boolean;
+
+          offerEnd?: string | null;
+
+          offerStart?: string | null;
+
+          price?: number;
+
+          regularPrice?: number;
+
+          startDate?: string;
+
+          subscriberId?: number;
+
+          type?: string;
+
+          userId?: number;
+        }
+      }
+    }
+  }
+}
+
+export interface FollowingListExpiredResponse {
+  _meta?: FollowingListExpiredResponse._Meta;
+
+  _pagination?: FollowingListExpiredResponse._Pagination;
+
+  data?: FollowingListExpiredResponse.Data;
+}
+
+export namespace FollowingListExpiredResponse {
+  export interface _Meta {
+    _cache?: _Meta._Cache;
+
+    _credits?: _Meta._Credits;
+
+    _rate_limits?: _Meta._RateLimits;
+  }
+
+  export namespace _Meta {
+    export interface _Cache {
+      is_cached?: boolean;
+
+      note?: string;
+    }
+
+    export interface _Credits {
+      balance?: number;
+
+      note?: string;
+
+      used?: number;
+    }
+
+    export interface _RateLimits {
+      limit_day?: number;
+
+      limit_minute?: number;
+
+      remaining_day?: number;
+
+      remaining_minute?: number;
+    }
+  }
+
+  export interface _Pagination {
+    next_page?: string;
+  }
+
+  export interface Data {
+    hasMore?: boolean;
+
+    list?: Array<Data.List>;
+  }
+
+  export namespace Data {
+    export interface List {
+      id?: number;
+
+      avatar?: string;
+
+      avatarThumbs?: List.AvatarThumbs;
+
+      canAddSubscriber?: boolean;
+
+      canCommentStory?: boolean;
+
+      canEarn?: boolean;
+
+      canLookStory?: boolean;
+
+      canPayInternal?: boolean;
+
+      canReceiveChatMessage?: boolean;
+
+      canReport?: boolean;
+
+      canRestrict?: boolean;
+
+      canTrialSend?: boolean;
+
+      canUnsubscribe?: boolean;
+
+      currentSubscribePrice?: number;
+
+      hasNotViewedStory?: boolean;
+
+      hasScheduledStream?: boolean;
+
+      hasStories?: boolean;
+
+      hasStream?: boolean;
+
+      header?: string;
+
+      headerSize?: List.HeaderSize;
+
+      headerThumbs?: List.HeaderThumbs;
+
+      hideChat?: boolean;
+
+      isBlocked?: boolean;
+
+      isPaywallRequired?: boolean;
+
+      isPendingAutoprolong?: boolean;
+
+      isPerformer?: boolean;
+
+      isRealPerformer?: boolean;
+
+      isRestricted?: boolean;
+
+      isVerified?: boolean;
+
+      lastSeen?: string | null;
+
+      listsStates?: Array<List.ListsState>;
+
+      name?: string;
+
+      subscribedBy?: boolean;
+
+      subscribedByAutoprolong?: boolean;
+
+      subscribedByData?: List.SubscribedByData;
+
+      subscribedByExpire?: boolean;
+
+      subscribedByExpireDate?: string;
+
+      subscribedIsExpiredNow?: boolean;
+
+      subscribedOn?: boolean;
+
+      subscribedOnData?: string | null;
+
+      subscribedOnDuration?: string | null;
+
+      subscribedOnExpiredNow?: string | null;
+
+      subscribePrice?: number;
+
+      tipsEnabled?: boolean;
+
+      tipsMax?: number;
+
+      tipsMin?: number;
+
+      tipsMinInternal?: number;
+
+      tipsTextEnabled?: boolean;
+
+      username?: string;
+
+      view?: string;
+    }
+
+    export namespace List {
+      export interface AvatarThumbs {
+        c144?: string;
+
+        c50?: string;
+      }
+
+      export interface HeaderSize {
+        height?: number;
+
+        width?: number;
+      }
+
+      export interface HeaderThumbs {
+        w480?: string;
+
+        w760?: string;
+      }
+
+      export interface ListsState {
+        id?: string;
+
+        canAddUser?: boolean;
+
+        cannotAddUserReason?: string;
+
+        hasUser?: boolean;
+
+        name?: string;
+
+        type?: string;
+      }
+
+      export interface SubscribedByData {
+        discountFinishedAt?: string | null;
+
+        discountPercent?: number;
+
+        discountPeriod?: number;
+
+        discountStartedAt?: string | null;
+
+        duration?: string;
+
+        expiredAt?: string;
+
+        hasActivePaidSubscriptions?: boolean;
+
+        isMuted?: boolean;
+
+        newPrice?: number;
+
+        price?: number;
+
+        regularPrice?: number;
+
+        renewedAt?: string;
+
+        showPostsInFeed?: boolean;
+
+        status?: string | null;
+
+        subscribeAt?: string;
+
+        subscribePrice?: number;
+
+        subscribes?: Array<SubscribedByData.Subscribe>;
+
+        unsubscribeReason?: string;
+      }
+
+      export namespace SubscribedByData {
+        export interface Subscribe {
+          id?: number;
+
+          action?: string;
+
+          cancelDate?: string | null;
+
+          date?: string;
+
+          discount?: number;
+
+          duration?: number;
+
+          earningId?: number;
+
+          expireDate?: string;
+
+          isCurrent?: boolean;
+
+          offerEnd?: string | null;
+
+          offerStart?: string | null;
+
+          price?: number;
+
+          regularPrice?: number;
+
+          startDate?: string;
+
+          subscriberId?: number;
+
+          type?: string;
+
+          userId?: number;
+        }
+      }
+    }
   }
 }
 
@@ -82,6 +882,11 @@ export interface FollowingListActiveParams {
    * Pagination offset. Must be at least 0.
    */
   offset?: number;
+
+  /**
+   * Search within following name/username.
+   */
+  query?: string | null;
 }
 
 export namespace FollowingListActiveParams {
@@ -89,12 +894,12 @@ export namespace FollowingListActiveParams {
     /**
      * Filter by online status (1 for online, 0 for offline, null for all).
      */
-    online?: null;
+    online?: 1 | 0 | null;
 
     /**
      * Filter by paid status (1 for paid, 0 for free, null for all).
      */
-    paid?: null;
+    paid?: 1 | 0 | null;
   }
 }
 
@@ -111,6 +916,11 @@ export interface FollowingListAllParams {
    * Pagination offset. Must be at least 0.
    */
   offset?: number;
+
+  /**
+   * Search within following name/username.
+   */
+  query?: string | null;
 }
 
 export namespace FollowingListAllParams {
@@ -118,12 +928,12 @@ export namespace FollowingListAllParams {
     /**
      * Filter by online status (1 for online, 0 for offline, null for all).
      */
-    online?: null;
+    online?: 1 | 0 | null;
 
     /**
      * Filter by paid status (1 for paid, 0 for free, null for all).
      */
-    paid?: null;
+    paid?: 1 | 0 | null;
   }
 }
 
@@ -140,6 +950,11 @@ export interface FollowingListExpiredParams {
    * Pagination offset. Must be at least 0.
    */
   offset?: number;
+
+  /**
+   * Search within following name/username.
+   */
+  query?: string | null;
 }
 
 export namespace FollowingListExpiredParams {
@@ -147,17 +962,20 @@ export namespace FollowingListExpiredParams {
     /**
      * Filter by online status (1 for online, 0 for offline, null for all).
      */
-    online?: null;
+    online?: 1 | 0 | null;
 
     /**
      * Filter by paid status (1 for paid, 0 for free, null for all).
      */
-    paid?: null;
+    paid?: 1 | 0 | null;
   }
 }
 
 export declare namespace Following {
   export {
+    type FollowingListActiveResponse as FollowingListActiveResponse,
+    type FollowingListAllResponse as FollowingListAllResponse,
+    type FollowingListExpiredResponse as FollowingListExpiredResponse,
     type FollowingListActiveParams as FollowingListActiveParams,
     type FollowingListAllParams as FollowingListAllParams,
     type FollowingListExpiredParams as FollowingListExpiredParams,

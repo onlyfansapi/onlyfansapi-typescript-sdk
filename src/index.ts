@@ -1,12 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Onlyfansapi as default } from './client';
+export { OnlyFansAPI as default } from './client';
 
 export { type Uploadable, toFile } from './core/uploads';
 export { APIPromise } from './core/api-promise';
-export { Onlyfansapi, type ClientOptions } from './client';
+export { OnlyFansAPI, type ClientOptions } from './client';
 export {
-  OnlyfansapiError,
+  OnlyFansAPIError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,

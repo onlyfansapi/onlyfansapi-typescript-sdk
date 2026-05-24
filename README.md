@@ -1,21 +1,18 @@
-# Onlyfansapi TypeScript API Library
+# Only Fans API TypeScript API Library
 
 [![NPM version](<https://img.shields.io/npm/v/onlyfansapi.svg?label=npm%20(stable)>)](https://npmjs.org/package/onlyfansapi) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/onlyfansapi)
 
-This library provides convenient access to the Onlyfansapi REST API from server-side TypeScript or JavaScript.
+This library provides convenient access to the Only Fans API REST API from server-side TypeScript or JavaScript.
 
-The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.onlyfansapi.com](https://docs.onlyfansapi.com). The full API of this library can be found in [api.md](api.md).
 
 It is generated with [Stainless](https://www.stainless.com/).
 
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:stainless-sdks/onlyfansapi-typescript.git
+npm install onlyfansapi
 ```
-
-> [!NOTE]
-> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npm install onlyfansapi`
 
 ## Usage
 
@@ -23,9 +20,9 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import Onlyfansapi from 'onlyfansapi';
+import OnlyFansAPI from 'onlyfansapi';
 
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   apiKey: process.env['ONLYFANSAPI_API_KEY'], // This is the default and can be omitted
 });
 
@@ -40,16 +37,49 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import Onlyfansapi from 'onlyfansapi';
+import OnlyFansAPI from 'onlyfansapi';
 
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   apiKey: process.env['ONLYFANSAPI_API_KEY'], // This is the default and can be omitted
 });
 
-const whoami: Onlyfansapi.WhoamiRetrieveResponse = await client.whoami.retrieve();
+const whoami: OnlyFansAPI.WhoamiRetrieveResponse = await client.whoami.retrieve();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
+
+## File uploads
+
+Request parameters that correspond to file uploads can be passed in many different forms:
+
+- `File` (or an object with the same structure)
+- a `fetch` `Response` (or an object with the same structure)
+- an `fs.ReadStream`
+- the return value of our `toFile` helper
+
+```ts
+import fs from 'fs';
+import OnlyFansAPI, { toFile } from 'onlyfansapi';
+
+const client = new OnlyFansAPI();
+
+// If you have access to Node `fs` we recommend using `fs.createReadStream()`:
+await client.media.upload('acct_XXXXXXXXXXXXXXX', { file: fs.createReadStream('/path/to/file') });
+
+// Or if you have the web `File` API you can pass a `File` instance:
+await client.media.upload('acct_XXXXXXXXXXXXXXX', { file: new File(['my bytes'], 'file') });
+
+// You can also pass a `fetch` `Response`:
+await client.media.upload('acct_XXXXXXXXXXXXXXX', { file: await fetch('https://somesite/file') });
+
+// Finally, if none of the above are convenient, you can use our `toFile` helper:
+await client.media.upload('acct_XXXXXXXXXXXXXXX', {
+  file: await toFile(Buffer.from('my bytes'), 'file'),
+});
+await client.media.upload('acct_XXXXXXXXXXXXXXX', {
+  file: await toFile(new Uint8Array([0, 1, 2]), 'file'),
+});
+```
 
 ## Handling errors
 
@@ -60,7 +90,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 const whoami = await client.whoami.retrieve().catch(async (err) => {
-  if (err instanceof Onlyfansapi.APIError) {
+  if (err instanceof OnlyFansAPI.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
     console.log(err.headers); // {server: 'nginx', ...}
@@ -94,7 +124,7 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   maxRetries: 0, // default is 2
 });
 
@@ -111,7 +141,7 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
@@ -137,7 +167,7 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 
 <!-- prettier-ignore -->
 ```ts
-const client = new Onlyfansapi();
+const client = new OnlyFansAPI();
 
 const response = await client.whoami.retrieve().asResponse();
 console.log(response.headers.get('X-My-Header'));
@@ -158,13 +188,13 @@ console.log(whoami.api_key);
 
 The log level can be configured in two ways:
 
-1. Via the `ONLYFANSAPI_LOG` environment variable
+1. Via the `ONLY_FANS_API_LOG` environment variable
 2. Using the `logLevel` client option (overrides the environment variable if set)
 
 ```ts
-import Onlyfansapi from 'onlyfansapi';
+import OnlyFansAPI from 'onlyfansapi';
 
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   logLevel: 'debug', // Show all log messages
 });
 ```
@@ -190,13 +220,13 @@ When providing a custom logger, the `logLevel` option still controls which messa
 below the configured level will not be sent to your logger.
 
 ```ts
-import Onlyfansapi from 'onlyfansapi';
+import OnlyFansAPI from 'onlyfansapi';
 import pino from 'pino';
 
 const logger = pino();
 
-const client = new Onlyfansapi({
-  logger: logger.child({ name: 'Onlyfansapi' }),
+const client = new OnlyFansAPI({
+  logger: logger.child({ name: 'OnlyFansAPI' }),
   logLevel: 'debug', // Send all messages to pino, allowing it to filter
 });
 ```
@@ -259,10 +289,10 @@ globalThis.fetch = fetch;
 Or pass it to the client:
 
 ```ts
-import Onlyfansapi from 'onlyfansapi';
+import OnlyFansAPI from 'onlyfansapi';
 import fetch from 'my-fetch';
 
-const client = new Onlyfansapi({ fetch });
+const client = new OnlyFansAPI({ fetch });
 ```
 
 ### Fetch options
@@ -270,9 +300,9 @@ const client = new Onlyfansapi({ fetch });
 If you want to set custom `fetch` options without overriding the `fetch` function, you can provide a `fetchOptions` object when instantiating the client or making a request. (Request-specific options override client options.)
 
 ```ts
-import Onlyfansapi from 'onlyfansapi';
+import OnlyFansAPI from 'onlyfansapi';
 
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   fetchOptions: {
     // `RequestInit` options
   },
@@ -287,11 +317,11 @@ options to requests:
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/node.svg" align="top" width="18" height="21"> **Node** <sup>[[docs](https://github.com/nodejs/undici/blob/main/docs/docs/api/ProxyAgent.md#example---proxyagent-with-fetch)]</sup>
 
 ```ts
-import Onlyfansapi from 'onlyfansapi';
+import OnlyFansAPI from 'onlyfansapi';
 import * as undici from 'undici';
 
 const proxyAgent = new undici.ProxyAgent('http://localhost:8888');
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   fetchOptions: {
     dispatcher: proxyAgent,
   },
@@ -301,9 +331,9 @@ const client = new Onlyfansapi({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/bun.svg" align="top" width="18" height="21"> **Bun** <sup>[[docs](https://bun.sh/guides/http/proxy)]</sup>
 
 ```ts
-import Onlyfansapi from 'onlyfansapi';
+import OnlyFansAPI from 'onlyfansapi';
 
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   fetchOptions: {
     proxy: 'http://localhost:8888',
   },
@@ -313,10 +343,10 @@ const client = new Onlyfansapi({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/deno.svg" align="top" width="18" height="21"> **Deno** <sup>[[docs](https://docs.deno.com/api/deno/~/Deno.createHttpClient)]</sup>
 
 ```ts
-import Onlyfansapi from 'npm:onlyfansapi';
+import OnlyFansAPI from 'npm:onlyfansapi';
 
 const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   fetchOptions: {
     client: httpClient,
   },
@@ -335,7 +365,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/onlyfansapi-typescript/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/onlyfansapi/onlyfansapi-typescript-sdk/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 

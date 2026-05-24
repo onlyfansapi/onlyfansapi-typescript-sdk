@@ -11,7 +11,7 @@ import type { APIResponseProps } from './internal/parse';
 import { getPlatformHeaders } from './internal/detect-platform';
 import * as Shims from './internal/shims';
 import * as Opts from './internal/request-options';
-import * as qs from './internal/qs';
+import { stringifyQuery } from './internal/utils/query';
 import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
@@ -26,40 +26,71 @@ import {
 import {
   Authenticate,
   AuthenticatePollStatusResponse,
+  AuthenticateReauthenticateResponse,
+  AuthenticateSend2faEmailResponse,
   AuthenticateStartParams,
   AuthenticateStartResponse,
   AuthenticateSubmit2faParams,
   AuthenticateSubmit2faResponse,
 } from './resources/authenticate';
 import {
+  BundleCreateParams,
+  BundleCreateResponse,
+  BundleDeleteParams,
+  BundleDeleteResponse,
+  BundleListResponse,
+  Bundles,
+} from './resources/bundles';
+import {
+  ChargebackCalculateRatioParams,
+  ChargebackCalculateRatioResponse,
+  ChargebackListParams,
+  ChargebackListResponse,
+  ChargebackListStatisticsParams,
+  ChargebackListStatisticsResponse,
+  Chargebacks,
+} from './resources/chargebacks';
+import {
   ClientSessionCreateParams,
   ClientSessionCreateResponse,
   ClientSessions,
 } from './resources/client-sessions';
 import {
-  FanListActiveParams,
-  FanListActiveResponse,
-  FanListAllParams,
-  FanListAllResponse,
-  FanListExpiredParams,
-  FanListExpiredResponse,
-  FanListLatestParams,
-  FanListLatestResponse,
-  Fans,
-} from './resources/fans';
+  DataExportCancelResponse,
+  DataExportCreateParams,
+  DataExportCreateResponse,
+  DataExportListParams,
+  DataExportListResponse,
+  DataExportRetrieveParams,
+  DataExportRetrieveResponse,
+  DataExportRetryResponse,
+  DataExportStartResponse,
+  DataExports,
+} from './resources/data-exports';
 import {
   Following,
   FollowingListActiveParams,
+  FollowingListActiveResponse,
   FollowingListAllParams,
+  FollowingListAllResponse,
   FollowingListExpiredParams,
+  FollowingListExpiredResponse,
 } from './resources/following';
+import {
+  Giphy,
+  GiphyListTrendingParams,
+  GiphyListTrendingResponse,
+  GiphySearchParams,
+  GiphySearchResponse,
+} from './resources/giphy';
+import { LinkTagListParams, LinkTagListResponse, LinkTags } from './resources/link-tags';
 import {
   MassMessaging,
   MassMessagingDeleteParams,
   MassMessagingDeleteResponse,
-  MassMessagingListQueueResponse,
-  MassMessagingListStatisticsParams,
-  MassMessagingListStatisticsResponse,
+  MassMessagingListResponse,
+  MassMessagingRetrieveOverviewParams,
+  MassMessagingRetrieveOverviewResponse,
   MassMessagingRetrieveParams,
   MassMessagingRetrieveResponse,
   MassMessagingSendParams,
@@ -67,23 +98,38 @@ import {
   MassMessagingUpdateParams,
   MassMessagingUpdateResponse,
 } from './resources/mass-messaging';
-import { Me, MeGetModelStartDateResponse, MeRetrieveResponse } from './resources/me';
 import {
-  PayoutListPayoutRequestsParams,
-  PayoutListPayoutRequestsResponse,
-  PayoutListTransactionsParams,
-  PayoutListTransactionsResponse,
+  Me,
+  MeGetModelStartDateResponse,
+  MeGetTopPercentageResponse,
+  MeRetrieveResponse,
+} from './resources/me';
+import { MessageAttachTagsParams, MessageAttachTagsResponse, Messages } from './resources/messages';
+import {
+  PayoutListRequestsParams,
+  PayoutListRequestsResponse,
   PayoutRequestManualWithdrawalParams,
   PayoutRequestManualWithdrawalResponse,
   PayoutRetrieveBalancesResponse,
   PayoutRetrieveEarningStatisticsParams,
   PayoutRetrieveEarningStatisticsResponse,
   PayoutRetrieveEligibilityResponse,
-  PayoutUpdatePayoutFrequencyParams,
-  PayoutUpdatePayoutFrequencyResponse,
+  PayoutUpdateFrequencyParams,
+  PayoutUpdateFrequencyResponse,
   Payouts,
 } from './resources/payouts';
-import { ProfileRetrieveResponse, Profiles } from './resources/profiles';
+import { ProfileRetrieveParams, ProfileRetrieveResponse, Profiles } from './resources/profiles';
+import {
+  PromotionCreateParams,
+  PromotionCreateResponse,
+  PromotionDeleteParams,
+  PromotionDeleteResponse,
+  PromotionListParams,
+  PromotionListResponse,
+  PromotionStopParams,
+  PromotionStopResponse,
+  Promotions,
+} from './resources/promotions';
 import {
   Queue,
   QueueCountParams,
@@ -93,69 +139,124 @@ import {
   QueuePublishParams,
   QueuePublishResponse,
 } from './resources/queue';
+import {
+  ReleaseFormCreateInvitationLinkParams,
+  ReleaseFormCreateInvitationLinkResponse,
+  ReleaseFormCreateReleaseFormParams,
+  ReleaseFormCreateReleaseFormResponse,
+  ReleaseFormListTaggableUsersParams,
+  ReleaseFormListTaggableUsersResponse,
+  ReleaseForms,
+} from './resources/release-forms';
 import { Search, SearchProfilesParams, SearchProfilesResponse } from './resources/search';
 import {
-  SettingCheckUsernameExistsParams,
-  SettingCheckUsernameExistsResponse,
-  SettingRetrieveResponse,
-  SettingUpdateProfileParams,
-  SettingUpdateProfileResponse,
-  Settings,
-} from './resources/settings';
+  SmartLinkPostbackCreateParams,
+  SmartLinkPostbackCreateResponse,
+  SmartLinkPostbackDeleteResponse,
+  SmartLinkPostbackListResponse,
+  SmartLinkPostbackRetrieveResponse,
+  SmartLinkPostbackUpdateParams,
+  SmartLinkPostbackUpdateResponse,
+  SmartLinkPostbacks,
+} from './resources/smart-link-postbacks';
+import {
+  SmartLinkCreateParams,
+  SmartLinkCreateResponse,
+  SmartLinkDeleteResponse,
+  SmartLinkListClicksParams,
+  SmartLinkListClicksResponse,
+  SmartLinkListConversionsParams,
+  SmartLinkListConversionsResponse,
+  SmartLinkListFansParams,
+  SmartLinkListFansResponse,
+  SmartLinkListParams,
+  SmartLinkListResponse,
+  SmartLinkListSpendersParams,
+  SmartLinkListSpendersResponse,
+  SmartLinkRetrieveCohortArpsParams,
+  SmartLinkRetrieveResponse,
+  SmartLinkRetrieveStatsParams,
+  SmartLinkRetrieveStatsResponse,
+  SmartLinks,
+} from './resources/smart-links';
+import {
+  Stored,
+  StoredListSharedTrackingLinksParams,
+  StoredListSharedTrackingLinksResponse,
+  StoredListSharedTrialLinksParams,
+  StoredListSharedTrialLinksResponse,
+  StoredListTrackingLinksParams,
+  StoredListTrackingLinksResponse,
+  StoredListTrialLinksParams,
+  StoredListTrialLinksResponse,
+} from './resources/stored';
 import {
   SubscriberRetrieveStatisticsParams,
   SubscriberRetrieveStatisticsResponse,
   Subscribers,
 } from './resources/subscribers';
-import {
-  TrackingLinkCreateParams,
-  TrackingLinkCreateResponse,
-  TrackingLinkDeleteParams,
-  TrackingLinkDeleteResponse,
-  TrackingLinkListParams,
-  TrackingLinkListResponse,
-  TrackingLinkListSpendersParams,
-  TrackingLinkListSpendersResponse,
-  TrackingLinkListSubscribersParams,
-  TrackingLinkListSubscribersResponse,
-  TrackingLinks,
-} from './resources/tracking-links';
 import { TransactionListParams, TransactionListResponse, Transactions } from './resources/transactions';
-import {
-  TrialLinkCreateParams,
-  TrialLinkCreateResponse,
-  TrialLinkDeleteParams,
-  TrialLinkDeleteResponse,
-  TrialLinkListParams,
-  TrialLinkListResponse,
-  TrialLinkListSpendersParams,
-  TrialLinkListSpendersResponse,
-  TrialLinkListSubscribersParams,
-  TrialLinkListSubscribersResponse,
-  TrialLinks,
-} from './resources/trial-links';
-import { UserRetrieveParams, UserRetrieveResponse, Users } from './resources/users';
 import {
   WebhookCreateParams,
   WebhookCreateResponse,
   WebhookDeleteResponse,
+  WebhookListEventsResponse,
+  WebhookListResponse,
+  WebhookRetrieveResponse,
+  WebhookUpdateParams,
+  WebhookUpdateResponse,
   Webhooks,
 } from './resources/webhooks';
 import { Whoami, WhoamiRetrieveResponse } from './resources/whoami';
+import { Analytics } from './resources/analytics/analytics';
 import {
   Banking,
   BankingListAvailablePayoutSystemsResponse,
   BankingListCountriesResponse,
 } from './resources/banking/banking';
 import {
+  ChatDeleteParams,
+  ChatDeleteResponse,
+  ChatHideParams,
+  ChatHideResponse,
+  ChatListMediaParams,
+  ChatListMediaResponse,
   ChatListParams,
   ChatListResponse,
-  ChatStartTypingIndicatorParams,
-  ChatStartTypingIndicatorResponse,
+  ChatMarkAsReadParams,
+  ChatMarkAsReadResponse,
+  ChatMarkAsUnreadParams,
+  ChatMarkAsUnreadResponse,
+  ChatMuteParams,
+  ChatMuteResponse,
+  ChatStartTypingParams,
+  ChatStartTypingResponse,
+  ChatUnmuteParams,
+  ChatUnmuteResponse,
   Chats,
 } from './resources/chats/chats';
+import { Engagement } from './resources/engagement/engagement';
+import {
+  FanGetSubscriptionHistoryParams,
+  FanGetSubscriptionHistoryResponse,
+  FanListActiveParams,
+  FanListActiveResponse,
+  FanListAllParams,
+  FanListAllResponse,
+  FanListExpiredParams,
+  FanListExpiredResponse,
+  FanListLatestParams,
+  FanListLatestResponse,
+  FanListTopParams,
+  FanListTopResponse,
+  FanSetCustomNameParams,
+  FanSetCustomNameResponse,
+  Fans,
+} from './resources/fans/fans';
 import {
   Media,
+  MediaDownloadParams,
+  MediaDownloadResponse,
   MediaScrapeParams,
   MediaScrapeResponse,
   MediaUploadParams,
@@ -193,6 +294,30 @@ import {
 } from './resources/posts/posts';
 import { SavedForLater } from './resources/saved-for-later/saved-for-later';
 import {
+  SettingCheckUsernameAvailabilityParams,
+  SettingCheckUsernameAvailabilityResponse,
+  SettingRetrieveResponse,
+  SettingUpdateProfileParams,
+  SettingUpdateProfileResponse,
+  SettingUpdateSubscriptionPriceParams,
+  SettingUpdateSubscriptionPriceResponse,
+  Settings,
+} from './resources/settings/settings';
+import {
+  SharedTrackingLinkListParams,
+  SharedTrackingLinkListResponse,
+  SharedTrackingLinkRevokeAccessParams,
+  SharedTrackingLinkRevokeAccessResponse,
+  SharedTrackingLinks,
+} from './resources/shared-tracking-links/shared-tracking-links';
+import {
+  SharedTrialLinkListParams,
+  SharedTrialLinkListResponse,
+  SharedTrialLinkRevokeAccessParams,
+  SharedTrialLinkRevokeAccessResponse,
+  SharedTrialLinks,
+} from './resources/shared-trial-links/shared-trial-links';
+import {
   StatisticCalculateTotalTransactionsParams,
   StatisticCalculateTotalTransactionsResponse,
   StatisticGetOverviewParams,
@@ -202,17 +327,79 @@ import {
   Statistics,
 } from './resources/statistics/statistics';
 import {
+  Stories,
+  StoryCreateParams,
+  StoryCreateResponse,
+  StoryDeleteParams,
+  StoryDeleteResponse,
+  StoryListActiveResponse,
+  StoryListArchiveParams,
+  StoryListArchiveResponse,
+  StoryListViewersParams,
+  StoryListViewersResponse,
+  StoryMarkAsWatchedParams,
+  StoryMarkAsWatchedResponse,
+  StoryRetrieveParams,
+  StoryRetrieveResponse,
+  StoryRetrieveStatsParams,
+  StoryRetrieveStatsResponse,
+} from './resources/stories/stories';
+import {
+  TrackingLinkCreateParams,
+  TrackingLinkCreateResponse,
+  TrackingLinkDeleteParams,
+  TrackingLinkDeleteResponse,
+  TrackingLinkGetCohortArpsParams,
+  TrackingLinkGetStatsParams,
+  TrackingLinkGetStatsResponse,
+  TrackingLinkListParams,
+  TrackingLinkListResponse,
+  TrackingLinkListSpendersParams,
+  TrackingLinkListSpendersResponse,
+  TrackingLinkListSubscribersParams,
+  TrackingLinkListSubscribersResponse,
+  TrackingLinkRetrieveParams,
+  TrackingLinkRetrieveResponse,
+  TrackingLinks,
+} from './resources/tracking-links/tracking-links';
+import {
+  TrialLinkCreateParams,
+  TrialLinkCreateResponse,
+  TrialLinkDeleteParams,
+  TrialLinkDeleteResponse,
+  TrialLinkListParams,
+  TrialLinkListResponse,
+  TrialLinkListSpendersParams,
+  TrialLinkListSpendersResponse,
+  TrialLinkListSubscribersParams,
+  TrialLinkListSubscribersResponse,
+  TrialLinkRetrieveCohortArpsParams,
+  TrialLinkRetrieveParams,
+  TrialLinkRetrieveResponse,
+  TrialLinkRetrieveStatsParams,
+  TrialLinkRetrieveStatsResponse,
+  TrialLinks,
+} from './resources/trial-links/trial-links';
+import {
   UserListCreateParams,
   UserListCreateResponse,
   UserListDeleteParams,
   UserListDeleteResponse,
   UserListListParams,
   UserListListResponse,
+  UserListRetrieveParams,
+  UserListRetrieveResponse,
   UserListUpdateParams,
   UserListUpdateResponse,
   UserLists,
 } from './resources/user-lists/user-lists';
-import { Workflows } from './resources/workflows/workflows';
+import {
+  UserListParams,
+  UserListResponse,
+  UserRetrieveParams,
+  UserRetrieveResponse,
+  Users,
+} from './resources/users/users';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -235,7 +422,7 @@ export interface ClientOptions {
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
-   * Defaults to process.env['ONLYFANSAPI_BASE_URL'].
+   * Defaults to process.env['ONLY_FANS_API_BASE_URL'].
    */
   baseURL?: string | null | undefined;
 
@@ -289,7 +476,7 @@ export interface ClientOptions {
   /**
    * Set the log level.
    *
-   * Defaults to process.env['ONLYFANSAPI_LOG'] or 'warn' if it isn't set.
+   * Defaults to process.env['ONLY_FANS_API_LOG'] or 'warn' if it isn't set.
    */
   logLevel?: LogLevel | undefined;
 
@@ -302,15 +489,15 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Onlyfansapi API.
+ * API Client for interfacing with the Only Fans API API.
  */
-export class Onlyfansapi {
+export class OnlyFansAPI {
   apiKey: string;
 
   baseURL: string;
   maxRetries: number;
   timeout: number;
-  logger: Logger | undefined;
+  logger: Logger;
   logLevel: LogLevel | undefined;
   fetchOptions: MergedRequestInit | undefined;
 
@@ -320,10 +507,10 @@ export class Onlyfansapi {
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the Onlyfansapi API.
+   * API Client for interfacing with the Only Fans API API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['ONLYFANSAPI_API_KEY'] ?? undefined]
-   * @param {string} [opts.baseURL=process.env['ONLYFANSAPI_BASE_URL'] ?? https://app.onlyfansapi.com] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['ONLY_FANS_API_BASE_URL'] ?? https://app.onlyfansapi.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -332,13 +519,13 @@ export class Onlyfansapi {
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
-    baseURL = readEnv('ONLYFANSAPI_BASE_URL'),
+    baseURL = readEnv('ONLY_FANS_API_BASE_URL'),
     apiKey = readEnv('ONLYFANSAPI_API_KEY'),
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
-      throw new Errors.OnlyfansapiError(
-        "The ONLYFANSAPI_API_KEY environment variable is missing or empty; either provide it, or instantiate the Onlyfansapi client with an apiKey option, like new Onlyfansapi({ apiKey: 'My API Key' }).",
+      throw new Errors.OnlyFansAPIError(
+        "The ONLYFANSAPI_API_KEY environment variable is missing or empty; either provide it, or instantiate the OnlyFansAPI client with an apiKey option, like new OnlyFansAPI({ apiKey: 'My API Key' }).",
       );
     }
 
@@ -349,19 +536,31 @@ export class Onlyfansapi {
     };
 
     this.baseURL = options.baseURL!;
-    this.timeout = options.timeout ?? Onlyfansapi.DEFAULT_TIMEOUT /* 1 minute */;
+    this.timeout = options.timeout ?? OnlyFansAPI.DEFAULT_TIMEOUT /* 1 minute */;
     this.logger = options.logger ?? console;
     const defaultLogLevel = 'warn';
     // Set default logLevel early so that we can log a warning in parseLogLevel.
     this.logLevel = defaultLogLevel;
     this.logLevel =
       parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ??
-      parseLogLevel(readEnv('ONLYFANSAPI_LOG'), "process.env['ONLYFANSAPI_LOG']", this) ??
+      parseLogLevel(readEnv('ONLY_FANS_API_LOG'), "process.env['ONLY_FANS_API_LOG']", this) ??
       defaultLogLevel;
     this.fetchOptions = options.fetchOptions;
     this.maxRetries = options.maxRetries ?? 2;
     this.fetch = options.fetch ?? Shims.getDefaultFetch();
     this.#encoder = Opts.FallbackEncoder;
+
+    const customHeadersEnv = readEnv('ONLY_FANS_API_CUSTOM_HEADERS');
+    if (customHeadersEnv) {
+      const parsed: Record<string, string> = {};
+      for (const line of customHeadersEnv.split('\n')) {
+        const colon = line.indexOf(':');
+        if (colon >= 0) {
+          parsed[line.substring(0, colon).trim()] = line.substring(colon + 1).trim();
+        }
+      }
+      options.defaultHeaders = { ...parsed, ...options.defaultHeaders };
+    }
 
     this._options = options;
 
@@ -406,8 +605,8 @@ export class Onlyfansapi {
     return buildHeaders([{ Authorization: `Bearer ${this.apiKey}` }]);
   }
 
-  protected stringifyQuery(query: Record<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'comma' });
+  protected stringifyQuery(query: object | Record<string, unknown>): string {
+    return stringifyQuery(query);
   }
 
   private getUserAgent(): string {
@@ -439,12 +638,13 @@ export class Onlyfansapi {
       : new URL(baseURL + (baseURL.endsWith('/') && path.startsWith('/') ? path.slice(1) : path));
 
     const defaultQuery = this.defaultQuery();
-    if (!isEmptyObj(defaultQuery)) {
-      query = { ...defaultQuery, ...query };
+    const pathQuery = Object.fromEntries(url.searchParams);
+    if (!isEmptyObj(defaultQuery) || !isEmptyObj(pathQuery)) {
+      query = { ...pathQuery, ...defaultQuery, ...query };
     }
 
     if (typeof query === 'object' && query && !Array.isArray(query)) {
-      url.search = this.stringifyQuery(query as Record<string, unknown>);
+      url.search = this.stringifyQuery(query);
     }
 
     return url.toString();
@@ -628,7 +828,7 @@ export class Onlyfansapi {
       loggerFor(this).info(`${responseInfo} - ${retryMessage}`);
 
       const errText = await response.text().catch((err: any) => castToError(err).message);
-      const errJSON = safeJSON(errText);
+      const errJSON = safeJSON(errText) as any;
       const errMessage = errJSON ? undefined : errText;
 
       loggerFor(this).debug(
@@ -669,9 +869,10 @@ export class Onlyfansapi {
     controller: AbortController,
   ): Promise<Response> {
     const { signal, method, ...options } = init || {};
-    if (signal) signal.addEventListener('abort', () => controller.abort());
+    const abort = this._makeAbort(controller);
+    if (signal) signal.addEventListener('abort', abort, { once: true });
 
-    const timeout = setTimeout(() => controller.abort(), ms);
+    const timeout = setTimeout(abort, ms);
 
     const isReadableBody =
       ((globalThis as any).ReadableStream && options.body instanceof (globalThis as any).ReadableStream) ||
@@ -748,9 +949,9 @@ export class Onlyfansapi {
       }
     }
 
-    // If the API asks us to wait a certain amount of time (and it's a reasonable amount),
-    // just do what it says, but otherwise calculate a default
-    if (!(timeoutMillis && 0 <= timeoutMillis && timeoutMillis < 60 * 1000)) {
+    // If the API asks us to wait a certain amount of time, just do what it
+    // says, but otherwise calculate a default
+    if (timeoutMillis === undefined) {
       const maxRetries = options.maxRetries ?? this.maxRetries;
       timeoutMillis = this.calculateDefaultRetryTimeoutMillis(retriesRemaining, maxRetries);
     }
@@ -838,6 +1039,12 @@ export class Onlyfansapi {
     return headers.values;
   }
 
+  private _makeAbort(controller: AbortController) {
+    // note: we can't just inline this method inside `fetchWithTimeout()` because then the closure
+    //       would capture all request options, and cause a memory leak.
+    return () => controller.abort();
+  }
+
   private buildBody({ options: { body, headers: rawHeaders } }: { options: FinalRequestOptions }): {
     bodyHeaders: HeadersLike;
     body: BodyInit | undefined;
@@ -870,15 +1077,23 @@ export class Onlyfansapi {
         (Symbol.iterator in body && 'next' in body && typeof body.next === 'function'))
     ) {
       return { bodyHeaders: undefined, body: Shims.ReadableStreamFrom(body as AsyncIterable<Uint8Array>) };
+    } else if (
+      typeof body === 'object' &&
+      headers.values.get('content-type') === 'application/x-www-form-urlencoded'
+    ) {
+      return {
+        bodyHeaders: { 'content-type': 'application/x-www-form-urlencoded' },
+        body: this.stringifyQuery(body),
+      };
     } else {
       return this.#encoder({ body, headers });
     }
   }
 
-  static Onlyfansapi = this;
+  static OnlyFansAPI = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
-  static OnlyfansapiError = Errors.OnlyfansapiError;
+  static OnlyFansAPIError = Errors.OnlyFansAPIError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -895,65 +1110,152 @@ export class Onlyfansapi {
   static toFile = Uploads.toFile;
 
   whoami: API.Whoami = new API.Whoami(this);
+  /**
+   * Endpoints for your linked accounts
+   */
   accounts: API.Accounts = new API.Accounts(this);
+  /**
+   * Endpoints for your linked accounts
+   */
   me: API.Me = new API.Me(this);
+  analytics: API.Analytics = new API.Analytics(this);
+  /**
+   * Operations related to user banking details, payout methods, legal and tax information, and account country settings.
+   */
   banking: API.Banking = new API.Banking(this);
+  chargebacks: API.Chargebacks = new API.Chargebacks(this);
   chats: API.Chats = new API.Chats(this);
+  messages: API.Messages = new API.Messages(this);
   clientSessions: API.ClientSessions = new API.ClientSessions(this);
-  userLists: API.UserLists = new API.UserLists(this);
   authenticate: API.Authenticate = new API.Authenticate(this);
-  workflows: API.Workflows = new API.Workflows(this);
+  /**
+   * APIs for managing data exports
+   */
+  dataExports: API.DataExports = new API.DataExports(this);
+  engagement: API.Engagement = new API.Engagement(this);
+  /**
+   * APIs for managing OnlyFans fans (subscribers)
+   */
   fans: API.Fans = new API.Fans(this);
+  /**
+   * APIs for managing OnlyFans followings (people you're subscribed to)
+   */
   following: API.Following = new API.Following(this);
+  /**
+   * APIs for managing Free Trial Links
+   */
   trialLinks: API.TrialLinks = new API.TrialLinks(this);
+  giphy: API.Giphy = new API.Giphy(this);
+  /**
+   * APIs for managing tags on free trial links and tracking links
+   */
+  linkTags: API.LinkTags = new API.LinkTags(this);
   massMessaging: API.MassMessaging = new API.MassMessaging(this);
   media: API.Media = new API.Media(this);
+  /**
+   * Endpoints for managingr account notifications
+   */
   notifications: API.Notifications = new API.Notifications(this);
   payouts: API.Payouts = new API.Payouts(this);
+  /**
+   * APIs for managing OnlyFans posts
+   */
   posts: API.Posts = new API.Posts(this);
+  promotions: API.Promotions = new API.Promotions(this);
   profiles: API.Profiles = new API.Profiles(this);
   search: API.Search = new API.Search(this);
   queue: API.Queue = new API.Queue(this);
+  /**
+   * APIs for managing OnlyFans release forms
+   */
+  releaseForms: API.ReleaseForms = new API.ReleaseForms(this);
   savedForLater: API.SavedForLater = new API.SavedForLater(this);
   settings: API.Settings = new API.Settings(this);
+  /**
+   * APIs for Free Trial Links that other OF creators have shared with this account. Revenue, cost, and spender data are not available for shared links.
+   */
+  sharedTrialLinks: API.SharedTrialLinks = new API.SharedTrialLinks(this);
+  /**
+   * APIs for Tracking Links (campaigns) that other OF creators have shared with this account. Revenue, cost, and spender data are not available for shared campaigns.
+   */
+  sharedTrackingLinks: API.SharedTrackingLinks = new API.SharedTrackingLinks(this);
+  /**
+   * APIs for managing Smart Link postback destinations
+   */
+  smartLinkPostbacks: API.SmartLinkPostbacks = new API.SmartLinkPostbacks(this);
+  /**
+   * APIs for managing Smart Links (Free Trial Links and Tracking Links with pooled inventory)
+   */
+  smartLinks: API.SmartLinks = new API.SmartLinks(this);
   statistics: API.Statistics = new API.Statistics(this);
   subscribers: API.Subscribers = new API.Subscribers(this);
+  stored: API.Stored = new API.Stored(this);
+  /**
+   * APIs for managing OnlyFans stories
+   */
+  stories: API.Stories = new API.Stories(this);
+  bundles: API.Bundles = new API.Bundles(this);
+  /**
+   * APIs for managing tracking links
+   */
   trackingLinks: API.TrackingLinks = new API.TrackingLinks(this);
+  /**
+   * APIs for managing OnlyFans transactions
+   */
   transactions: API.Transactions = new API.Transactions(this);
+  userLists: API.UserLists = new API.UserLists(this);
+  /**
+   * APIs for fetching OnlyFans users
+   */
   users: API.Users = new API.Users(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
 }
 
-Onlyfansapi.Whoami = Whoami;
-Onlyfansapi.Accounts = Accounts;
-Onlyfansapi.Me = Me;
-Onlyfansapi.Banking = Banking;
-Onlyfansapi.Chats = Chats;
-Onlyfansapi.ClientSessions = ClientSessions;
-Onlyfansapi.UserLists = UserLists;
-Onlyfansapi.Authenticate = Authenticate;
-Onlyfansapi.Workflows = Workflows;
-Onlyfansapi.Fans = Fans;
-Onlyfansapi.Following = Following;
-Onlyfansapi.TrialLinks = TrialLinks;
-Onlyfansapi.MassMessaging = MassMessaging;
-Onlyfansapi.Media = Media;
-Onlyfansapi.Notifications = Notifications;
-Onlyfansapi.Payouts = Payouts;
-Onlyfansapi.Posts = Posts;
-Onlyfansapi.Profiles = Profiles;
-Onlyfansapi.Search = Search;
-Onlyfansapi.Queue = Queue;
-Onlyfansapi.SavedForLater = SavedForLater;
-Onlyfansapi.Settings = Settings;
-Onlyfansapi.Statistics = Statistics;
-Onlyfansapi.Subscribers = Subscribers;
-Onlyfansapi.TrackingLinks = TrackingLinks;
-Onlyfansapi.Transactions = Transactions;
-Onlyfansapi.Users = Users;
-Onlyfansapi.Webhooks = Webhooks;
+OnlyFansAPI.Whoami = Whoami;
+OnlyFansAPI.Accounts = Accounts;
+OnlyFansAPI.Me = Me;
+OnlyFansAPI.Analytics = Analytics;
+OnlyFansAPI.Banking = Banking;
+OnlyFansAPI.Chargebacks = Chargebacks;
+OnlyFansAPI.Chats = Chats;
+OnlyFansAPI.Messages = Messages;
+OnlyFansAPI.ClientSessions = ClientSessions;
+OnlyFansAPI.Authenticate = Authenticate;
+OnlyFansAPI.DataExports = DataExports;
+OnlyFansAPI.Engagement = Engagement;
+OnlyFansAPI.Fans = Fans;
+OnlyFansAPI.Following = Following;
+OnlyFansAPI.TrialLinks = TrialLinks;
+OnlyFansAPI.Giphy = Giphy;
+OnlyFansAPI.LinkTags = LinkTags;
+OnlyFansAPI.MassMessaging = MassMessaging;
+OnlyFansAPI.Media = Media;
+OnlyFansAPI.Notifications = Notifications;
+OnlyFansAPI.Payouts = Payouts;
+OnlyFansAPI.Posts = Posts;
+OnlyFansAPI.Promotions = Promotions;
+OnlyFansAPI.Profiles = Profiles;
+OnlyFansAPI.Search = Search;
+OnlyFansAPI.Queue = Queue;
+OnlyFansAPI.ReleaseForms = ReleaseForms;
+OnlyFansAPI.SavedForLater = SavedForLater;
+OnlyFansAPI.Settings = Settings;
+OnlyFansAPI.SharedTrialLinks = SharedTrialLinks;
+OnlyFansAPI.SharedTrackingLinks = SharedTrackingLinks;
+OnlyFansAPI.SmartLinkPostbacks = SmartLinkPostbacks;
+OnlyFansAPI.SmartLinks = SmartLinks;
+OnlyFansAPI.Statistics = Statistics;
+OnlyFansAPI.Subscribers = Subscribers;
+OnlyFansAPI.Stored = Stored;
+OnlyFansAPI.Stories = Stories;
+OnlyFansAPI.Bundles = Bundles;
+OnlyFansAPI.TrackingLinks = TrackingLinks;
+OnlyFansAPI.Transactions = Transactions;
+OnlyFansAPI.UserLists = UserLists;
+OnlyFansAPI.Users = Users;
+OnlyFansAPI.Webhooks = Webhooks;
 
-export declare namespace Onlyfansapi {
+export declare namespace OnlyFansAPI {
   export type RequestOptions = Opts.RequestOptions;
 
   export { Whoami as Whoami, type WhoamiRetrieveResponse as WhoamiRetrieveResponse };
@@ -969,7 +1271,10 @@ export declare namespace Onlyfansapi {
     Me as Me,
     type MeRetrieveResponse as MeRetrieveResponse,
     type MeGetModelStartDateResponse as MeGetModelStartDateResponse,
+    type MeGetTopPercentageResponse as MeGetTopPercentageResponse,
   };
+
+  export { Analytics as Analytics };
 
   export {
     Banking as Banking,
@@ -978,11 +1283,41 @@ export declare namespace Onlyfansapi {
   };
 
   export {
+    Chargebacks as Chargebacks,
+    type ChargebackListResponse as ChargebackListResponse,
+    type ChargebackCalculateRatioResponse as ChargebackCalculateRatioResponse,
+    type ChargebackListStatisticsResponse as ChargebackListStatisticsResponse,
+    type ChargebackListParams as ChargebackListParams,
+    type ChargebackCalculateRatioParams as ChargebackCalculateRatioParams,
+    type ChargebackListStatisticsParams as ChargebackListStatisticsParams,
+  };
+
+  export {
     Chats as Chats,
     type ChatListResponse as ChatListResponse,
-    type ChatStartTypingIndicatorResponse as ChatStartTypingIndicatorResponse,
+    type ChatDeleteResponse as ChatDeleteResponse,
+    type ChatHideResponse as ChatHideResponse,
+    type ChatListMediaResponse as ChatListMediaResponse,
+    type ChatMarkAsReadResponse as ChatMarkAsReadResponse,
+    type ChatMarkAsUnreadResponse as ChatMarkAsUnreadResponse,
+    type ChatMuteResponse as ChatMuteResponse,
+    type ChatStartTypingResponse as ChatStartTypingResponse,
+    type ChatUnmuteResponse as ChatUnmuteResponse,
     type ChatListParams as ChatListParams,
-    type ChatStartTypingIndicatorParams as ChatStartTypingIndicatorParams,
+    type ChatDeleteParams as ChatDeleteParams,
+    type ChatHideParams as ChatHideParams,
+    type ChatListMediaParams as ChatListMediaParams,
+    type ChatMarkAsReadParams as ChatMarkAsReadParams,
+    type ChatMarkAsUnreadParams as ChatMarkAsUnreadParams,
+    type ChatMuteParams as ChatMuteParams,
+    type ChatStartTypingParams as ChatStartTypingParams,
+    type ChatUnmuteParams as ChatUnmuteParams,
+  };
+
+  export {
+    Messages as Messages,
+    type MessageAttachTagsResponse as MessageAttachTagsResponse,
+    type MessageAttachTagsParams as MessageAttachTagsParams,
   };
 
   export {
@@ -992,42 +1327,54 @@ export declare namespace Onlyfansapi {
   };
 
   export {
-    UserLists as UserLists,
-    type UserListCreateResponse as UserListCreateResponse,
-    type UserListUpdateResponse as UserListUpdateResponse,
-    type UserListListResponse as UserListListResponse,
-    type UserListDeleteResponse as UserListDeleteResponse,
-    type UserListCreateParams as UserListCreateParams,
-    type UserListUpdateParams as UserListUpdateParams,
-    type UserListListParams as UserListListParams,
-    type UserListDeleteParams as UserListDeleteParams,
-  };
-
-  export {
     Authenticate as Authenticate,
     type AuthenticatePollStatusResponse as AuthenticatePollStatusResponse,
+    type AuthenticateReauthenticateResponse as AuthenticateReauthenticateResponse,
+    type AuthenticateSend2faEmailResponse as AuthenticateSend2faEmailResponse,
     type AuthenticateStartResponse as AuthenticateStartResponse,
     type AuthenticateSubmit2faResponse as AuthenticateSubmit2faResponse,
     type AuthenticateStartParams as AuthenticateStartParams,
     type AuthenticateSubmit2faParams as AuthenticateSubmit2faParams,
   };
 
-  export { Workflows as Workflows };
+  export {
+    DataExports as DataExports,
+    type DataExportCreateResponse as DataExportCreateResponse,
+    type DataExportRetrieveResponse as DataExportRetrieveResponse,
+    type DataExportListResponse as DataExportListResponse,
+    type DataExportCancelResponse as DataExportCancelResponse,
+    type DataExportRetryResponse as DataExportRetryResponse,
+    type DataExportStartResponse as DataExportStartResponse,
+    type DataExportCreateParams as DataExportCreateParams,
+    type DataExportRetrieveParams as DataExportRetrieveParams,
+    type DataExportListParams as DataExportListParams,
+  };
+
+  export { Engagement as Engagement };
 
   export {
     Fans as Fans,
+    type FanGetSubscriptionHistoryResponse as FanGetSubscriptionHistoryResponse,
     type FanListActiveResponse as FanListActiveResponse,
     type FanListAllResponse as FanListAllResponse,
     type FanListExpiredResponse as FanListExpiredResponse,
     type FanListLatestResponse as FanListLatestResponse,
+    type FanListTopResponse as FanListTopResponse,
+    type FanSetCustomNameResponse as FanSetCustomNameResponse,
+    type FanGetSubscriptionHistoryParams as FanGetSubscriptionHistoryParams,
     type FanListActiveParams as FanListActiveParams,
     type FanListAllParams as FanListAllParams,
     type FanListExpiredParams as FanListExpiredParams,
     type FanListLatestParams as FanListLatestParams,
+    type FanListTopParams as FanListTopParams,
+    type FanSetCustomNameParams as FanSetCustomNameParams,
   };
 
   export {
     Following as Following,
+    type FollowingListActiveResponse as FollowingListActiveResponse,
+    type FollowingListAllResponse as FollowingListAllResponse,
+    type FollowingListExpiredResponse as FollowingListExpiredResponse,
     type FollowingListActiveParams as FollowingListActiveParams,
     type FollowingListAllParams as FollowingListAllParams,
     type FollowingListExpiredParams as FollowingListExpiredParams,
@@ -1036,36 +1383,57 @@ export declare namespace Onlyfansapi {
   export {
     TrialLinks as TrialLinks,
     type TrialLinkCreateResponse as TrialLinkCreateResponse,
+    type TrialLinkRetrieveResponse as TrialLinkRetrieveResponse,
     type TrialLinkListResponse as TrialLinkListResponse,
     type TrialLinkDeleteResponse as TrialLinkDeleteResponse,
     type TrialLinkListSpendersResponse as TrialLinkListSpendersResponse,
     type TrialLinkListSubscribersResponse as TrialLinkListSubscribersResponse,
+    type TrialLinkRetrieveStatsResponse as TrialLinkRetrieveStatsResponse,
     type TrialLinkCreateParams as TrialLinkCreateParams,
+    type TrialLinkRetrieveParams as TrialLinkRetrieveParams,
     type TrialLinkListParams as TrialLinkListParams,
     type TrialLinkDeleteParams as TrialLinkDeleteParams,
     type TrialLinkListSpendersParams as TrialLinkListSpendersParams,
     type TrialLinkListSubscribersParams as TrialLinkListSubscribersParams,
+    type TrialLinkRetrieveCohortArpsParams as TrialLinkRetrieveCohortArpsParams,
+    type TrialLinkRetrieveStatsParams as TrialLinkRetrieveStatsParams,
+  };
+
+  export {
+    Giphy as Giphy,
+    type GiphyListTrendingResponse as GiphyListTrendingResponse,
+    type GiphySearchResponse as GiphySearchResponse,
+    type GiphyListTrendingParams as GiphyListTrendingParams,
+    type GiphySearchParams as GiphySearchParams,
+  };
+
+  export {
+    LinkTags as LinkTags,
+    type LinkTagListResponse as LinkTagListResponse,
+    type LinkTagListParams as LinkTagListParams,
   };
 
   export {
     MassMessaging as MassMessaging,
     type MassMessagingRetrieveResponse as MassMessagingRetrieveResponse,
     type MassMessagingUpdateResponse as MassMessagingUpdateResponse,
+    type MassMessagingListResponse as MassMessagingListResponse,
     type MassMessagingDeleteResponse as MassMessagingDeleteResponse,
-    type MassMessagingListQueueResponse as MassMessagingListQueueResponse,
-    type MassMessagingListStatisticsResponse as MassMessagingListStatisticsResponse,
+    type MassMessagingRetrieveOverviewResponse as MassMessagingRetrieveOverviewResponse,
     type MassMessagingSendResponse as MassMessagingSendResponse,
     type MassMessagingRetrieveParams as MassMessagingRetrieveParams,
     type MassMessagingUpdateParams as MassMessagingUpdateParams,
     type MassMessagingDeleteParams as MassMessagingDeleteParams,
-    type MassMessagingListStatisticsParams as MassMessagingListStatisticsParams,
+    type MassMessagingRetrieveOverviewParams as MassMessagingRetrieveOverviewParams,
     type MassMessagingSendParams as MassMessagingSendParams,
   };
 
   export {
     Media as Media,
+    type MediaDownloadResponse as MediaDownloadResponse,
     type MediaScrapeResponse as MediaScrapeResponse,
     type MediaUploadResponse as MediaUploadResponse,
+    type MediaDownloadParams as MediaDownloadParams,
     type MediaScrapeParams as MediaScrapeParams,
     type MediaUploadParams as MediaUploadParams,
   };
@@ -1082,18 +1450,16 @@ export declare namespace Onlyfansapi {
 
   export {
     Payouts as Payouts,
-    type PayoutListPayoutRequestsResponse as PayoutListPayoutRequestsResponse,
-    type PayoutListTransactionsResponse as PayoutListTransactionsResponse,
+    type PayoutListRequestsResponse as PayoutListRequestsResponse,
     type PayoutRequestManualWithdrawalResponse as PayoutRequestManualWithdrawalResponse,
     type PayoutRetrieveBalancesResponse as PayoutRetrieveBalancesResponse,
     type PayoutRetrieveEarningStatisticsResponse as PayoutRetrieveEarningStatisticsResponse,
     type PayoutRetrieveEligibilityResponse as PayoutRetrieveEligibilityResponse,
-    type PayoutUpdatePayoutFrequencyResponse as PayoutUpdatePayoutFrequencyResponse,
-    type PayoutListPayoutRequestsParams as PayoutListPayoutRequestsParams,
-    type PayoutListTransactionsParams as PayoutListTransactionsParams,
+    type PayoutUpdateFrequencyResponse as PayoutUpdateFrequencyResponse,
+    type PayoutListRequestsParams as PayoutListRequestsParams,
     type PayoutRequestManualWithdrawalParams as PayoutRequestManualWithdrawalParams,
     type PayoutRetrieveEarningStatisticsParams as PayoutRetrieveEarningStatisticsParams,
-    type PayoutUpdatePayoutFrequencyParams as PayoutUpdatePayoutFrequencyParams,
+    type PayoutUpdateFrequencyParams as PayoutUpdateFrequencyParams,
   };
 
   export {
@@ -1118,7 +1484,23 @@ export declare namespace Onlyfansapi {
     type PostUnarchiveParams as PostUnarchiveParams,
   };
 
-  export { Profiles as Profiles, type ProfileRetrieveResponse as ProfileRetrieveResponse };
+  export {
+    Promotions as Promotions,
+    type PromotionCreateResponse as PromotionCreateResponse,
+    type PromotionListResponse as PromotionListResponse,
+    type PromotionDeleteResponse as PromotionDeleteResponse,
+    type PromotionStopResponse as PromotionStopResponse,
+    type PromotionCreateParams as PromotionCreateParams,
+    type PromotionListParams as PromotionListParams,
+    type PromotionDeleteParams as PromotionDeleteParams,
+    type PromotionStopParams as PromotionStopParams,
+  };
+
+  export {
+    Profiles as Profiles,
+    type ProfileRetrieveResponse as ProfileRetrieveResponse,
+    type ProfileRetrieveParams as ProfileRetrieveParams,
+  };
 
   export {
     Search as Search,
@@ -1136,15 +1518,75 @@ export declare namespace Onlyfansapi {
     type QueuePublishParams as QueuePublishParams,
   };
 
+  export {
+    ReleaseForms as ReleaseForms,
+    type ReleaseFormCreateInvitationLinkResponse as ReleaseFormCreateInvitationLinkResponse,
+    type ReleaseFormCreateReleaseFormResponse as ReleaseFormCreateReleaseFormResponse,
+    type ReleaseFormListTaggableUsersResponse as ReleaseFormListTaggableUsersResponse,
+    type ReleaseFormCreateInvitationLinkParams as ReleaseFormCreateInvitationLinkParams,
+    type ReleaseFormCreateReleaseFormParams as ReleaseFormCreateReleaseFormParams,
+    type ReleaseFormListTaggableUsersParams as ReleaseFormListTaggableUsersParams,
+  };
+
   export { SavedForLater as SavedForLater };
 
   export {
     Settings as Settings,
     type SettingRetrieveResponse as SettingRetrieveResponse,
-    type SettingCheckUsernameExistsResponse as SettingCheckUsernameExistsResponse,
+    type SettingCheckUsernameAvailabilityResponse as SettingCheckUsernameAvailabilityResponse,
     type SettingUpdateProfileResponse as SettingUpdateProfileResponse,
-    type SettingCheckUsernameExistsParams as SettingCheckUsernameExistsParams,
+    type SettingUpdateSubscriptionPriceResponse as SettingUpdateSubscriptionPriceResponse,
+    type SettingCheckUsernameAvailabilityParams as SettingCheckUsernameAvailabilityParams,
     type SettingUpdateProfileParams as SettingUpdateProfileParams,
+    type SettingUpdateSubscriptionPriceParams as SettingUpdateSubscriptionPriceParams,
+  };
+
+  export {
+    SharedTrialLinks as SharedTrialLinks,
+    type SharedTrialLinkListResponse as SharedTrialLinkListResponse,
+    type SharedTrialLinkRevokeAccessResponse as SharedTrialLinkRevokeAccessResponse,
+    type SharedTrialLinkListParams as SharedTrialLinkListParams,
+    type SharedTrialLinkRevokeAccessParams as SharedTrialLinkRevokeAccessParams,
+  };
+
+  export {
+    SharedTrackingLinks as SharedTrackingLinks,
+    type SharedTrackingLinkListResponse as SharedTrackingLinkListResponse,
+    type SharedTrackingLinkRevokeAccessResponse as SharedTrackingLinkRevokeAccessResponse,
+    type SharedTrackingLinkListParams as SharedTrackingLinkListParams,
+    type SharedTrackingLinkRevokeAccessParams as SharedTrackingLinkRevokeAccessParams,
+  };
+
+  export {
+    SmartLinkPostbacks as SmartLinkPostbacks,
+    type SmartLinkPostbackCreateResponse as SmartLinkPostbackCreateResponse,
+    type SmartLinkPostbackRetrieveResponse as SmartLinkPostbackRetrieveResponse,
+    type SmartLinkPostbackUpdateResponse as SmartLinkPostbackUpdateResponse,
+    type SmartLinkPostbackListResponse as SmartLinkPostbackListResponse,
+    type SmartLinkPostbackDeleteResponse as SmartLinkPostbackDeleteResponse,
+    type SmartLinkPostbackCreateParams as SmartLinkPostbackCreateParams,
+    type SmartLinkPostbackUpdateParams as SmartLinkPostbackUpdateParams,
+  };
+
+  export {
+    SmartLinks as SmartLinks,
+    type SmartLinkCreateResponse as SmartLinkCreateResponse,
+    type SmartLinkRetrieveResponse as SmartLinkRetrieveResponse,
+    type SmartLinkListResponse as SmartLinkListResponse,
+    type SmartLinkDeleteResponse as SmartLinkDeleteResponse,
+    type SmartLinkListClicksResponse as SmartLinkListClicksResponse,
+    type SmartLinkListConversionsResponse as SmartLinkListConversionsResponse,
+    type SmartLinkListFansResponse as SmartLinkListFansResponse,
+    type SmartLinkListSpendersResponse as SmartLinkListSpendersResponse,
+    type SmartLinkRetrieveStatsResponse as SmartLinkRetrieveStatsResponse,
+    type SmartLinkCreateParams as SmartLinkCreateParams,
+    type SmartLinkListParams as SmartLinkListParams,
+    type SmartLinkListClicksParams as SmartLinkListClicksParams,
+    type SmartLinkListConversionsParams as SmartLinkListConversionsParams,
+    type SmartLinkListFansParams as SmartLinkListFansParams,
+    type SmartLinkListSpendersParams as SmartLinkListSpendersParams,
+    type SmartLinkRetrieveCohortArpsParams as SmartLinkRetrieveCohortArpsParams,
+    type SmartLinkRetrieveStatsParams as SmartLinkRetrieveStatsParams,
   };
 
   export {
@@ -1164,15 +1606,60 @@ export declare namespace Onlyfansapi {
   };
 
   export {
+    Stored as Stored,
+    type StoredListSharedTrackingLinksResponse as StoredListSharedTrackingLinksResponse,
+    type StoredListSharedTrialLinksResponse as StoredListSharedTrialLinksResponse,
+    type StoredListTrackingLinksResponse as StoredListTrackingLinksResponse,
+    type StoredListTrialLinksResponse as StoredListTrialLinksResponse,
+    type StoredListSharedTrackingLinksParams as StoredListSharedTrackingLinksParams,
+    type StoredListSharedTrialLinksParams as StoredListSharedTrialLinksParams,
+    type StoredListTrackingLinksParams as StoredListTrackingLinksParams,
+    type StoredListTrialLinksParams as StoredListTrialLinksParams,
+  };
+
+  export {
+    Stories as Stories,
+    type StoryCreateResponse as StoryCreateResponse,
+    type StoryRetrieveResponse as StoryRetrieveResponse,
+    type StoryDeleteResponse as StoryDeleteResponse,
+    type StoryListActiveResponse as StoryListActiveResponse,
+    type StoryListArchiveResponse as StoryListArchiveResponse,
+    type StoryListViewersResponse as StoryListViewersResponse,
+    type StoryMarkAsWatchedResponse as StoryMarkAsWatchedResponse,
+    type StoryRetrieveStatsResponse as StoryRetrieveStatsResponse,
+    type StoryCreateParams as StoryCreateParams,
+    type StoryRetrieveParams as StoryRetrieveParams,
+    type StoryDeleteParams as StoryDeleteParams,
+    type StoryListArchiveParams as StoryListArchiveParams,
+    type StoryListViewersParams as StoryListViewersParams,
+    type StoryMarkAsWatchedParams as StoryMarkAsWatchedParams,
+    type StoryRetrieveStatsParams as StoryRetrieveStatsParams,
+  };
+
+  export {
+    Bundles as Bundles,
+    type BundleCreateResponse as BundleCreateResponse,
+    type BundleListResponse as BundleListResponse,
+    type BundleDeleteResponse as BundleDeleteResponse,
+    type BundleCreateParams as BundleCreateParams,
+    type BundleDeleteParams as BundleDeleteParams,
+  };
+
+  export {
     TrackingLinks as TrackingLinks,
     type TrackingLinkCreateResponse as TrackingLinkCreateResponse,
+    type TrackingLinkRetrieveResponse as TrackingLinkRetrieveResponse,
     type TrackingLinkListResponse as TrackingLinkListResponse,
     type TrackingLinkDeleteResponse as TrackingLinkDeleteResponse,
+    type TrackingLinkGetStatsResponse as TrackingLinkGetStatsResponse,
     type TrackingLinkListSpendersResponse as TrackingLinkListSpendersResponse,
     type TrackingLinkListSubscribersResponse as TrackingLinkListSubscribersResponse,
     type TrackingLinkCreateParams as TrackingLinkCreateParams,
+    type TrackingLinkRetrieveParams as TrackingLinkRetrieveParams,
     type TrackingLinkListParams as TrackingLinkListParams,
     type TrackingLinkDeleteParams as TrackingLinkDeleteParams,
+    type TrackingLinkGetCohortArpsParams as TrackingLinkGetCohortArpsParams,
+    type TrackingLinkGetStatsParams as TrackingLinkGetStatsParams,
     type TrackingLinkListSpendersParams as TrackingLinkListSpendersParams,
     type TrackingLinkListSubscribersParams as TrackingLinkListSubscribersParams,
   };
@@ -1184,15 +1671,36 @@ export declare namespace Onlyfansapi {
   };
 
   export {
+    UserLists as UserLists,
+    type UserListCreateResponse as UserListCreateResponse,
+    type UserListRetrieveResponse as UserListRetrieveResponse,
+    type UserListUpdateResponse as UserListUpdateResponse,
+    type UserListListResponse as UserListListResponse,
+    type UserListDeleteResponse as UserListDeleteResponse,
+    type UserListCreateParams as UserListCreateParams,
+    type UserListRetrieveParams as UserListRetrieveParams,
+    type UserListUpdateParams as UserListUpdateParams,
+    type UserListListParams as UserListListParams,
+    type UserListDeleteParams as UserListDeleteParams,
+  };
+
+  export {
     Users as Users,
     type UserRetrieveResponse as UserRetrieveResponse,
+    type UserListResponse as UserListResponse,
     type UserRetrieveParams as UserRetrieveParams,
+    type UserListParams as UserListParams,
   };
 
   export {
     Webhooks as Webhooks,
     type WebhookCreateResponse as WebhookCreateResponse,
+    type WebhookRetrieveResponse as WebhookRetrieveResponse,
+    type WebhookUpdateResponse as WebhookUpdateResponse,
+    type WebhookListResponse as WebhookListResponse,
     type WebhookDeleteResponse as WebhookDeleteResponse,
+    type WebhookListEventsResponse as WebhookListEventsResponse,
     type WebhookCreateParams as WebhookCreateParams,
+    type WebhookUpdateParams as WebhookUpdateParams,
   };
 }

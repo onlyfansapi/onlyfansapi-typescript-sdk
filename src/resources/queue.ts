@@ -140,7 +140,7 @@ export namespace QueueListResponse {
 
         createdAt?: string;
 
-        giphyId?: string;
+        giphyId?: string | null;
 
         isFree?: boolean;
 

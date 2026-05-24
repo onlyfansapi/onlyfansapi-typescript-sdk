@@ -1,14 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Onlyfansapi from 'onlyfansapi';
+import OnlyFansAPI from 'onlyfansapi';
 
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource authenticate', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('pollStatus', async () => {
     const responsePromise = client.authenticate.pollStatus('auth_XXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource authenticate', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('reauthenticate', async () => {
     const responsePromise = client.authenticate.reauthenticate('acct_XXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -32,13 +32,9 @@ describe('resource authenticate', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('start: only required params', async () => {
-    const responsePromise = client.authenticate.start({
-      email: 'jalyn75@example.net',
-      password: 'vXIA}fx5Ek:',
-      proxyCountry: 'pl',
-    });
+  // Mock server tests are disabled
+  test.skip('send2faEmail', async () => {
+    const responsePromise = client.authenticate.send2faEmail('auth_XXXXXXX');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -48,18 +44,9 @@ describe('resource authenticate', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('start: required and optional params', async () => {
-    const response = await client.authenticate.start({
-      email: 'jalyn75@example.net',
-      password: 'vXIA}fx5Ek:',
-      proxyCountry: 'pl',
-    });
-  });
-
-  // Prism tests are disabled
-  test.skip('submit2fa: only required params', async () => {
-    const responsePromise = client.authenticate.submit2fa('auth_XXXXXXX', { code: '12345' });
+  // Mock server tests are disabled
+  test.skip('start', async () => {
+    const responsePromise = client.authenticate.start();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -69,8 +56,55 @@ describe('resource authenticate', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
-  test.skip('submit2fa: required and optional params', async () => {
-    const response = await client.authenticate.submit2fa('auth_XXXXXXX', { code: '12345' });
+  // Mock server tests are disabled
+  test.skip('start: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.authenticate.start(
+        {
+          auth_id: 'voluptatem',
+          auth_type: 'raw_data',
+          cookies: 'quidem',
+          customProxy: {
+            host: 'proxy.example.com',
+            password: 'B+:@hb)|H6^]Pd`]yD',
+            port: 8080,
+            username: 'corrupti',
+          },
+          email: 'fwisoky@example.com',
+          force_connect: false,
+          name: 'nemo',
+          password: 'Zx4;:QNTd6LrT>9hv)',
+          proxyCountry: 'us',
+          user_agent: 'ut',
+          xbc: 'similique',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(OnlyFansAPI.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('submit2fa', async () => {
+    const responsePromise = client.authenticate.submit2fa('auth_XXXXXXX');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('submit2fa: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.authenticate.submit2fa(
+        'auth_XXXXXXX',
+        { code: '12345', selfie_verification_completed: 'true' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(OnlyFansAPI.NotFoundError);
   });
 });

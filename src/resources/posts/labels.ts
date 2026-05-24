@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * APIs for managing your post labels
+ */
 export class Labels extends APIResource {
   /**
    * Create a new post label.
