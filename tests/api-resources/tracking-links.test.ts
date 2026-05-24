@@ -22,7 +22,10 @@ describe('resource trackingLinks', () => {
 
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.trackingLinks.create('acct_XXXXXXXXXXXXXXX', { name: 'Twitter bio' });
+    const response = await client.trackingLinks.create('acct_XXXXXXXXXXXXXXX', {
+      name: 'Twitter bio',
+      tags: ['string'],
+    });
   });
 
   // Mock server tests are disabled
@@ -60,9 +63,7 @@ describe('resource trackingLinks', () => {
 
   // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
-    const responsePromise = client.trackingLinks.delete('tracking_link_id', {
-      account: 'acct_XXXXXXXXXXXXXXX',
-    });
+    const responsePromise = client.trackingLinks.delete('incidunt', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -74,9 +75,7 @@ describe('resource trackingLinks', () => {
 
   // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
-    const response = await client.trackingLinks.delete('tracking_link_id', {
-      account: 'acct_XXXXXXXXXXXXXXX',
-    });
+    const response = await client.trackingLinks.delete('incidunt', { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 
   // Mock server tests are disabled

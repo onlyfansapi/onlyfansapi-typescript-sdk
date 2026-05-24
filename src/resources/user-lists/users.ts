@@ -12,7 +12,7 @@ export class Users extends APIResource {
    * @example
    * ```ts
    * const response = await client.userLists.users.add(
-   *   1224114714,
+   *   'userListId',
    *   {
    *     account: 'acct_XXXXXXXXXXXXXXX',
    *     ids: ['string', 'string', 'string'],
@@ -20,7 +20,7 @@ export class Users extends APIResource {
    * );
    * ```
    */
-  add(userListID: number, params: UserAddParams, options?: RequestOptions): APIPromise<UserAddResponse> {
+  add(userListID: string, params: UserAddParams, options?: RequestOptions): APIPromise<UserAddResponse> {
     const { account, ...body } = params;
     return this._client.post(path`/api/${account}/user-lists/${userListID}/users`, { body, ...options });
   }
@@ -32,7 +32,7 @@ export class Users extends APIResource {
    * ```ts
    * const user = await client.userLists.users.remove(123456, {
    *   account: 'acct_XXXXXXXXXXXXXXX',
-   *   userListId: 1224114714,
+   *   userListId: 'userListId',
    * });
    * ```
    */
@@ -203,7 +203,7 @@ export namespace UserRemoveResponse {
 
       canAddUser?: boolean;
 
-      cannotAddUserReason?: string;
+      cannotAddUserReason?: string | null;
 
       hasUser?: boolean;
 
@@ -235,7 +235,7 @@ export interface UserRemoveParams {
   /**
    * OnlyFans User List ID
    */
-  userListId: number;
+  userListId: string;
 }
 
 export declare namespace Users {

@@ -131,23 +131,20 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/authenticate.ts">AuthenticatePollStatusResponse</a></code>
+- <code><a href="./src/resources/authenticate.ts">AuthenticateReauthenticateResponse</a></code>
 - <code><a href="./src/resources/authenticate.ts">AuthenticateStartResponse</a></code>
 - <code><a href="./src/resources/authenticate.ts">AuthenticateSubmit2faResponse</a></code>
 
 Methods:
 
 - <code title="get /api/authenticate/{attempt_id}">client.authenticate.<a href="./src/resources/authenticate.ts">pollStatus</a>(attemptID) -> AuthenticatePollStatusResponse</code>
-- <code title="post /api/authenticate/{account_id}/reauthenticate">client.authenticate.<a href="./src/resources/authenticate.ts">reauthenticate</a>(accountID) -> void</code>
+- <code title="post /api/authenticate/{account_id}/reauthenticate">client.authenticate.<a href="./src/resources/authenticate.ts">reauthenticate</a>(accountID) -> AuthenticateReauthenticateResponse</code>
 - <code title="post /api/authenticate">client.authenticate.<a href="./src/resources/authenticate.ts">start</a>({ ...params }) -> AuthenticateStartResponse</code>
 - <code title="put /api/authenticate/{attempt_id}">client.authenticate.<a href="./src/resources/authenticate.ts">submit2fa</a>(attemptID, { ...params }) -> AuthenticateSubmit2faResponse</code>
 
 # Workflows
 
 ## AccountPerformance
-
-Methods:
-
-- <code title="get /api/{account}/workflows/account-performance/starting-revenues">client.workflows.accountPerformance.<a href="./src/resources/workflows/account-performance.ts">retrieveStartingRevenues</a>(account) -> void</code>
 
 # Fans
 
@@ -167,11 +164,17 @@ Methods:
 
 # Following
 
+Types:
+
+- <code><a href="./src/resources/following.ts">FollowingListActiveResponse</a></code>
+- <code><a href="./src/resources/following.ts">FollowingListAllResponse</a></code>
+- <code><a href="./src/resources/following.ts">FollowingListExpiredResponse</a></code>
+
 Methods:
 
-- <code title="get /api/{account}/following/active">client.following.<a href="./src/resources/following.ts">listActive</a>(account, { ...params }) -> void</code>
-- <code title="get /api/{account}/following/all">client.following.<a href="./src/resources/following.ts">listAll</a>(account, { ...params }) -> void</code>
-- <code title="get /api/{account}/following/expired">client.following.<a href="./src/resources/following.ts">listExpired</a>(account, { ...params }) -> void</code>
+- <code title="get /api/{account}/following/active">client.following.<a href="./src/resources/following.ts">listActive</a>(account, { ...params }) -> FollowingListActiveResponse</code>
+- <code title="get /api/{account}/following/all">client.following.<a href="./src/resources/following.ts">listAll</a>(account, { ...params }) -> FollowingListAllResponse</code>
+- <code title="get /api/{account}/following/expired">client.following.<a href="./src/resources/following.ts">listExpired</a>(account, { ...params }) -> FollowingListExpiredResponse</code>
 
 # TrialLinks
 
@@ -199,7 +202,6 @@ Types:
 - <code><a href="./src/resources/mass-messaging.ts">MassMessagingUpdateResponse</a></code>
 - <code><a href="./src/resources/mass-messaging.ts">MassMessagingDeleteResponse</a></code>
 - <code><a href="./src/resources/mass-messaging.ts">MassMessagingListQueueResponse</a></code>
-- <code><a href="./src/resources/mass-messaging.ts">MassMessagingListStatisticsResponse</a></code>
 - <code><a href="./src/resources/mass-messaging.ts">MassMessagingSendResponse</a></code>
 
 Methods:
@@ -208,7 +210,6 @@ Methods:
 - <code title="put /api/{account}/mass-messaging/{id}">client.massMessaging.<a href="./src/resources/mass-messaging.ts">update</a>(id, { ...params }) -> MassMessagingUpdateResponse</code>
 - <code title="delete /api/{account}/mass-messaging/{id}">client.massMessaging.<a href="./src/resources/mass-messaging.ts">delete</a>(id, { ...params }) -> MassMessagingDeleteResponse</code>
 - <code title="get /api/{account}/mass-messaging">client.massMessaging.<a href="./src/resources/mass-messaging.ts">listQueue</a>(account) -> MassMessagingListQueueResponse</code>
-- <code title="get /api/{account}/mass-messaging/statistics">client.massMessaging.<a href="./src/resources/mass-messaging.ts">listStatistics</a>(account, { ...params }) -> MassMessagingListStatisticsResponse</code>
 - <code title="post /api/{account}/mass-messaging">client.massMessaging.<a href="./src/resources/mass-messaging.ts">send</a>(account, { ...params }) -> MassMessagingSendResponse</code>
 
 # Media
@@ -298,7 +299,6 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/payouts.ts">PayoutListPayoutRequestsResponse</a></code>
-- <code><a href="./src/resources/payouts.ts">PayoutListTransactionsResponse</a></code>
 - <code><a href="./src/resources/payouts.ts">PayoutRequestManualWithdrawalResponse</a></code>
 - <code><a href="./src/resources/payouts.ts">PayoutRetrieveBalancesResponse</a></code>
 - <code><a href="./src/resources/payouts.ts">PayoutRetrieveEarningStatisticsResponse</a></code>
@@ -308,7 +308,6 @@ Types:
 Methods:
 
 - <code title="get /api/{account}/payouts/payout-requests">client.payouts.<a href="./src/resources/payouts.ts">listPayoutRequests</a>(account, { ...params }) -> PayoutListPayoutRequestsResponse</code>
-- <code title="get /api/{account}/payouts/transactions">client.payouts.<a href="./src/resources/payouts.ts">listTransactions</a>(account, { ...params }) -> PayoutListTransactionsResponse</code>
 - <code title="post /api/{account}/payouts/request-manual-withdrawal">client.payouts.<a href="./src/resources/payouts.ts">requestManualWithdrawal</a>(account, { ...params }) -> PayoutRequestManualWithdrawalResponse</code>
 - <code title="get /api/{account}/payouts/balances">client.payouts.<a href="./src/resources/payouts.ts">retrieveBalances</a>(account) -> PayoutRetrieveBalancesResponse</code>
 - <code title="get /api/{account}/payouts/earning-statistics">client.payouts.<a href="./src/resources/payouts.ts">retrieveEarningStatistics</a>(account, { ...params }) -> PayoutRetrieveEarningStatisticsResponse</code>
@@ -383,7 +382,7 @@ Types:
 
 Methods:
 
-- <code title="get /api/profiles/{username}">client.profiles.<a href="./src/resources/profiles.ts">retrieve</a>(username) -> ProfileRetrieveResponse</code>
+- <code title="get /api/profiles/{username}">client.profiles.<a href="./src/resources/profiles.ts">retrieve</a>(username, { ...params }) -> ProfileRetrieveResponse</code>
 
 # Search
 

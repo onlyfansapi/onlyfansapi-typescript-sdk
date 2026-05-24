@@ -11,12 +11,12 @@ import { path } from '../internal/utils/path';
 export class Users extends APIResource {
   /**
    * Get OnlyFans Profile details for a given username. User details are retrieved
-   * using the current current `{account}` so fields like `subscribedOnData` which
-   * include potential subscription details will be included.
+   * using the current `{account}` so fields like `subscribedOnData` which include
+   * potential subscription details will be included.
    *
    * @example
    * ```ts
-   * const user = await client.users.retrieve('consequuntur', {
+   * const user = await client.users.retrieve('exampleuser', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -217,7 +217,7 @@ export namespace UserRetrieveResponse {
 
     subscribedIsExpiredNow?: boolean;
 
-    subscribedOn?: string;
+    subscribedOn?: string | null;
 
     subscribedOnData?: Data.SubscribedOnData;
 
@@ -227,7 +227,7 @@ export namespace UserRetrieveResponse {
 
     subscribePrice?: number;
 
-    subscribersCount?: string;
+    subscribersCount?: string | null;
 
     subscriptionBundles?: Array<Data.SubscriptionBundle>;
 
@@ -247,9 +247,9 @@ export namespace UserRetrieveResponse {
 
     view?: string;
 
-    website?: string;
+    website?: string | null;
 
-    wishlist?: string;
+    wishlist?: string | null;
   }
 
   export namespace Data {
@@ -286,13 +286,13 @@ export namespace UserRetrieveResponse {
     }
 
     export interface SubscribedByData {
-      discountFinishedAt?: string;
+      discountFinishedAt?: string | null;
 
       discountPercent?: number;
 
       discountPeriod?: number;
 
-      discountStartedAt?: string;
+      discountStartedAt?: string | null;
 
       duration?: string;
 
@@ -308,7 +308,7 @@ export namespace UserRetrieveResponse {
 
       regularPrice?: number;
 
-      renewedAt?: string;
+      renewedAt?: string | null;
 
       showPostsInFeed?: boolean;
 
@@ -329,7 +329,7 @@ export namespace UserRetrieveResponse {
 
         action?: string;
 
-        cancelDate?: string;
+        cancelDate?: string | null;
 
         date?: string;
 
@@ -343,7 +343,7 @@ export namespace UserRetrieveResponse {
 
         isCurrent?: boolean;
 
-        offerEnd?: string;
+        offerEnd?: string | null;
 
         offerStart?: string;
 
@@ -362,13 +362,13 @@ export namespace UserRetrieveResponse {
     }
 
     export interface SubscribedOnData {
-      discountFinishedAt?: string;
+      discountFinishedAt?: string | null;
 
       discountPercent?: number;
 
       discountPeriod?: number;
 
-      discountStartedAt?: string;
+      discountStartedAt?: string | null;
 
       duration?: string;
 
@@ -388,9 +388,9 @@ export namespace UserRetrieveResponse {
 
       regularPrice?: number;
 
-      renewedAt?: string;
+      renewedAt?: string | null;
 
-      status?: string;
+      status?: string | null;
 
       streamsSumm?: number;
 

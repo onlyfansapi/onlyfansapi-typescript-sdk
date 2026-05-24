@@ -11,6 +11,7 @@ describe('resource webhooks', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.webhooks.create({
+      account_scope: 'global',
       endpoint_url: 'https://example.com',
       events: ['accounts.connected', 'subscriptions.new'],
     });
@@ -26,8 +27,10 @@ describe('resource webhooks', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.webhooks.create({
+      account_scope: 'global',
       endpoint_url: 'https://example.com',
       events: ['accounts.connected', 'subscriptions.new'],
+      account_ids: ['ac_abc123'],
       signing_secret: 'signing_secret',
     });
   });

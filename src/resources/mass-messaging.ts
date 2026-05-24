@@ -82,24 +82,6 @@ export class MassMessaging extends APIResource {
   }
 
   /**
-   * List mass messaging statistics, showing the send count and view count.
-   *
-   * @example
-   * ```ts
-   * const response = await client.massMessaging.listStatistics(
-   *   'acct_XXXXXXXXXXXXXXX',
-   * );
-   * ```
-   */
-  listStatistics(
-    account: string,
-    query: MassMessagingListStatisticsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<MassMessagingListStatisticsResponse> {
-    return this._client.get(path`/api/${account}/mass-messaging/statistics`, { query, ...options });
-  }
-
-  /**
    * Send a mass message to lists and/or users. You may use both the `userLists` and
    * `userIds` parameters to send the same message to both lists and individual
    * users.
@@ -176,7 +158,7 @@ export namespace MassMessagingRetrieveResponse {
 
       date?: string;
 
-      giphyId?: string;
+      giphyId?: string | null;
 
       hasError?: boolean;
 
@@ -184,7 +166,7 @@ export namespace MassMessagingRetrieveResponse {
 
       isFree?: boolean;
 
-      mediaTypes?: string;
+      mediaTypes?: string | null;
 
       releaseForms?: Array<unknown>;
 
@@ -322,7 +304,7 @@ export namespace MassMessagingDeleteResponse {
 
       date?: string;
 
-      giphyId?: string;
+      giphyId?: string | null;
 
       hasError?: boolean;
 
@@ -330,7 +312,7 @@ export namespace MassMessagingDeleteResponse {
 
       isFree?: boolean;
 
-      mediaTypes?: string;
+      mediaTypes?: string | null;
 
       releaseForms?: Array<unknown>;
 
@@ -410,86 +392,6 @@ export namespace MassMessagingListQueueResponse {
     total?: number;
 
     unsendSeconds?: number;
-  }
-}
-
-export interface MassMessagingListStatisticsResponse {
-  _meta?: MassMessagingListStatisticsResponse._Meta;
-
-  data?: MassMessagingListStatisticsResponse.Data;
-}
-
-export namespace MassMessagingListStatisticsResponse {
-  export interface _Meta {
-    _cache?: _Meta._Cache;
-
-    _credits?: _Meta._Credits;
-
-    _rate_limits?: _Meta._RateLimits;
-  }
-
-  export namespace _Meta {
-    export interface _Cache {
-      is_cached?: boolean;
-
-      note?: string;
-    }
-
-    export interface _Credits {
-      balance?: number;
-
-      note?: string;
-
-      used?: number;
-    }
-
-    export interface _RateLimits {
-      limit_day?: number;
-
-      limit_minute?: number;
-
-      remaining_day?: number;
-
-      remaining_minute?: number;
-    }
-  }
-
-  export interface Data {
-    hasMore?: boolean;
-
-    list?: Array<Data.List>;
-  }
-
-  export namespace Data {
-    export interface List {
-      id?: number;
-
-      canUnsend?: boolean;
-
-      date?: string;
-
-      giphyId?: string;
-
-      hasError?: boolean;
-
-      isCanceled?: boolean;
-
-      isFree?: boolean;
-
-      mediaTypes?: string;
-
-      releaseForms?: Array<unknown>;
-
-      sentCount?: number;
-
-      text?: string;
-
-      textCropped?: string;
-
-      unsendSeconds?: number;
-
-      viewedCount?: number;
-    }
   }
 }
 
@@ -578,6 +480,12 @@ export interface MassMessagingUpdateParams {
   text: string;
 
   /**
+   * Body param: The ID of the Giphy GIF to attach to the message. Get IDs from the
+   * Giphy listing endpoints (`/giphy/trending`, `/giphy/search`).
+   */
+  giphyId?: string;
+
+  /**
    * Body param: Whether the text should be shown or hidden
    */
   lockedText?: boolean;
@@ -624,28 +532,6 @@ export interface MassMessagingDeleteParams {
   account: string;
 }
 
-export interface MassMessagingListStatisticsParams {
-  /**
-   * Number of mass messages to return (default = 20)
-   */
-  limit?: number;
-
-  /**
-   * Number of mass messages to skip for pagination
-   */
-  offset?: number;
-
-  /**
-   * Optionally, find a mass message by the message text.
-   */
-  query?: string;
-
-  /**
-   * Filter by sent / scheduled / unsent (default = sent)
-   */
-  type?: 'sent' | 'scheduled' | 'unsent';
-}
-
 export interface MassMessagingSendParams {
   /**
    * The message text content
@@ -653,28 +539,54 @@ export interface MassMessagingSendParams {
   text: string;
 
   /**
+   * Array of user list IDs that the mass message will NOT be sent to.
+   */
+  excludedLists?: Array<string>;
+
+  /**
+   * The ID of the Giphy GIF to attach to the message. Get IDs from the Giphy listing
+   * endpoints (`/giphy/trending`, `/giphy/search`).
+   */
+  giphyId?: string;
+
+  /**
    * Whether the text should be shown or hidden
    */
   lockedText?: boolean;
 
   /**
-   * Array of media file upload prefixed_ids, or OF media IDs (required if price is
-   * not 0). Will be hidden if `price` is provided.
+   * Direct file uploads, OFAPI `ofapi_media_` IDs, or OF vault IDs. Will be hidden
+   * if `price` is provided.
    */
-  mediaFiles?: Array<string>;
+  mediaFiles?: Array<unknown>;
 
   /**
-   * Array of media file upload prefixed_ids, or OF media IDs (required if price is
-   * not 0). Will be shown if `price` is provided. All `previews` values must also
-   * exist in the `mediaFiles` array.
+   * Direct file uploads, OFAPI `ofapi_media_` IDs, OF vault IDs, or integer indices
+   * referencing uploaded files in `mediaFiles`. Will be shown if `price` is
+   * provided.
    */
-  previews?: Array<string>;
+  previews?: Array<unknown>;
 
   /**
    * Price for paid content (0 or between 3-200). In case this is not zero,
    * **mediaFiles** is required
    */
   price?: number;
+
+  /**
+   * Array of OnlyFans Release Form Guest IDs to tag in your mass message
+   */
+  rfGuest?: string;
+
+  /**
+   * Array of OnlyFans Release Form Partners IDs to tag in your mass message
+   */
+  rfPartner?: string;
+
+  /**
+   * Array of OnlyFans Creator User IDs to tag in your mass message
+   */
+  rfTag?: string;
 
   /**
    * Add your message to the "Saved for later" queue.
@@ -703,12 +615,10 @@ export declare namespace MassMessaging {
     type MassMessagingUpdateResponse as MassMessagingUpdateResponse,
     type MassMessagingDeleteResponse as MassMessagingDeleteResponse,
     type MassMessagingListQueueResponse as MassMessagingListQueueResponse,
-    type MassMessagingListStatisticsResponse as MassMessagingListStatisticsResponse,
     type MassMessagingSendResponse as MassMessagingSendResponse,
     type MassMessagingRetrieveParams as MassMessagingRetrieveParams,
     type MassMessagingUpdateParams as MassMessagingUpdateParams,
     type MassMessagingDeleteParams as MassMessagingDeleteParams,
-    type MassMessagingListStatisticsParams as MassMessagingListStatisticsParams,
     type MassMessagingSendParams as MassMessagingSendParams,
   };
 }

@@ -127,7 +127,7 @@ export namespace FanListActiveResponse {
   }
 
   export interface _Pagination {
-    next_page?: string;
+    next_page?: string | null;
   }
 
   export interface Data {
@@ -162,7 +162,7 @@ export namespace FanListActiveResponse {
 
       canTrialSend?: boolean;
 
-      currentSubscribePrice?: string;
+      currentSubscribePrice?: string | null;
 
       displayName?: string;
 
@@ -174,11 +174,11 @@ export namespace FanListActiveResponse {
 
       hasStream?: boolean;
 
-      header?: string;
+      header?: string | null;
 
-      headerSize?: string;
+      headerSize?: string | null;
 
-      headerThumbs?: string;
+      headerThumbs?: string | null;
 
       hideChat?: boolean;
 
@@ -206,15 +206,15 @@ export namespace FanListActiveResponse {
 
       subscribedBy?: boolean;
 
-      subscribedByAutoprolong?: string;
+      subscribedByAutoprolong?: string | null;
 
-      subscribedByData?: string;
+      subscribedByData?: string | null;
 
-      subscribedByExpire?: string;
+      subscribedByExpire?: string | null;
 
-      subscribedByExpireDate?: string;
+      subscribedByExpireDate?: string | null;
 
-      subscribedIsExpiredNow?: string;
+      subscribedIsExpiredNow?: string | null;
 
       subscribedOn?: boolean;
 
@@ -281,13 +281,13 @@ export namespace FanListActiveResponse {
       }
 
       export interface SubscribedOnData {
-        discountFinishedAt?: string;
+        discountFinishedAt?: string | null;
 
         discountPercent?: number;
 
         discountPeriod?: number;
 
-        discountStartedAt?: string;
+        discountStartedAt?: string | null;
 
         duration?: string;
 
@@ -311,7 +311,7 @@ export namespace FanListActiveResponse {
 
         regularPrice?: number;
 
-        renewedAt?: string;
+        renewedAt?: string | null;
 
         status?: string;
 
@@ -338,7 +338,7 @@ export namespace FanListActiveResponse {
 
           action?: string;
 
-          cancelDate?: string;
+          cancelDate?: string | null;
 
           date?: string;
 
@@ -417,7 +417,7 @@ export namespace FanListAllResponse {
   }
 
   export interface _Pagination {
-    next_page?: string;
+    next_page?: string | null;
   }
 
   export interface Data {
@@ -452,7 +452,7 @@ export namespace FanListAllResponse {
 
       canTrialSend?: boolean;
 
-      currentSubscribePrice?: string;
+      currentSubscribePrice?: string | null;
 
       displayName?: string;
 
@@ -464,11 +464,11 @@ export namespace FanListAllResponse {
 
       hasStream?: boolean;
 
-      header?: string;
+      header?: string | null;
 
-      headerSize?: string;
+      headerSize?: string | null;
 
-      headerThumbs?: string;
+      headerThumbs?: string | null;
 
       hideChat?: boolean;
 
@@ -496,15 +496,15 @@ export namespace FanListAllResponse {
 
       subscribedBy?: boolean;
 
-      subscribedByAutoprolong?: string;
+      subscribedByAutoprolong?: string | null;
 
-      subscribedByData?: string;
+      subscribedByData?: string | null;
 
-      subscribedByExpire?: string;
+      subscribedByExpire?: string | null;
 
-      subscribedByExpireDate?: string;
+      subscribedByExpireDate?: string | null;
 
-      subscribedIsExpiredNow?: string;
+      subscribedIsExpiredNow?: string | null;
 
       subscribedOn?: boolean;
 
@@ -571,13 +571,13 @@ export namespace FanListAllResponse {
       }
 
       export interface SubscribedOnData {
-        discountFinishedAt?: string;
+        discountFinishedAt?: string | null;
 
         discountPercent?: number;
 
         discountPeriod?: number;
 
-        discountStartedAt?: string;
+        discountStartedAt?: string | null;
 
         duration?: string;
 
@@ -601,7 +601,7 @@ export namespace FanListAllResponse {
 
         regularPrice?: number;
 
-        renewedAt?: string;
+        renewedAt?: string | null;
 
         status?: string;
 
@@ -628,7 +628,7 @@ export namespace FanListAllResponse {
 
           action?: string;
 
-          cancelDate?: string;
+          cancelDate?: string | null;
 
           date?: string;
 
@@ -707,7 +707,7 @@ export namespace FanListExpiredResponse {
   }
 
   export interface _Pagination {
-    next_page?: string;
+    next_page?: string | null;
   }
 
   export interface Data {
@@ -800,7 +800,7 @@ export namespace FanListExpiredResponse {
 
       subscribedIsExpiredNow?: boolean;
 
-      subscribedOn?: string;
+      subscribedOn?: string | null;
 
       subscribedOnData?: List.SubscribedOnData;
 
@@ -861,13 +861,13 @@ export namespace FanListExpiredResponse {
       }
 
       export interface SubscribedByData {
-        discountFinishedAt?: string;
+        discountFinishedAt?: string | null;
 
         discountPercent?: number;
 
         discountPeriod?: number;
 
-        discountStartedAt?: string;
+        discountStartedAt?: string | null;
 
         duration?: string;
 
@@ -883,7 +883,7 @@ export namespace FanListExpiredResponse {
 
         regularPrice?: number;
 
-        renewedAt?: string;
+        renewedAt?: string | null;
 
         showPostsInFeed?: boolean;
 
@@ -904,7 +904,7 @@ export namespace FanListExpiredResponse {
 
           action?: string;
 
-          cancelDate?: string;
+          cancelDate?: string | null;
 
           date?: string;
 
@@ -918,7 +918,7 @@ export namespace FanListExpiredResponse {
 
           isCurrent?: boolean;
 
-          offerEnd?: string;
+          offerEnd?: string | null;
 
           offerStart?: string;
 
@@ -937,13 +937,13 @@ export namespace FanListExpiredResponse {
       }
 
       export interface SubscribedOnData {
-        discountFinishedAt?: string;
+        discountFinishedAt?: string | null;
 
         discountPercent?: number;
 
         discountPeriod?: number;
 
-        discountStartedAt?: string;
+        discountStartedAt?: string | null;
 
         duration?: string;
 
@@ -967,9 +967,9 @@ export namespace FanListExpiredResponse {
 
         regularPrice?: number;
 
-        renewedAt?: string;
+        renewedAt?: string | null;
 
-        status?: string;
+        status?: string | null;
 
         streamsSumm?: number;
 
@@ -1047,7 +1047,7 @@ export namespace FanListLatestResponse {
   }
 
   export interface _Pagination {
-    next_page?: string;
+    next_page?: string | null;
   }
 
   export interface Data {
@@ -1084,7 +1084,7 @@ export namespace FanListLatestResponse {
 
       canTrialSend?: boolean;
 
-      currentSubscribePrice?: string;
+      currentSubscribePrice?: string | null;
 
       displayName?: string;
 
@@ -1096,11 +1096,11 @@ export namespace FanListLatestResponse {
 
       hasStream?: boolean;
 
-      header?: string;
+      header?: string | null;
 
-      headerSize?: string;
+      headerSize?: string | null;
 
-      headerThumbs?: string;
+      headerThumbs?: string | null;
 
       hideChat?: boolean;
 
@@ -1128,15 +1128,15 @@ export namespace FanListLatestResponse {
 
       subscribedBy?: boolean;
 
-      subscribedByAutoprolong?: string;
+      subscribedByAutoprolong?: string | null;
 
-      subscribedByData?: string;
+      subscribedByData?: string | null;
 
-      subscribedByExpire?: string;
+      subscribedByExpire?: string | null;
 
-      subscribedByExpireDate?: string;
+      subscribedByExpireDate?: string | null;
 
-      subscribedIsExpiredNow?: string;
+      subscribedIsExpiredNow?: string | null;
 
       subscribedOn?: boolean;
 
@@ -1203,13 +1203,13 @@ export namespace FanListLatestResponse {
       }
 
       export interface SubscribedOnData {
-        discountFinishedAt?: string;
+        discountFinishedAt?: string | null;
 
         discountPercent?: number;
 
         discountPeriod?: number;
 
-        discountStartedAt?: string;
+        discountStartedAt?: string | null;
 
         duration?: string;
 
@@ -1233,7 +1233,7 @@ export namespace FanListLatestResponse {
 
         regularPrice?: number;
 
-        renewedAt?: string;
+        renewedAt?: string | null;
 
         status?: string;
 
@@ -1260,7 +1260,7 @@ export namespace FanListLatestResponse {
 
           action?: string;
 
-          cancelDate?: string;
+          cancelDate?: string | null;
 
           date?: string;
 
@@ -1299,42 +1299,48 @@ export interface FanListActiveParams {
   filter?: FanListActiveParams.Filter;
 
   /**
-   * Number of fans to return (1-50)
+   * Number of fans to return (1-50). Must be at least 1. Must not be greater
+   * than 20.
    */
-  limit?: string | null;
+  limit?: number;
 
   /**
-   * Number of fans to skip
+   * Number of fans to skip. Must be at least 0.
    */
-  offset?: string | null;
+  offset?: number;
 
   /**
-   * Filter by fan type
+   * Search within fan name/username.
    */
-  type?: string | null;
+  query?: string | null;
+
+  /**
+   * Filter by fan type.
+   */
+  type?: 'active' | 'expired' | 'all';
 }
 
 export namespace FanListActiveParams {
   export interface Filter {
     /**
-     * Filter by minimum subscription duration (days)
+     * Filter by minimum subscription duration in months. Must be at least 0.
      */
-    duration?: string | null;
+    duration?: number;
 
     /**
-     * Filter by online status (1 for online)
+     * Filter by online status (`1` for online fans).
      */
-    online?: string | null;
+    online?: 1 | 0 | null;
 
     /**
-     * Filter by minimum tips
+     * Filter by minimum tips. Must be at least 0.
      */
-    tips?: string | null;
+    tips?: number;
 
     /**
-     * Filter by minimum total spent
+     * Filter by minimum amount total spent by a fan. Must be at least 0.
      */
-    total_spent?: string | null;
+    total_spent?: number;
   }
 }
 
@@ -1342,42 +1348,48 @@ export interface FanListAllParams {
   filter?: FanListAllParams.Filter;
 
   /**
-   * Number of fans to return (1-50)
+   * Number of fans to return (1-50). Must be at least 1. Must not be greater
+   * than 20.
    */
-  limit?: string | null;
+  limit?: number;
 
   /**
-   * Number of fans to skip
+   * Number of fans to skip. Must be at least 0.
    */
-  offset?: string | null;
+  offset?: number;
 
   /**
-   * Filter by fan type
+   * Search within fan name/username.
    */
-  type?: string | null;
+  query?: string | null;
+
+  /**
+   * Filter by fan type.
+   */
+  type?: 'active' | 'expired' | 'all';
 }
 
 export namespace FanListAllParams {
   export interface Filter {
     /**
-     * Filter by minimum subscription duration (days)
+     * Filter by minimum subscription duration in months. Must be at least 0.
      */
-    duration?: string | null;
+    duration?: number;
 
     /**
-     * Filter by online status (1 for online)
+     * Filter by online status (`1` for online fans).
      */
-    online?: string | null;
+    online?: 1 | 0 | null;
 
     /**
-     * Filter by minimum tips
+     * Filter by minimum tips. Must be at least 0.
      */
-    tips?: string | null;
+    tips?: number;
 
     /**
-     * Filter by minimum total spent
+     * Filter by minimum amount total spent by a fan. Must be at least 0.
      */
-    total_spent?: string | null;
+    total_spent?: number;
   }
 }
 
@@ -1385,42 +1397,48 @@ export interface FanListExpiredParams {
   filter?: FanListExpiredParams.Filter;
 
   /**
-   * Number of fans to return (1-50)
+   * Number of fans to return (1-50). Must be at least 1. Must not be greater
+   * than 20.
    */
-  limit?: string | null;
+  limit?: number;
 
   /**
-   * Number of fans to skip
+   * Number of fans to skip. Must be at least 0.
    */
-  offset?: string | null;
+  offset?: number;
 
   /**
-   * Filter by fan type
+   * Search within fan name/username.
    */
-  type?: string | null;
+  query?: string | null;
+
+  /**
+   * Filter by fan type.
+   */
+  type?: 'active' | 'expired' | 'all';
 }
 
 export namespace FanListExpiredParams {
   export interface Filter {
     /**
-     * Filter by minimum subscription duration (days)
+     * Filter by minimum subscription duration in months. Must be at least 0.
      */
-    duration?: string | null;
+    duration?: number;
 
     /**
-     * Filter by online status (1 for online)
+     * Filter by online status (`1` for online fans).
      */
-    online?: string | null;
+    online?: 1 | 0 | null;
 
     /**
-     * Filter by minimum tips
+     * Filter by minimum tips. Must be at least 0.
      */
-    tips?: string | null;
+    tips?: number;
 
     /**
-     * Filter by minimum total spent
+     * Filter by minimum amount total spent by a fan. Must be at least 0.
      */
-    total_spent?: string | null;
+    total_spent?: number;
   }
 }
 
@@ -1431,7 +1449,7 @@ export interface FanListLatestParams {
   end_date?: string | null;
 
   /**
-   * Number of fans to return (1-100)
+   * Number of fans to return (1-50)
    */
   limit?: string | null;
 

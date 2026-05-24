@@ -398,11 +398,11 @@ export namespace PostCreateResponse {
       export interface Files {
         full?: Files.Full;
 
-        preview?: string;
+        preview?: string | null;
 
-        squarePreview?: string;
+        squarePreview?: string | null;
 
-        thumb?: string;
+        thumb?: string | null;
       }
 
       export namespace Files {
@@ -413,7 +413,7 @@ export namespace PostCreateResponse {
 
           sources?: Array<unknown>;
 
-          url?: string;
+          url?: string | null;
 
           width?: number;
         }
@@ -1127,7 +1127,7 @@ export interface PostCreateParams {
   text: string;
 
   /**
-   * Number of days after which the post will expire. Can be 1, 3, 7 or 30 days. Keep
+   * Number of days after which the post will expire. Between 1 and 30 days. Keep
    * empty for no expiration.
    */
   expireDays?: number;
@@ -1150,16 +1150,16 @@ export interface PostCreateParams {
   labelIds?: string;
 
   /**
-   * Array of OFAPI `ofapi_media_` IDs, or OF media IDs
+   * Direct file uploads, OFAPI `ofapi_media_` IDs, or OF vault IDs.
    */
-  mediaFiles?: string;
+  mediaFiles?: Array<unknown>;
 
   /**
-   * Array of media file upload prefixed_ids, or OF media IDs (required if price is
-   * not 0). Will be shown if `price` is provided. All `previews` values must also
-   * exist in the `mediaFiles` array.
+   * Direct file uploads, OFAPI `ofapi_media_` IDs, OF vault IDs, or integer indices
+   * referencing uploaded files in `mediaFiles`. Will be shown if `price` is
+   * provided.
    */
-  previews?: Array<string>;
+  previews?: Array<unknown>;
 
   /**
    * Array OnlyFans creator user IDs to tag in your post
@@ -1218,8 +1218,8 @@ export interface PostUpdateParams {
   text: string;
 
   /**
-   * Body param: Number of days after which the post will expire. Can be 1, 3, 7 or
-   * 30 days. Keep empty for no expiration.
+   * Body param: Number of days after which the post will expire. Between 1 and 30
+   * days. Keep empty for no expiration.
    */
   expireDays?: number;
 

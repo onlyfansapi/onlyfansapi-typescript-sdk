@@ -9,6 +9,7 @@ export {
 export {
   Authenticate,
   type AuthenticatePollStatusResponse,
+  type AuthenticateReauthenticateResponse,
   type AuthenticateStartResponse,
   type AuthenticateSubmit2faResponse,
   type AuthenticateStartParams,
@@ -44,6 +45,9 @@ export {
 } from './fans';
 export {
   Following,
+  type FollowingListActiveResponse,
+  type FollowingListAllResponse,
+  type FollowingListExpiredResponse,
   type FollowingListActiveParams,
   type FollowingListAllParams,
   type FollowingListExpiredParams,
@@ -54,12 +58,10 @@ export {
   type MassMessagingUpdateResponse,
   type MassMessagingDeleteResponse,
   type MassMessagingListQueueResponse,
-  type MassMessagingListStatisticsResponse,
   type MassMessagingSendResponse,
   type MassMessagingRetrieveParams,
   type MassMessagingUpdateParams,
   type MassMessagingDeleteParams,
-  type MassMessagingListStatisticsParams,
   type MassMessagingSendParams,
 } from './mass-messaging';
 export { Me, type MeRetrieveResponse, type MeGetModelStartDateResponse } from './me';
@@ -82,14 +84,12 @@ export {
 export {
   Payouts,
   type PayoutListPayoutRequestsResponse,
-  type PayoutListTransactionsResponse,
   type PayoutRequestManualWithdrawalResponse,
   type PayoutRetrieveBalancesResponse,
   type PayoutRetrieveEarningStatisticsResponse,
   type PayoutRetrieveEligibilityResponse,
   type PayoutUpdatePayoutFrequencyResponse,
   type PayoutListPayoutRequestsParams,
-  type PayoutListTransactionsParams,
   type PayoutRequestManualWithdrawalParams,
   type PayoutRetrieveEarningStatisticsParams,
   type PayoutUpdatePayoutFrequencyParams,
@@ -115,7 +115,7 @@ export {
   type PostStatsParams,
   type PostUnarchiveParams,
 } from './posts/posts';
-export { Profiles, type ProfileRetrieveResponse } from './profiles';
+export { Profiles, type ProfileRetrieveResponse, type ProfileRetrieveParams } from './profiles';
 export {
   Queue,
   type QueueListResponse,

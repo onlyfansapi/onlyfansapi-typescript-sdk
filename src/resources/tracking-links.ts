@@ -52,7 +52,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const trackingLink = await client.trackingLinks.delete(
-   *   'tracking_link_id',
+   *   'incidunt',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -171,7 +171,7 @@ export namespace TrackingLinkCreateResponse {
 
     createdAt?: string;
 
-    endDate?: string;
+    endDate?: string | null;
   }
 }
 
@@ -242,13 +242,15 @@ export namespace TrackingLinkListResponse {
 
       createdAt?: string;
 
-      endDate?: string;
+      endDate?: string | null;
 
       links?: List.Links;
 
       revenue?: List.Revenue;
 
       subscribersCount?: number;
+
+      tags?: Array<string>;
     }
 
     export namespace List {
@@ -369,290 +371,14 @@ export namespace TrackingLinkListSpendersResponse {
   export interface Data {
     onlyfans_id?: string;
 
-    onlyfans_user_data?: Data.OnlyfansUserData;
-
     revenue?: Data.Revenue;
 
     username?: string;
   }
 
   export namespace Data {
-    export interface OnlyfansUserData {
-      id?: number;
-
-      avatar?: string;
-
-      avatarThumbs?: string;
-
-      canAddSubscriber?: boolean;
-
-      canCommentStory?: boolean;
-
-      canEarn?: boolean;
-
-      canLookStory?: boolean;
-
-      canPayInternal?: boolean;
-
-      canReceiveChatMessage?: boolean;
-
-      canReport?: boolean;
-
-      canRestrict?: boolean;
-
-      canTrialSend?: boolean;
-
-      canUnsubscribe?: boolean;
-
-      currentSubscribePrice?: number;
-
-      displayName?: string;
-
-      hasNotViewedStory?: boolean;
-
-      hasScheduledStream?: boolean;
-
-      hasStories?: boolean;
-
-      hasStream?: boolean;
-
-      header?: string;
-
-      headerSize?: string;
-
-      headerThumbs?: string;
-
-      hideChat?: boolean;
-
-      isBlocked?: boolean;
-
-      isPendingAutoprolong?: boolean;
-
-      isPerformer?: boolean;
-
-      isRealPerformer?: boolean;
-
-      isRestricted?: boolean;
-
-      isVerified?: boolean;
-
-      lastSeen?: string;
-
-      listsStates?: Array<OnlyfansUserData.ListsState>;
-
-      name?: string;
-
-      notice?: string;
-
-      promoOffers?: Array<OnlyfansUserData.PromoOffer>;
-
-      subscribedBy?: boolean;
-
-      subscribedByAutoprolong?: boolean;
-
-      subscribedByData?: OnlyfansUserData.SubscribedByData;
-
-      subscribedByExpire?: boolean;
-
-      subscribedByExpireDate?: string;
-
-      subscribedIsExpiredNow?: boolean;
-
-      subscribedOn?: string;
-
-      subscribedOnData?: OnlyfansUserData.SubscribedOnData;
-
-      subscribedOnDuration?: string;
-
-      subscribedOnExpiredNow?: boolean;
-
-      subscribePrice?: number;
-
-      tipsEnabled?: boolean;
-
-      tipsMax?: number;
-
-      tipsMin?: number;
-
-      tipsMinInternal?: number;
-
-      tipsTextEnabled?: boolean;
-
-      username?: string;
-
-      view?: string;
-    }
-
-    export namespace OnlyfansUserData {
-      export interface ListsState {
-        id?: string;
-
-        canAddUser?: boolean;
-
-        cannotAddUserReason?: string;
-
-        hasUser?: boolean;
-
-        name?: string;
-
-        type?: string;
-      }
-
-      export interface PromoOffer {
-        id?: number;
-
-        createdAt?: string;
-
-        expiredAt?: string;
-
-        finishedAt?: string;
-
-        subscribeDays?: number;
-
-        subscriberId?: string;
-
-        userId?: string;
-      }
-
-      export interface SubscribedByData {
-        discountFinishedAt?: string;
-
-        discountPercent?: number;
-
-        discountPeriod?: number;
-
-        discountStartedAt?: string;
-
-        duration?: string;
-
-        expiredAt?: string;
-
-        hasActivePaidSubscriptions?: boolean;
-
-        isMuted?: boolean;
-
-        newPrice?: number;
-
-        price?: number;
-
-        regularPrice?: number;
-
-        renewedAt?: string;
-
-        showPostsInFeed?: boolean;
-
-        status?: string;
-
-        subscribeAt?: string;
-
-        subscribePrice?: number;
-
-        subscribes?: Array<SubscribedByData.Subscribe>;
-
-        unsubscribeReason?: string;
-      }
-
-      export namespace SubscribedByData {
-        export interface Subscribe {
-          id?: number;
-
-          action?: string;
-
-          cancelDate?: string;
-
-          date?: string;
-
-          discount?: number;
-
-          duration?: number;
-
-          earningId?: number;
-
-          expireDate?: string;
-
-          isCurrent?: boolean;
-
-          offerEnd?: string;
-
-          offerStart?: string;
-
-          price?: number;
-
-          regularPrice?: number;
-
-          startDate?: string;
-
-          subscriberId?: number;
-
-          type?: string;
-
-          userId?: number;
-        }
-      }
-
-      export interface SubscribedOnData {
-        discountFinishedAt?: string;
-
-        discountPercent?: number;
-
-        discountPeriod?: number;
-
-        discountStartedAt?: string;
-
-        duration?: string;
-
-        expiredAt?: string;
-
-        hasActivePaidSubscriptions?: boolean;
-
-        isMuted?: boolean;
-
-        lastActivity?: string;
-
-        messagesSumm?: number;
-
-        newPrice?: number;
-
-        postsSumm?: number;
-
-        price?: number;
-
-        recommendations?: number;
-
-        regularPrice?: number;
-
-        renewedAt?: string;
-
-        status?: string;
-
-        streamsSumm?: number;
-
-        subscribeAt?: string;
-
-        subscribePrice?: number;
-
-        subscribes?: Array<unknown>;
-
-        subscribesSumm?: number;
-
-        tipsSumm?: number;
-
-        totalSumm?: number;
-
-        unsubscribeReason?: string;
-      }
-    }
-
     export interface Revenue {
-      messages?: number;
-
-      posts?: number;
-
-      streams?: number;
-
-      subscriptions?: number;
-
-      tips?: number;
+      calculated_at?: string;
 
       total?: number;
     }
@@ -730,7 +456,7 @@ export namespace TrackingLinkListSubscribersResponse {
 
       canRestrict?: boolean;
 
-      currentSubscribePrice?: string;
+      currentSubscribePrice?: string | null;
 
       displayName?: string;
 
@@ -742,17 +468,17 @@ export namespace TrackingLinkListSubscribersResponse {
 
       hasStream?: boolean;
 
-      header?: string;
+      header?: string | null;
 
-      headerSize?: string;
+      headerSize?: string | null;
 
-      headerThumbs?: string;
+      headerThumbs?: string | null;
 
       isRestricted?: boolean;
 
       isVerified?: boolean;
 
-      lastSeen?: string;
+      lastSeen?: string | null;
 
       name?: string;
 
@@ -760,13 +486,13 @@ export namespace TrackingLinkListSubscribersResponse {
 
       subscribedBy?: boolean;
 
-      subscribedByAutoprolong?: string;
+      subscribedByAutoprolong?: string | null;
 
-      subscribedByExpire?: string;
+      subscribedByExpire?: string | null;
 
-      subscribedByExpireDate?: string;
+      subscribedByExpireDate?: string | null;
 
-      subscribedIsExpiredNow?: string;
+      subscribedIsExpiredNow?: string | null;
 
       subscribedOn?: boolean;
 
@@ -806,6 +532,11 @@ export interface TrackingLinkCreateParams {
    * The name of the Tracking Link
    */
   name: string;
+
+  /**
+   * Array of tag names to add to the tracking link.
+   */
+  tags?: Array<string>;
 }
 
 export interface TrackingLinkListParams {

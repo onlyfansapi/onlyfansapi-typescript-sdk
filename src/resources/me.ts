@@ -288,7 +288,7 @@ export namespace MeRetrieveResponse {
 
     ivCountry?: string;
 
-    ivFailReason?: string;
+    ivFailReason?: string | null;
 
     ivFlow?: string;
 
@@ -300,7 +300,7 @@ export namespace MeRetrieveResponse {
 
     lastSeen?: string;
 
-    location?: string;
+    location?: string | null;
 
     maxFundRaisingTarget?: number;
 
@@ -346,9 +346,9 @@ export namespace MeRetrieveResponse {
 
     showSubscribersCount?: boolean;
 
-    subscribedByData?: string;
+    subscribedByData?: string | null;
 
-    subscribedOnData?: string;
+    subscribedOnData?: string | null;
 
     subscribeMaxPrice?: number;
 
@@ -402,7 +402,7 @@ export namespace MeRetrieveResponse {
 
     website?: string;
 
-    wishlist?: string;
+    wishlist?: string | null;
 
     wsAuthToken?: string;
 

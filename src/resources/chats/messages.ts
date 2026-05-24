@@ -5,19 +5,15 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
-/**
- * APIs for managing OnlyFans chats
- */
 export class Messages extends APIResource {
   /**
    * Get messages from a specific chat.
    *
    * @example
    * ```ts
-   * const messages = await client.chats.messages.list(
-   *   '458485726',
-   *   { account: 'acct_XXXXXXXXXXXXXXX' },
-   * );
+   * const messages = await client.chats.messages.list('123', {
+   *   account: 'acct_XXXXXXXXXXXXXXX',
+   * });
    * ```
    */
   list(chatID: string, params: MessageListParams, options?: RequestOptions): APIPromise<MessageListResponse> {
@@ -32,8 +28,8 @@ export class Messages extends APIResource {
    * @example
    * ```ts
    * const message = await client.chats.messages.delete(
-   *   '123456789',
-   *   { account: 'acct_XXXXXXXXXXXXXXX', chat_id: '458485726' },
+   *   '69696969',
+   *   { account: 'acct_XXXXXXXXXXXXXXX', chat_id: '123' },
    * );
    * ```
    */
@@ -51,10 +47,9 @@ export class Messages extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.chats.messages.send(
-   *   '458485726',
-   *   { account: 'acct_XXXXXXXXXXXXXXX', text: 'Hello!' },
-   * );
+   * const response = await client.chats.messages.send('123', {
+   *   account: 'acct_XXXXXXXXXXXXXXX',
+   * });
    * ```
    */
   send(chatID: string, params: MessageSendParams, options?: RequestOptions): APIPromise<MessageSendResponse> {
@@ -129,7 +124,7 @@ export namespace MessageListResponse {
 
     fromUser?: Data.FromUser;
 
-    giphyId?: string;
+    giphyId?: string | null;
 
     isCouplePeopleMedia?: boolean;
 
@@ -295,7 +290,7 @@ export namespace MessageSendResponse {
 
     fromUser?: Data.FromUser;
 
-    giphyId?: string;
+    giphyId?: string | null;
 
     isCouplePeopleMedia?: boolean;
 
@@ -354,9 +349,29 @@ export interface MessageListParams {
   account: string;
 
   /**
-   * Query param: ID of the last message from previous page. Used for pagination
+   * Query param: Filter by certain messages. Currently, only pins are filterable.
    */
-  id?: string;
+  filter?: 'pinned';
+
+  /**
+   * Query param: Use for pagination when `order=desc` (newest to oldest). Include
+   * this message ID as the first message in the results. Used to retrieve messages
+   * from e.g. the Search Chat Messages endpoint IDs.
+   */
+  first_id?: string | null;
+
+  /**
+   * Query param: Use for pagination when `order=asc` (oldest to newest). Include
+   * this message ID as the first message in the results. WARNING! The response list
+   * of messages will also be inverted (oldest messages will be first, opposite to
+   * default where `order=desc`).
+   */
+  last_id?: string | null;
+
+  /**
+   * Query param: The number of messages to return (default = 10, max = 100)
+   */
+  limit?: string;
 
   /**
    * Query param: Sort order for messages (desc or asc)
@@ -376,7 +391,7 @@ export interface MessageDeleteParams {
   account: string;
 
   /**
-   * The ID of the chat, usually a fan's OnlyFans User ID
+   * The ID of the chat (usually a fan's OnlyFans User ID)
    */
   chat_id: string;
 }
@@ -388,9 +403,10 @@ export interface MessageSendParams {
   account: string;
 
   /**
-   * Body param: The message text content
+   * Body param: The ID of the Giphy GIF to attach to the message. Get IDs from the
+   * Giphy listing endpoints (`/giphy/trending`, `/giphy/search`).
    */
-  text: string;
+  giphyId?: string;
 
   /**
    * Body param: Whether the text should be shown or hidden
@@ -398,23 +414,49 @@ export interface MessageSendParams {
   lockedText?: boolean;
 
   /**
-   * Body param: Array of media file upload prefixed_ids, or OF media IDs (required
-   * if price is not 0). Will be hidden if `price` is provided.
+   * Body param: Direct file uploads, OFAPI `ofapi_media_` IDs, or OF vault IDs. Will
+   * be hidden if `price` is provided.
    */
-  mediaFiles?: Array<string>;
+  mediaFiles?: Array<unknown>;
 
   /**
-   * Body param: Array of media file upload prefixed_ids, or OF media IDs (required
-   * if price is not 0). Will be shown if `price` is provided. All `previews` values
-   * must also exist in the `mediaFiles` array.
+   * Body param: Direct file uploads, OFAPI `ofapi_media_` IDs, OF vault IDs, or
+   * integer indices referencing uploaded files in `mediaFiles`. Will be shown if
+   * `price` is provided.
    */
-  previews?: Array<string>;
+  previews?: Array<unknown>;
 
   /**
    * Body param: Price for paid content (0 or between 3-200). In case this is not
    * zero, **mediaFiles** is required
    */
   price?: number;
+
+  /**
+   * Body param: Mark this message as a reply to another (can be either your own, or
+   * the recipient's)
+   */
+  replyToMessageId?: number;
+
+  /**
+   * Body param: Array of OnlyFans Release Form Guest IDs to tag in your message
+   */
+  rfGuest?: string;
+
+  /**
+   * Body param: Array of OnlyFans Release Form Partners IDs to tag in your message
+   */
+  rfPartner?: string;
+
+  /**
+   * Body param: Array of OnlyFans Creator User IDs to tag in your message
+   */
+  rfTag?: string;
+
+  /**
+   * Body param: The message text content. Required unless a media file is present.
+   */
+  text?: string;
 }
 
 export declare namespace Messages {

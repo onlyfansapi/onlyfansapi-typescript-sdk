@@ -15,9 +15,6 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
-/**
- * APIs for managing OnlyFans chats
- */
 export class Chats extends APIResource {
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
 
@@ -47,7 +44,7 @@ export class Chats extends APIResource {
    * @example
    * ```ts
    * const response = await client.chats.startTypingIndicator(
-   *   '458485726',
+   *   '123',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -289,7 +286,7 @@ export namespace ChatListResponse {
 
       subscribePrice?: number;
 
-      subscribersCount?: string;
+      subscribersCount?: string | null;
 
       tipsEnabled?: boolean;
 
@@ -307,9 +304,9 @@ export namespace ChatListResponse {
 
       view?: string;
 
-      website?: string;
+      website?: string | null;
 
-      wishlist?: string;
+      wishlist?: string | null;
     }
 
     export namespace Fan {
@@ -346,13 +343,13 @@ export namespace ChatListResponse {
       }
 
       export interface SubscribedByData {
-        discountFinishedAt?: string;
+        discountFinishedAt?: string | null;
 
         discountPercent?: number;
 
         discountPeriod?: number;
 
-        discountStartedAt?: string;
+        discountStartedAt?: string | null;
 
         duration?: string;
 
@@ -372,7 +369,7 @@ export namespace ChatListResponse {
 
         showPostsInFeed?: boolean;
 
-        status?: string;
+        status?: string | null;
 
         subscribeAt?: string;
 
@@ -389,7 +386,7 @@ export namespace ChatListResponse {
 
           action?: string;
 
-          cancelDate?: string;
+          cancelDate?: string | null;
 
           date?: string;
 
@@ -403,9 +400,9 @@ export namespace ChatListResponse {
 
           isCurrent?: boolean;
 
-          offerEnd?: string;
+          offerEnd?: string | null;
 
-          offerStart?: string;
+          offerStart?: string | null;
 
           price?: number;
 
@@ -422,13 +419,13 @@ export namespace ChatListResponse {
       }
 
       export interface SubscribedOnData {
-        discountFinishedAt?: string;
+        discountFinishedAt?: string | null;
 
         discountPercent?: number;
 
         discountPeriod?: number;
 
-        discountStartedAt?: string;
+        discountStartedAt?: string | null;
 
         duration?: string;
 
@@ -450,7 +447,7 @@ export namespace ChatListResponse {
 
         renewedAt?: string;
 
-        status?: string;
+        status?: string | null;
 
         streamsSumm?: number;
 
@@ -475,7 +472,7 @@ export namespace ChatListResponse {
 
           action?: string;
 
-          cancelDate?: string;
+          cancelDate?: string | null;
 
           date?: string;
 
@@ -489,9 +486,9 @@ export namespace ChatListResponse {
 
           isCurrent?: boolean;
 
-          offerEnd?: string;
+          offerEnd?: string | null;
 
-          offerStart?: string;
+          offerStart?: string | null;
 
           price?: number;
 
@@ -529,7 +526,7 @@ export namespace ChatListResponse {
 
       fromUser?: LastMessage.FromUser;
 
-      giphyId?: string;
+      giphyId?: string | null;
 
       isCouplePeopleMedia?: boolean;
 
@@ -630,7 +627,12 @@ export namespace ChatStartTypingIndicatorResponse {
 
 export interface ChatListParams {
   /**
-   * Number of chats to return (10, 20, or 30)
+   * Optionally, filter the chats by type.
+   */
+  filter?: 'pinned' | 'priority' | 'unread' | 'with_tips' | 'unread_with_tips';
+
+  /**
+   * Number of chats to return (1 - 100). Default = 10
    */
   limit?: string;
 
@@ -640,9 +642,9 @@ export interface ChatListParams {
   offset?: string;
 
   /**
-   * Sort order for chats (recent or old)
+   * Sort order for chats (recent or old). Default = recent
    */
-  order?: string;
+  order?: 'recent' | 'old';
 
   /**
    * Search query to filter chats
@@ -650,9 +652,9 @@ export interface ChatListParams {
   query?: string;
 
   /**
-   * Whether to skip user details in response (all or none)
+   * Whether to skip user details in response (all or none). Default = all
    */
-  skip_users?: string;
+  skip_users?: 'all' | 'none';
 }
 
 export interface ChatStartTypingIndicatorParams {

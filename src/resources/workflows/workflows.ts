@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as AccountPerformanceAPI from './account-performance';
-import { AccountPerformance, AccountPerformanceRetrieveStartingRevenuesParams } from './account-performance';
+import { AccountPerformance } from './account-performance';
 
 export class Workflows extends APIResource {
   accountPerformance: AccountPerformanceAPI.AccountPerformance = new AccountPerformanceAPI.AccountPerformance(
@@ -13,8 +13,5 @@ export class Workflows extends APIResource {
 Workflows.AccountPerformance = AccountPerformance;
 
 export declare namespace Workflows {
-  export {
-    AccountPerformance as AccountPerformance,
-    type AccountPerformanceRetrieveStartingRevenuesParams as AccountPerformanceRetrieveStartingRevenuesParams,
-  };
+  export { AccountPerformance as AccountPerformance };
 }

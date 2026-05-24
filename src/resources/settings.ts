@@ -5,9 +5,6 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
-/**
- * Operations related to user account settings.
- */
 export class Settings extends APIResource {
   /**
    * Returns the account settings
@@ -131,7 +128,7 @@ export namespace SettingRetrieveResponse {
 
     canSocialsConnect?: boolean;
 
-    changeEmailStep?: string;
+    changeEmailStep?: string | null;
 
     changelogUpdates?: number;
 
@@ -181,9 +178,9 @@ export namespace SettingRetrieveResponse {
 
     isTelegramConnected?: boolean;
 
-    lastSubscriptionExpiredAt?: string;
+    lastSubscriptionExpiredAt?: string | null;
 
-    lifeTimeEmailCode?: string;
+    lifeTimeEmailCode?: string | null;
 
     muteTagsInChats?: boolean;
 
@@ -193,15 +190,15 @@ export namespace SettingRetrieveResponse {
 
     muteTagsInStreams?: boolean;
 
-    newEmail?: string;
+    newEmail?: string | null;
 
     notifyOnAllMentions?: boolean;
 
-    phoneLast4?: string;
+    phoneLast4?: string | null;
 
     phoneOtp?: boolean;
 
-    recommenderReward?: string;
+    recommenderReward?: string | null;
 
     replyOnSubscribe?: boolean;
 
@@ -221,9 +218,9 @@ export namespace SettingRetrieveResponse {
 
     socialsConnects?: Array<unknown>;
 
-    streamingMuxKey?: string;
+    streamingMuxKey?: string | null;
 
-    streamingMuxKeyExpiredAt?: string;
+    streamingMuxKeyExpiredAt?: string | null;
 
     streamingMuxServer?: string;
 

@@ -27,9 +27,10 @@ describe('resource following', () => {
       client.following.listActive(
         'acct_XXXXXXXXXXXXXXX',
         {
-          filter: {},
+          filter: { online: 1, paid: 1 },
           limit: 10,
           offset: 0,
+          query: 'john',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -55,9 +56,10 @@ describe('resource following', () => {
       client.following.listAll(
         'acct_XXXXXXXXXXXXXXX',
         {
-          filter: {},
+          filter: { online: 1, paid: 1 },
           limit: 10,
           offset: 0,
+          query: 'john',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -83,9 +85,10 @@ describe('resource following', () => {
       client.following.listExpired(
         'acct_XXXXXXXXXXXXXXX',
         {
-          filter: {},
+          filter: { online: 1, paid: 1 },
           limit: 10,
           offset: 0,
+          query: 'john',
         },
         { path: '/_stainless_unknown_path' },
       ),

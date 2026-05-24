@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Onlyfansapi from '@onlyfansapi/typescript-sdk';
+import Onlyfansapi, { toFile } from '@onlyfansapi/typescript-sdk';
 
 const client = new Onlyfansapi({
   apiKey: 'My API Key',
@@ -9,10 +9,8 @@ const client = new Onlyfansapi({
 
 describe('resource media', () => {
   // Mock server tests are disabled
-  test.skip('scrape: only required params', async () => {
-    const responsePromise = client.media.scrape('acct_XXXXXXXXXXXXXXX', {
-      url: 'https://cdn2.onlyfans.com/files/e/e5/123/600x400_123.jpg?Tag=2&u=123&Policy=123&Signature=signature&Key-Pair-Id=123',
-    });
+  test.skip('scrape', async () => {
+    const responsePromise = client.media.scrape('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,16 +21,26 @@ describe('resource media', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('scrape: required and optional params', async () => {
-    const response = await client.media.scrape('acct_XXXXXXXXXXXXXXX', {
-      url: 'https://cdn2.onlyfans.com/files/e/e5/123/600x400_123.jpg?Tag=2&u=123&Policy=123&Signature=signature&Key-Pair-Id=123',
-      expiration_date: '2025-01-01 00:00:00',
-    });
+  test.skip('scrape: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.media.scrape(
+        'acct_XXXXXXXXXXXXXXX',
+        {
+          expiration_date: '2025-01-01 00:00:00',
+          file_type: 'full',
+          media_id: 1234567890,
+          public: false,
+          url: 'https://cdn2.onlyfans.com/files/e/e5/123/600x400_123.jpg?Tag=2&u=123&Policy=123&Signature=signature&Key-Pair-Id=123',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 
   // Mock server tests are disabled
-  test.skip('upload: only required params', async () => {
-    const responsePromise = client.media.upload('acct_XXXXXXXXXXXXXXX', { file: 'file.jpg' });
+  test.skip('upload', async () => {
+    const responsePromise = client.media.upload('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -43,7 +51,19 @@ describe('resource media', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('upload: required and optional params', async () => {
-    const response = await client.media.upload('acct_XXXXXXXXXXXXXXX', { file: 'file.jpg', type: 'avatar' });
+  test.skip('upload: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.media.upload(
+        'acct_XXXXXXXXXXXXXXX',
+        {
+          async: true,
+          file: await toFile(Buffer.from('Example data'), 'README.md'),
+          file_url: 'https://example.com/media/photo.jpg',
+          type: 'avatar',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 });
