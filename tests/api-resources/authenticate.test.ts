@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Onlyfansapi from '@onlyfansapi/typescript-sdk';
+import OnlyFansAPI from 'onlyfansapi';
 
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
@@ -23,6 +23,18 @@ describe('resource authenticate', () => {
   // Mock server tests are disabled
   test.skip('reauthenticate', async () => {
     const responsePromise = client.authenticate.reauthenticate('acct_XXXXXXXXXX');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('send2faEmail', async () => {
+    const responsePromise = client.authenticate.send2faEmail('auth_XXXXXXX');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -69,7 +81,7 @@ describe('resource authenticate', () => {
         },
         { path: '/_stainless_unknown_path' },
       ),
-    ).rejects.toThrow(Onlyfansapi.NotFoundError);
+    ).rejects.toThrow(OnlyFansAPI.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -90,9 +102,9 @@ describe('resource authenticate', () => {
     await expect(
       client.authenticate.submit2fa(
         'auth_XXXXXXX',
-        { code: '12345', selfie_verification_completed: undefined },
+        { code: '12345', selfie_verification_completed: 'true' },
         { path: '/_stainless_unknown_path' },
       ),
-    ).rejects.toThrow(Onlyfansapi.NotFoundError);
+    ).rejects.toThrow(OnlyFansAPI.NotFoundError);
   });
 });

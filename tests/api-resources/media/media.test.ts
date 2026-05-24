@@ -1,13 +1,30 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Onlyfansapi, { toFile } from '@onlyfansapi/typescript-sdk';
+import OnlyFansAPI, { toFile } from 'onlyfansapi';
 
-const client = new Onlyfansapi({
+const client = new OnlyFansAPI({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource media', () => {
+  // Mock server tests are disabled
+  test.skip('download: only required params', async () => {
+    const responsePromise = client.media.download('cdnUrl', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('download: required and optional params', async () => {
+    const response = await client.media.download('cdnUrl', { account: 'acct_XXXXXXXXXXXXXXX' });
+  });
+
   // Mock server tests are disabled
   test.skip('scrape', async () => {
     const responsePromise = client.media.scrape('acct_XXXXXXXXXXXXXXX');
@@ -35,7 +52,7 @@ describe('resource media', () => {
         },
         { path: '/_stainless_unknown_path' },
       ),
-    ).rejects.toThrow(Onlyfansapi.NotFoundError);
+    ).rejects.toThrow(OnlyFansAPI.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -64,6 +81,6 @@ describe('resource media', () => {
         },
         { path: '/_stainless_unknown_path' },
       ),
-    ).rejects.toThrow(Onlyfansapi.NotFoundError);
+    ).rejects.toThrow(OnlyFansAPI.NotFoundError);
   });
 });

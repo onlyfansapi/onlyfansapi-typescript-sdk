@@ -15,8 +15,12 @@ export {
 } from './lists/index';
 export {
   Vault,
+  type VaultRetrieveResponse,
   type VaultListResponse,
   type VaultDeleteResponse,
+  type VaultUploadResponse,
+  type VaultRetrieveParams,
   type VaultListParams,
   type VaultDeleteParams,
+  type VaultUploadParams,
 } from './vault';

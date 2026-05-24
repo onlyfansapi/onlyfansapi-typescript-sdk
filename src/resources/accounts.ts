@@ -32,7 +32,7 @@ export class Accounts extends APIResource {
    * const response = await client.accounts.disconnect('minima');
    * ```
    */
-  disconnect(id: string, options?: RequestOptions): APIPromise<unknown> {
+  disconnect(id: string, options?: RequestOptions): APIPromise<AccountDisconnectResponse | null> {
     return this._client.delete(path`/api/accounts/${id}`, options);
   }
 }
@@ -337,7 +337,7 @@ export namespace AccountListResponse {
   }
 }
 
-export type AccountDisconnectResponse = unknown;
+export type AccountDisconnectResponse = { [key: string]: unknown };
 
 export interface AccountListParams {
   /**

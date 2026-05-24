@@ -109,7 +109,7 @@ export namespace BankingListAvailablePayoutSystemsResponse {
 
       description?: string;
 
-      fields?: unknown;
+      fields?: { [key: string]: unknown };
 
       fieldsOrder?: Array<unknown>;
 
@@ -121,7 +121,7 @@ export namespace BankingListAvailablePayoutSystemsResponse {
 
       title?: string;
 
-      uiMapping?: unknown;
+      uiMapping?: { [key: string]: unknown };
     }
   }
 }

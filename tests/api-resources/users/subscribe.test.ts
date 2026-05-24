@@ -1,0 +1,50 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+import OnlyFansAPI from 'onlyfansapi';
+
+const client = new OnlyFansAPI({
+  apiKey: 'My API Key',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+});
+
+describe('resource subscribe', () => {
+  // Mock server tests are disabled
+  test.skip('create: only required params', async () => {
+    const responsePromise = client.users.subscribe.create('user_id', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('create: required and optional params', async () => {
+    const response = await client.users.subscribe.create('user_id', { account: 'acct_XXXXXXXXXXXXXXX' });
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete: only required params', async () => {
+    const responsePromise = client.users.subscribe.delete('user_id', {
+      account: 'acct_XXXXXXXXXXXXXXX',
+      reason: 'reason',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete: required and optional params', async () => {
+    const response = await client.users.subscribe.delete('user_id', {
+      account: 'acct_XXXXXXXXXXXXXXX',
+      reason: 'reason',
+    });
+  });
+});

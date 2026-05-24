@@ -47,6 +47,20 @@ export class MassMessaging extends APIResource {
   }
 
   /**
+   * List the pending or recently sent mass messages in the message queue.
+   *
+   * @example
+   * ```ts
+   * const massMessagings = await client.massMessaging.list(
+   *   'acct_XXXXXXXXXXXXXXX',
+   * );
+   * ```
+   */
+  list(account: string, options?: RequestOptions): APIPromise<MassMessagingListResponse> {
+    return this._client.get(path`/api/${account}/mass-messaging`, options);
+  }
+
+  /**
    * Unsend a recently sent mass message, or delete a scheduled/saved message. When
    * unsending, purchased content will continue to be able to viewable.
    *
@@ -68,17 +82,22 @@ export class MassMessaging extends APIResource {
   }
 
   /**
-   * List the pending or recently sent mass messages in the message queue.
+   * Get an overview of mass messages, showing the send count and view count.
    *
    * @example
    * ```ts
-   * const response = await client.massMessaging.listQueue(
-   *   'acct_XXXXXXXXXXXXXXX',
-   * );
+   * const response =
+   *   await client.massMessaging.retrieveOverview(
+   *     'acct_XXXXXXXXXXXXXXX',
+   *   );
    * ```
    */
-  listQueue(account: string, options?: RequestOptions): APIPromise<MassMessagingListQueueResponse> {
-    return this._client.get(path`/api/${account}/mass-messaging`, options);
+  retrieveOverview(
+    account: string,
+    query: MassMessagingRetrieveOverviewParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<MassMessagingRetrieveOverviewResponse> {
+    return this._client.get(path`/api/${account}/mass-messaging/overview`, { query, ...options });
   }
 
   /**
@@ -249,6 +268,72 @@ export namespace MassMessagingUpdateResponse {
   }
 }
 
+export interface MassMessagingListResponse {
+  _meta?: MassMessagingListResponse._Meta;
+
+  data?: Array<MassMessagingListResponse.Data>;
+}
+
+export namespace MassMessagingListResponse {
+  export interface _Meta {
+    _cache?: _Meta._Cache;
+
+    _credits?: _Meta._Credits;
+
+    _rate_limits?: _Meta._RateLimits;
+  }
+
+  export namespace _Meta {
+    export interface _Cache {
+      is_cached?: boolean;
+
+      note?: string;
+    }
+
+    export interface _Credits {
+      balance?: number;
+
+      note?: string;
+
+      used?: number;
+    }
+
+    export interface _RateLimits {
+      limit_day?: number;
+
+      limit_minute?: number;
+
+      remaining_day?: number;
+
+      remaining_minute?: number;
+    }
+  }
+
+  export interface Data {
+    id?: number;
+
+    canUnsend?: boolean;
+
+    date?: string;
+
+    hasError?: boolean;
+
+    isCanceled?: boolean;
+
+    isCouplePeopleMedia?: boolean;
+
+    isDone?: boolean;
+
+    isReady?: boolean;
+
+    pending?: number;
+
+    total?: number;
+
+    unsendSeconds?: number;
+  }
+}
+
 export interface MassMessagingDeleteResponse {
   _meta?: MassMessagingDeleteResponse._Meta;
 
@@ -329,13 +414,13 @@ export namespace MassMessagingDeleteResponse {
   }
 }
 
-export interface MassMessagingListQueueResponse {
-  _meta?: MassMessagingListQueueResponse._Meta;
+export interface MassMessagingRetrieveOverviewResponse {
+  _meta?: MassMessagingRetrieveOverviewResponse._Meta;
 
-  data?: Array<MassMessagingListQueueResponse.Data>;
+  data?: MassMessagingRetrieveOverviewResponse.Data;
 }
 
-export namespace MassMessagingListQueueResponse {
+export namespace MassMessagingRetrieveOverviewResponse {
   export interface _Meta {
     _cache?: _Meta._Cache;
 
@@ -371,27 +456,139 @@ export namespace MassMessagingListQueueResponse {
   }
 
   export interface Data {
-    id?: number;
+    hasMore?: boolean;
 
-    canUnsend?: boolean;
+    items?: Array<Data.Item>;
+  }
 
-    date?: string;
+  export namespace Data {
+    export interface Item {
+      id?: number;
 
-    hasError?: boolean;
+      canUnsend?: boolean;
 
-    isCanceled?: boolean;
+      date?: string;
 
-    isCouplePeopleMedia?: boolean;
+      giphyId?: string | null;
 
-    isDone?: boolean;
+      isCanceled?: boolean;
 
-    isReady?: boolean;
+      isFree?: boolean;
 
-    pending?: number;
+      isMediaReady?: boolean;
 
-    total?: number;
+      isReportedByMe?: boolean;
 
-    unsendSeconds?: number;
+      isTip?: boolean;
+
+      media?: Array<Item.Media>;
+
+      mediaCount?: number;
+
+      previews?: Array<unknown>;
+
+      rawText?: string;
+
+      responseType?: string;
+
+      sentCount?: number;
+
+      template?: string;
+
+      text?: string;
+
+      unsendSeconds?: number;
+
+      viewedCount?: number;
+    }
+
+    export namespace Item {
+      export interface Media {
+        id?: number;
+
+        canView?: boolean;
+
+        convertedToVideo?: boolean;
+
+        createdAt?: string;
+
+        duration?: number;
+
+        files?: Media.Files;
+
+        hasCustomPreview?: boolean;
+
+        hasError?: boolean;
+
+        isReady?: boolean;
+
+        type?: string;
+
+        videoSources?: Media.VideoSources;
+      }
+
+      export namespace Media {
+        export interface Files {
+          full?: Files.Full;
+
+          preview?: Files.Preview;
+
+          squarePreview?: Files.SquarePreview;
+
+          thumb?: Files.Thumb;
+        }
+
+        export namespace Files {
+          export interface Full {
+            height?: number;
+
+            size?: number;
+
+            sources?: Array<unknown>;
+
+            url?: string;
+
+            width?: number;
+          }
+
+          export interface Preview {
+            height?: number;
+
+            size?: number;
+
+            url?: string;
+
+            width?: number;
+          }
+
+          export interface SquarePreview {
+            height?: number;
+
+            size?: number;
+
+            url?: string;
+
+            width?: number;
+          }
+
+          export interface Thumb {
+            height?: number;
+
+            size?: number;
+
+            url?: string;
+
+            width?: number;
+          }
+        }
+
+        export interface VideoSources {
+          '240'?: string | null;
+
+          '720'?: string | null;
+        }
+      }
+    }
   }
 }
 
@@ -532,6 +729,29 @@ export interface MassMessagingDeleteParams {
   account: string;
 }
 
+export interface MassMessagingRetrieveOverviewParams {
+  /**
+   * The latest mass message to retrieve. Keep empty to get all. MUST BE DATE AFTER
+   * `startDate`. This is also used for pagination.
+   */
+  endDate?: string;
+
+  /**
+   * Number of mass messages to return (default = 10)
+   */
+  limit?: number;
+
+  /**
+   * Optionally, find a mass message by the message text.
+   */
+  query?: string;
+
+  /**
+   * The earliest mass message to retrieve. Keep empty to get all.
+   */
+  startDate?: string;
+}
+
 export interface MassMessagingSendParams {
   /**
    * The message text content
@@ -613,12 +833,14 @@ export declare namespace MassMessaging {
   export {
     type MassMessagingRetrieveResponse as MassMessagingRetrieveResponse,
     type MassMessagingUpdateResponse as MassMessagingUpdateResponse,
+    type MassMessagingListResponse as MassMessagingListResponse,
     type MassMessagingDeleteResponse as MassMessagingDeleteResponse,
-    type MassMessagingListQueueResponse as MassMessagingListQueueResponse,
+    type MassMessagingRetrieveOverviewResponse as MassMessagingRetrieveOverviewResponse,
     type MassMessagingSendResponse as MassMessagingSendResponse,
     type MassMessagingRetrieveParams as MassMessagingRetrieveParams,
     type MassMessagingUpdateParams as MassMessagingUpdateParams,
     type MassMessagingDeleteParams as MassMessagingDeleteParams,
+    type MassMessagingRetrieveOverviewParams as MassMessagingRetrieveOverviewParams,
     type MassMessagingSendParams as MassMessagingSendParams,
   };
 }

@@ -72,17 +72,17 @@ export class Comments extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.posts.comments.likeComment(
-   *   123,
-   *   { account: 'acct_XXXXXXXXXXXXXXX', post_id: 123 },
-   * );
+   * const response = await client.posts.comments.like(123, {
+   *   account: 'acct_XXXXXXXXXXXXXXX',
+   *   post_id: 123,
+   * });
    * ```
    */
-  likeComment(
+  like(
     commentID: number,
-    params: CommentLikeCommentParams,
+    params: CommentLikeParams,
     options?: RequestOptions,
-  ): APIPromise<CommentLikeCommentResponse> {
+  ): APIPromise<CommentLikeResponse> {
     const { account, post_id } = params;
     return this._client.post(path`/api/${account}/posts/${post_id}/comments/${commentID}/like`, options);
   }
@@ -92,17 +92,13 @@ export class Comments extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.posts.comments.pinComment(
-   *   123,
-   *   { account: 'acct_XXXXXXXXXXXXXXX', post_id: 123 },
-   * );
+   * const response = await client.posts.comments.pin(123, {
+   *   account: 'acct_XXXXXXXXXXXXXXX',
+   *   post_id: 123,
+   * });
    * ```
    */
-  pinComment(
-    commentID: number,
-    params: CommentPinCommentParams,
-    options?: RequestOptions,
-  ): APIPromise<CommentPinCommentResponse> {
+  pin(commentID: number, params: CommentPinParams, options?: RequestOptions): APIPromise<CommentPinResponse> {
     const { account, post_id } = params;
     return this._client.post(path`/api/${account}/posts/${post_id}/comments/${commentID}/pin`, options);
   }
@@ -112,17 +108,17 @@ export class Comments extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.posts.comments.unlikeComment(
-   *   123,
-   *   { account: 'acct_XXXXXXXXXXXXXXX', post_id: 123 },
-   * );
+   * const response = await client.posts.comments.unlike(123, {
+   *   account: 'acct_XXXXXXXXXXXXXXX',
+   *   post_id: 123,
+   * });
    * ```
    */
-  unlikeComment(
+  unlike(
     commentID: number,
-    params: CommentUnlikeCommentParams,
+    params: CommentUnlikeParams,
     options?: RequestOptions,
-  ): APIPromise<CommentUnlikeCommentResponse> {
+  ): APIPromise<CommentUnlikeResponse> {
     const { account, post_id } = params;
     return this._client.delete(path`/api/${account}/posts/${post_id}/comments/${commentID}/like`, options);
   }
@@ -132,17 +128,17 @@ export class Comments extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.posts.comments.unpinComment(
-   *   123,
-   *   { account: 'acct_XXXXXXXXXXXXXXX', post_id: 123 },
-   * );
+   * const response = await client.posts.comments.unpin(123, {
+   *   account: 'acct_XXXXXXXXXXXXXXX',
+   *   post_id: 123,
+   * });
    * ```
    */
-  unpinComment(
+  unpin(
     commentID: number,
-    params: CommentUnpinCommentParams,
+    params: CommentUnpinParams,
     options?: RequestOptions,
-  ): APIPromise<CommentUnpinCommentResponse> {
+  ): APIPromise<CommentUnpinResponse> {
     const { account, post_id } = params;
     return this._client.delete(path`/api/${account}/posts/${post_id}/comments/${commentID}/pin`, options);
   }
@@ -444,13 +440,13 @@ export namespace CommentDeleteResponse {
   }
 }
 
-export interface CommentLikeCommentResponse {
-  _meta?: CommentLikeCommentResponse._Meta;
+export interface CommentLikeResponse {
+  _meta?: CommentLikeResponse._Meta;
 
-  data?: CommentLikeCommentResponse.Data;
+  data?: CommentLikeResponse.Data;
 }
 
-export namespace CommentLikeCommentResponse {
+export namespace CommentLikeResponse {
   export interface _Meta {
     _cache?: _Meta._Cache;
 
@@ -494,13 +490,13 @@ export namespace CommentLikeCommentResponse {
   }
 }
 
-export interface CommentPinCommentResponse {
-  _meta?: CommentPinCommentResponse._Meta;
+export interface CommentPinResponse {
+  _meta?: CommentPinResponse._Meta;
 
-  data?: CommentPinCommentResponse.Data;
+  data?: CommentPinResponse.Data;
 }
 
-export namespace CommentPinCommentResponse {
+export namespace CommentPinResponse {
   export interface _Meta {
     _cache?: _Meta._Cache;
 
@@ -540,13 +536,13 @@ export namespace CommentPinCommentResponse {
   }
 }
 
-export interface CommentUnlikeCommentResponse {
-  _meta?: CommentUnlikeCommentResponse._Meta;
+export interface CommentUnlikeResponse {
+  _meta?: CommentUnlikeResponse._Meta;
 
-  data?: CommentUnlikeCommentResponse.Data;
+  data?: CommentUnlikeResponse.Data;
 }
 
-export namespace CommentUnlikeCommentResponse {
+export namespace CommentUnlikeResponse {
   export interface _Meta {
     _cache?: _Meta._Cache;
 
@@ -590,13 +586,13 @@ export namespace CommentUnlikeCommentResponse {
   }
 }
 
-export interface CommentUnpinCommentResponse {
-  _meta?: CommentUnpinCommentResponse._Meta;
+export interface CommentUnpinResponse {
+  _meta?: CommentUnpinResponse._Meta;
 
-  data?: CommentUnpinCommentResponse.Data;
+  data?: CommentUnpinResponse.Data;
 }
 
-export namespace CommentUnpinCommentResponse {
+export namespace CommentUnpinResponse {
   export interface _Meta {
     _cache?: _Meta._Cache;
 
@@ -692,7 +688,7 @@ export interface CommentDeleteParams {
   post_id: number;
 }
 
-export interface CommentLikeCommentParams {
+export interface CommentLikeParams {
   /**
    * The Account ID
    */
@@ -704,7 +700,7 @@ export interface CommentLikeCommentParams {
   post_id: number;
 }
 
-export interface CommentPinCommentParams {
+export interface CommentPinParams {
   /**
    * The Account ID
    */
@@ -716,7 +712,7 @@ export interface CommentPinCommentParams {
   post_id: number;
 }
 
-export interface CommentUnlikeCommentParams {
+export interface CommentUnlikeParams {
   /**
    * The Account ID
    */
@@ -728,7 +724,7 @@ export interface CommentUnlikeCommentParams {
   post_id: number;
 }
 
-export interface CommentUnpinCommentParams {
+export interface CommentUnpinParams {
   /**
    * The Account ID
    */
@@ -745,16 +741,16 @@ export declare namespace Comments {
     type CommentCreateResponse as CommentCreateResponse,
     type CommentListResponse as CommentListResponse,
     type CommentDeleteResponse as CommentDeleteResponse,
-    type CommentLikeCommentResponse as CommentLikeCommentResponse,
-    type CommentPinCommentResponse as CommentPinCommentResponse,
-    type CommentUnlikeCommentResponse as CommentUnlikeCommentResponse,
-    type CommentUnpinCommentResponse as CommentUnpinCommentResponse,
+    type CommentLikeResponse as CommentLikeResponse,
+    type CommentPinResponse as CommentPinResponse,
+    type CommentUnlikeResponse as CommentUnlikeResponse,
+    type CommentUnpinResponse as CommentUnpinResponse,
     type CommentCreateParams as CommentCreateParams,
     type CommentListParams as CommentListParams,
     type CommentDeleteParams as CommentDeleteParams,
-    type CommentLikeCommentParams as CommentLikeCommentParams,
-    type CommentPinCommentParams as CommentPinCommentParams,
-    type CommentUnlikeCommentParams as CommentUnlikeCommentParams,
-    type CommentUnpinCommentParams as CommentUnpinCommentParams,
+    type CommentLikeParams as CommentLikeParams,
+    type CommentPinParams as CommentPinParams,
+    type CommentUnlikeParams as CommentUnlikeParams,
+    type CommentUnpinParams as CommentUnpinParams,
   };
 }
