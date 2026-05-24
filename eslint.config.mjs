@@ -22,7 +22,7 @@ export default tseslint.config(
         {
           patterns: [
             {
-              regex: '^onlyfansapi(/.*)?',
+              regex: '^@onlyfansapi/onlyfans-sdk(/.*)?',
               message: 'Use a relative import, not a package import.',
             },
           ],
