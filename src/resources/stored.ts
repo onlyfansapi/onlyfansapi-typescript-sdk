@@ -533,107 +533,123 @@ export namespace StoredListTrialLinksResponse {
 }
 
 export interface StoredListSharedTrackingLinksParams {
-  /**
-   * Search campaign name, owner username, or a pasted OnlyFans tracking link URL.
-   */
-  'filter[search]'?: string;
+  filter?: StoredListSharedTrackingLinksParams.Filter;
 
   /**
-   * Filter by one or more tag names or slugs. Accepts CSV or repeated array values
-   * (`filter[tags][]=...`) and matches any tag. Tag namespace is shared with owned
-   * Tracking Links.
-   */
-  'filter[tags]'?: string;
-
-  /**
-   * The number of shared tracking links to return. Default `10`
+   * The number of shared tracking links to return. Default `10`. Must be at least 1.
+   * Must not be greater than 1000.
    */
   limit?: number;
 
   /**
-   * The offset used for pagination. Default `0`
+   * The offset used for pagination. Default `0`. Must be at least 0.
    */
   offset?: number;
+}
+
+export namespace StoredListSharedTrackingLinksParams {
+  export interface Filter {
+    /**
+     * Must not be greater than 255 characters.
+     */
+    search?: string | null;
+
+    /**
+     * Must not be greater than 50 characters.
+     */
+    tags?: Array<string>;
+  }
 }
 
 export interface StoredListSharedTrialLinksParams {
-  /**
-   * Search shared trial link name, URL, or owner username.
-   */
-  'filter[search]'?: string;
+  filter?: StoredListSharedTrialLinksParams.Filter;
 
   /**
-   * Filter by one or more tag names or slugs. Accepts CSV or repeated array values
-   * (`filter[tags][]=...`) and matches any tag. Tag namespace is shared with owned
-   * Free Trial Links.
-   */
-  'filter[tags]'?: string;
-
-  /**
-   * The number of shared trial links to return. Default `10`
+   * The number of shared trial links to return. Default `10`. Must be at least 1.
+   * Must not be greater than 1000.
    */
   limit?: number;
 
   /**
-   * The offset used for pagination. Default `0`
+   * The offset used for pagination. Default `0`. Must be at least 0.
    */
   offset?: number;
+}
+
+export namespace StoredListSharedTrialLinksParams {
+  export interface Filter {
+    /**
+     * Must not be greater than 255 characters.
+     */
+    search?: string | null;
+
+    /**
+     * Must not be greater than 50 characters.
+     */
+    tags?: Array<string>;
+  }
 }
 
 export interface StoredListTrackingLinksParams {
-  /**
-   * Include tracking links created by Smart Links. Default `false`
-   */
-  'filter[include_smart_links]'?: boolean;
+  filter?: StoredListTrackingLinksParams.Filter;
 
   /**
-   * Search campaign name, creator username, or a pasted OnlyFans tracking link URL.
-   */
-  'filter[search]'?: string;
-
-  /**
-   * Filter by one or more tag names or slugs. Accepts CSV or repeated array values
-   * (`filter[tags][]=...`) and matches any tag.
-   */
-  'filter[tags]'?: string;
-
-  /**
-   * The number of tracking links to return. Default `10`
+   * The number of tracking links to return. Default `10`. Must be at least 1. Must
+   * not be greater than 1000.
    */
   limit?: number;
 
   /**
-   * The offset used for pagination. Default `0`
+   * The offset used for pagination. Default `0`. Must be at least 0.
    */
   offset?: number;
 }
 
+export namespace StoredListTrackingLinksParams {
+  export interface Filter {
+    include_smart_links?: boolean;
+
+    /**
+     * Must not be greater than 255 characters.
+     */
+    search?: string | null;
+
+    /**
+     * Must not be greater than 50 characters.
+     */
+    tags?: Array<string>;
+  }
+}
+
 export interface StoredListTrialLinksParams {
-  /**
-   * Include trial links created by Smart Links. Default `false`
-   */
-  'filter[include_smart_links]'?: boolean;
+  filter?: StoredListTrialLinksParams.Filter;
 
   /**
-   * Search trial link name or URL.
-   */
-  'filter[search]'?: string;
-
-  /**
-   * Filter by one or more tag names or slugs. Accepts CSV or repeated array values
-   * (`filter[tags][]=...`) and matches any tag.
-   */
-  'filter[tags]'?: string;
-
-  /**
-   * The number of trial links to return. Default `10`
+   * The number of trial links to return. Default `10`. Must be at least 1. Must not
+   * be greater than 1000.
    */
   limit?: number;
 
   /**
-   * The offset used for pagination. Default `0`
+   * The offset used for pagination. Default `0`. Must be at least 0.
    */
   offset?: number;
+}
+
+export namespace StoredListTrialLinksParams {
+  export interface Filter {
+    include_smart_links?: boolean;
+
+    /**
+     * Must not be greater than 255 characters.
+     */
+    search?: string | null;
+
+    /**
+     * Must not be greater than 50 characters.
+     */
+    tags?: Array<string>;
+  }
 }
 
 export declare namespace Stored {

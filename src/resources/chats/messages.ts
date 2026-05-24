@@ -901,7 +901,7 @@ export interface MessageSearchParams {
   account: string;
 
   /**
-   * Query param: The query search in messages
+   * Query param: The query search in messages.
    */
   query: string;
 }

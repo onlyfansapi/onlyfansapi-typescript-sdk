@@ -75,7 +75,9 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listClicks('ab');
+   * const response = await client.smartLinks.listClicks(
+   *   'omnis',
+   * );
    * ```
    */
   listClicks(
@@ -93,7 +95,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listConversions(
-   *   'veniam',
+   *   'dolorem',
    * );
    * ```
    */
@@ -111,7 +113,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listFans('autem');
+   * const response = await client.smartLinks.listFans('eum');
    * ```
    */
   listFans(
@@ -128,7 +130,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listSpenders(
-   *   'ducimus',
+   *   'voluptas',
    * );
    * ```
    */
@@ -145,7 +147,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.smartLinks.retrieveCohortArps('minima');
+   * await client.smartLinks.retrieveCohortArps('id');
    * ```
    */
   retrieveCohortArps(
@@ -167,7 +169,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.retrieveStats(
-   *   'ut',
+   *   'iure',
    * );
    * ```
    */
@@ -1037,25 +1039,26 @@ export interface SmartLinkListParams {
   /**
    * Comma-separated account prefixed IDs to include.
    */
-  account_ids?: string;
+  account_ids?: string | null;
 
   /**
-   * The number of Smart Links to return. Default `50`
+   * The number of Smart Links to return. Default `50`. Must be at least 1. Must not
+   * be greater than 1000.
    */
   limit?: number;
 
   /**
    * Comma-separated Meta Pixel IDs to include.
    */
-  meta_pixel_ids?: string;
+  meta_pixel_ids?: string | null;
 
   /**
-   * Filter Smart Links by name.
+   * Filter Smart Links by name. Must not be greater than 255 characters.
    */
-  name?: string;
+  name?: string | null;
 
   /**
-   * The offset used for pagination. Default `0`
+   * The offset used for pagination. Default `0`. Must be at least 0.
    */
   offset?: number;
 }

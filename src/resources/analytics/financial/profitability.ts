@@ -17,6 +17,7 @@ export class Profitability extends APIResource {
    * const response =
    *   await client.analytics.financial.profitability.getHistory(
    *     'acct_XXXXXXXXXXXXXXX',
+   *     { account_prefixed_id: 'acct_abc123' },
    *   );
    * ```
    */
@@ -99,7 +100,13 @@ export namespace ProfitabilityGetProfitabilityResponse {
 
 export interface ProfitabilityGetHistoryParams {
   /**
-   * Number of months of history to retrieve (1-60, default 12)
+   * The account prefixed ID.
+   */
+  account_prefixed_id: string;
+
+  /**
+   * Number of months of history to retrieve (1-60, default 12). Must be at least 1.
+   * Must not be greater than 60.
    */
   months?: number;
 }

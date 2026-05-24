@@ -152,8 +152,8 @@ describe('resource fans', () => {
         'acct_XXXXXXXXXXXXXXX',
         {
           end_date: '2024-12-31',
-          limit: 'limit',
-          offset: 'offset',
+          limit: 50,
+          offset: 0,
           start_date: '2024-01-01',
           type: 'total',
         },
