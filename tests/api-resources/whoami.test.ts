@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource whoami', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.whoami.retrieve();
     const rawResponse = await responsePromise.asResponse();

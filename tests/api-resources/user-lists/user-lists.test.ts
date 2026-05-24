@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource userLists', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'scyfotubmi' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,12 +20,12 @@ describe('resource userLists', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'scyfotubmi' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.userLists.update(1224114714, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -40,7 +40,7 @@ describe('resource userLists', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.userLists.update(1224114714, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -48,7 +48,7 @@ describe('resource userLists', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.userLists.list('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -60,7 +60,7 @@ describe('resource userLists', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -72,7 +72,7 @@ describe('resource userLists', () => {
     ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.userLists.delete(1224114714, { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
@@ -84,7 +84,7 @@ describe('resource userLists', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.userLists.delete(1224114714, { account: 'acct_XXXXXXXXXXXXXXX' });
   });

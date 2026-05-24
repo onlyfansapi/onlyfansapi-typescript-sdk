@@ -15,6 +15,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * APIs for managing OnlyFans chats
+ */
 export class Chats extends APIResource {
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
 

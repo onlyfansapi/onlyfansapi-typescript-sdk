@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource search', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('profiles: only required params', async () => {
     const responsePromise = client.search.profiles({ query: 'milf' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource search', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('profiles: required and optional params', async () => {
     const response = await client.search.profiles({
       query: 'milf',

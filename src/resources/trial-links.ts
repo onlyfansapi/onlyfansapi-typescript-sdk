@@ -5,6 +5,9 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * APIs for managing Free Trial Links
+ */
 export class TrialLinks extends APIResource {
   /**
    * Create a new free trial link for the account
@@ -13,7 +16,11 @@ export class TrialLinks extends APIResource {
    * ```ts
    * const trialLink = await client.trialLinks.create(
    *   'acct_XXXXXXXXXXXXXXX',
-   *   { duration: 7, offerExpiration: 7, offerLimit: 7 },
+   *   {
+   *     duration: 7,
+   *     offerExpiration: 7,
+   *     offerLimit: 7,
+   *   },
    * );
    * ```
    */
@@ -91,7 +98,11 @@ export class TrialLinks extends APIResource {
    * ```ts
    * const response = await client.trialLinks.listSubscribers(
    *   'excepturi',
-   *   { account: 'acct_XXXXXXXXXXXXXXX', limit: 10, offset: 0 },
+   *   {
+   *     account: 'acct_XXXXXXXXXXXXXXX',
+   *     limit: 10,
+   *     offset: 0,
+   *   },
    * );
    * ```
    */

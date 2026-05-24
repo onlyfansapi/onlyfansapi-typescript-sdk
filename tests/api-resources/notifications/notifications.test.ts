@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource notifications', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.notifications.list('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -20,19 +20,24 @@ describe('resource notifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.notifications.list(
         'acct_XXXXXXXXXXXXXXX',
-        { from_id: 123, limit: 10, skip_users: 'all', type: 'tags' },
+        {
+          from_id: 123,
+          limit: 10,
+          skip_users: 'all',
+          type: 'tags',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getCounts', async () => {
     const responsePromise = client.notifications.getCounts('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -44,7 +49,7 @@ describe('resource notifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('markAllAsRead', async () => {
     const responsePromise = client.notifications.markAllAsRead('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -56,7 +61,7 @@ describe('resource notifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('searchUsers: only required params', async () => {
     const responsePromise = client.notifications.searchUsers('acct_XXXXXXXXXXXXXXX', { query: 'User' });
     const rawResponse = await responsePromise.asResponse();
@@ -68,7 +73,7 @@ describe('resource notifications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('searchUsers: required and optional params', async () => {
     const response = await client.notifications.searchUsers('acct_XXXXXXXXXXXXXXX', { query: 'User' });
   });

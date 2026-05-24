@@ -5,6 +5,9 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * APIs for fetching OnlyFans users
+ */
 export class Users extends APIResource {
   /**
    * Get OnlyFans Profile details for a given username. User details are retrieved

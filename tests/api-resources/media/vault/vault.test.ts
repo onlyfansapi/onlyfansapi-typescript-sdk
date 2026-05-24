@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource vault', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.media.vault.list('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -20,19 +20,27 @@ describe('resource vault', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.media.vault.list(
         'acct_XXXXXXXXXXXXXXX',
-        { field: 'recent', limit: 24, list: 0, offset: 0, query: 'Hi', sort: 'desc', type: 'photo' },
+        {
+          field: 'recent',
+          limit: 24,
+          list: 0,
+          offset: 0,
+          query: 'Hi',
+          sort: 'desc',
+          type: 'photo',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.media.vault.delete('acct_XXXXXXXXXXXXXXX', { mediaIds: ['string'] });
     const rawResponse = await responsePromise.asResponse();
@@ -44,7 +52,7 @@ describe('resource vault', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.media.vault.delete('acct_XXXXXXXXXXXXXXX', { mediaIds: ['string'] });
   });

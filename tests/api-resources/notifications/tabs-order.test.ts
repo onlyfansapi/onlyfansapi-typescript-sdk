@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource tabsOrder', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.notifications.tabsOrder.update('acct_XXXXXXXXXXXXXXX', {
       tabs: [
@@ -33,7 +33,7 @@ describe('resource tabsOrder', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.notifications.tabsOrder.update('acct_XXXXXXXXXXXXXXX', {
       tabs: [
@@ -51,7 +51,7 @@ describe('resource tabsOrder', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('get', async () => {
     const responsePromise = client.notifications.tabsOrder.get('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();

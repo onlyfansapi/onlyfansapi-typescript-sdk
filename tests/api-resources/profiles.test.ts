@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource profiles', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.profiles.retrieve('madison420ivy');
     const rawResponse = await responsePromise.asResponse();

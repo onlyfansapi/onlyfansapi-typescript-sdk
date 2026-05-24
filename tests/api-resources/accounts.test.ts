@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource accounts', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.accounts.list();
     const rawResponse = await responsePromise.asResponse();
@@ -20,18 +20,22 @@ describe('resource accounts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.accounts.list(
-        { onlyfans_email: 'creator@example.com', onlyfans_id: 'onlyfans_id', onlyfans_username: 'username' },
+        {
+          onlyfans_email: 'creator@example.com',
+          onlyfans_id: 'onlyfans_id',
+          onlyfans_username: 'username',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('disconnect', async () => {
     const responsePromise = client.accounts.disconnect('aut');
     const rawResponse = await responsePromise.asResponse();

@@ -6,6 +6,9 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * APIs for managing OnlyFans followings (people you're subscribed to)
+ */
 export class Following extends APIResource {
   /**
    * Get a paginated list of followings for an Account. Newest followings are first.

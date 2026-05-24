@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource massMessaging', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.massMessaging.retrieve('id', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,12 +20,12 @@ describe('resource massMessaging', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.massMessaging.retrieve('id', { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.massMessaging.update('id', {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -40,7 +40,7 @@ describe('resource massMessaging', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.massMessaging.update('id', {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -55,7 +55,7 @@ describe('resource massMessaging', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.massMessaging.delete('id', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
@@ -67,12 +67,12 @@ describe('resource massMessaging', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.massMessaging.delete('id', { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listQueue', async () => {
     const responsePromise = client.massMessaging.listQueue('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -84,7 +84,7 @@ describe('resource massMessaging', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listStatistics', async () => {
     const responsePromise = client.massMessaging.listStatistics('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -96,19 +96,24 @@ describe('resource massMessaging', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listStatistics: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.massMessaging.listStatistics(
         'acct_XXXXXXXXXXXXXXX',
-        { limit: 20, offset: 0, query: 'My message text', type: 'sent' },
+        {
+          limit: 20,
+          offset: 0,
+          query: 'My message text',
+          type: 'sent',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('send: only required params', async () => {
     const responsePromise = client.massMessaging.send('acct_XXXXXXXXXXXXXXX', { text: 'Hello!' });
     const rawResponse = await responsePromise.asResponse();
@@ -120,7 +125,7 @@ describe('resource massMessaging', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('send: required and optional params', async () => {
     const response = await client.massMessaging.send('acct_XXXXXXXXXXXXXXX', {
       text: 'Hello!',

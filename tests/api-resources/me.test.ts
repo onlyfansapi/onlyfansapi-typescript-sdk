@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource me', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.me.retrieve('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource me', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getModelStartDate', async () => {
     const responsePromise = client.me.getModelStartDate('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();

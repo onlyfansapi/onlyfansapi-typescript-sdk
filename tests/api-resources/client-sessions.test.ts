@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource clientSessions', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.clientSessions.create({
       display_name: 'STRLCxGLVC Agency / Model: Stella',
@@ -22,7 +22,7 @@ describe('resource clientSessions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.clientSessions.create({
       display_name: 'STRLCxGLVC Agency / Model: Stella',

@@ -26,6 +26,9 @@ import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * APIs for managing OnlyFans posts
+ */
 export class Posts extends APIResource {
   comments: CommentsAPI.Comments = new CommentsAPI.Comments(this._client);
   labels: LabelsAPI.Labels = new LabelsAPI.Labels(this._client);

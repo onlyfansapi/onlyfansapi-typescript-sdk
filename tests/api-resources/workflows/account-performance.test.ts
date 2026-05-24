@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource accountPerformance', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveStartingRevenues', async () => {
     const responsePromise = client.workflows.accountPerformance.retrieveStartingRevenues(
       'acct_XXXXXXXXXXXXXXX',

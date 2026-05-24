@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource posts', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.posts.create('acct_XXXXXXXXXXXXXXX', { text: 'Hello!' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource posts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.posts.create('acct_XXXXXXXXXXXXXXX', {
       text: 'Hello!',
@@ -40,7 +40,7 @@ describe('resource posts', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.posts.retrieve(1234567890, { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
@@ -52,12 +52,12 @@ describe('resource posts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.posts.retrieve(1234567890, { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.posts.update(1234567890, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -72,7 +72,7 @@ describe('resource posts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.posts.update(1234567890, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -93,7 +93,7 @@ describe('resource posts', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.posts.list('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -105,7 +105,7 @@ describe('resource posts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -126,7 +126,7 @@ describe('resource posts', () => {
     ).rejects.toThrow(Onlyfansapi.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.posts.delete(1234567890, { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
@@ -138,12 +138,12 @@ describe('resource posts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.posts.delete(1234567890, { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('archive: only required params', async () => {
     const responsePromise = client.posts.archive(1234567890, { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
@@ -155,7 +155,7 @@ describe('resource posts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('archive: required and optional params', async () => {
     const response = await client.posts.archive(1234567890, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -163,7 +163,7 @@ describe('resource posts', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('pin: only required params', async () => {
     const responsePromise = client.posts.pin(1234567890, { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
@@ -175,12 +175,12 @@ describe('resource posts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('pin: required and optional params', async () => {
     const response = await client.posts.pin(1234567890, { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('stats: only required params', async () => {
     const responsePromise = client.posts.stats(1234567890, { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
@@ -192,7 +192,7 @@ describe('resource posts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('stats: required and optional params', async () => {
     const response = await client.posts.stats(1234567890, {
       account: 'acct_XXXXXXXXXXXXXXX',
@@ -200,7 +200,7 @@ describe('resource posts', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('unarchive: only required params', async () => {
     const responsePromise = client.posts.unarchive(1234567890, { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
@@ -212,7 +212,7 @@ describe('resource posts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('unarchive: required and optional params', async () => {
     const response = await client.posts.unarchive(1234567890, {
       account: 'acct_XXXXXXXXXXXXXXX',

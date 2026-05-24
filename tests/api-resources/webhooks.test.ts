@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource webhooks', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.webhooks.create({
       endpoint_url: 'https://example.com',
@@ -23,7 +23,7 @@ describe('resource webhooks', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.webhooks.create({
       endpoint_url: 'https://example.com',
@@ -32,7 +32,7 @@ describe('resource webhooks', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.webhooks.delete('wh_abc123');
     const rawResponse = await responsePromise.asResponse();

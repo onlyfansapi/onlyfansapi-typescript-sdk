@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource authenticate', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('pollStatus', async () => {
     const responsePromise = client.authenticate.pollStatus('auth_XXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource authenticate', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('reauthenticate', async () => {
     const responsePromise = client.authenticate.reauthenticate('acct_XXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
@@ -32,7 +32,7 @@ describe('resource authenticate', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('start: only required params', async () => {
     const responsePromise = client.authenticate.start({
       email: 'jalyn75@example.net',
@@ -48,7 +48,7 @@ describe('resource authenticate', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('start: required and optional params', async () => {
     const response = await client.authenticate.start({
       email: 'jalyn75@example.net',
@@ -57,7 +57,7 @@ describe('resource authenticate', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('submit2fa: only required params', async () => {
     const responsePromise = client.authenticate.submit2fa('auth_XXXXXXX', { code: '12345' });
     const rawResponse = await responsePromise.asResponse();
@@ -69,7 +69,7 @@ describe('resource authenticate', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('submit2fa: required and optional params', async () => {
     const response = await client.authenticate.submit2fa('auth_XXXXXXX', { code: '12345' });
   });

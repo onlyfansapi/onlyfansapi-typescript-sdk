@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * APIs for managing OnlyFans chats
+ */
 export class Messages extends APIResource {
   /**
    * Get messages from a specific chat.

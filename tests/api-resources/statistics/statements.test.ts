@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource statements', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getEarnings: only required params', async () => {
     const responsePromise = client.statistics.statements.getEarnings('acct_XXXXXXXXXXXXXXX', {
       start_date: '2025-01-01 00:00:00',
@@ -22,7 +22,7 @@ describe('resource statements', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getEarnings: required and optional params', async () => {
     const response = await client.statistics.statements.getEarnings('acct_XXXXXXXXXXXXXXX', {
       start_date: '2025-01-01 00:00:00',

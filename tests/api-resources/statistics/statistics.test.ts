@@ -8,7 +8,7 @@ const client = new Onlyfansapi({
 });
 
 describe('resource statistics', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('calculateTotalTransactions: only required params', async () => {
     const responsePromise = client.statistics.calculateTotalTransactions('acct_XXXXXXXXXXXXXXX', {
       end_date: '2025-03-31 23:59:59',
@@ -23,7 +23,7 @@ describe('resource statistics', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('calculateTotalTransactions: required and optional params', async () => {
     const response = await client.statistics.calculateTotalTransactions('acct_XXXXXXXXXXXXXXX', {
       end_date: '2025-03-31 23:59:59',
@@ -31,7 +31,7 @@ describe('resource statistics', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getOverview: only required params', async () => {
     const responsePromise = client.statistics.getOverview('acct_XXXXXXXXXXXXXXX', {
       end_date: '2025-03-31 23:59:59',
@@ -46,7 +46,7 @@ describe('resource statistics', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getOverview: required and optional params', async () => {
     const response = await client.statistics.getOverview('acct_XXXXXXXXXXXXXXX', {
       end_date: '2025-03-31 23:59:59',
@@ -55,7 +55,7 @@ describe('resource statistics', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getSubscriberMetrics: only required params', async () => {
     const responsePromise = client.statistics.getSubscriberMetrics('acct_XXXXXXXXXXXXXXX', {
       end_date: '2025-03-31 23:59:59',
@@ -70,7 +70,7 @@ describe('resource statistics', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getSubscriberMetrics: required and optional params', async () => {
     const response = await client.statistics.getSubscriberMetrics('acct_XXXXXXXXXXXXXXX', {
       end_date: '2025-03-31 23:59:59',

@@ -5,6 +5,9 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Endpoints for your linked accounts
+ */
 export class Me extends APIResource {
   /**
    * Get OnlyFans Profile details for the currently used Account

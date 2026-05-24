@@ -12,6 +12,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Endpoints for managingr account notifications
+ */
 export class Notifications extends APIResource {
   tabsOrder: TabsOrderAPI.TabsOrder = new TabsOrderAPI.TabsOrder(this._client);
 
