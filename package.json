@@ -1,6 +1,6 @@
 {
   "name": "@onlyfansapi/onlyfans-sdk",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "The official TypeScript library for the Only Fans API API",
   "author": "Only Fans API <hello@onlyfansapi.com>",
   "types": "dist/index.d.ts",

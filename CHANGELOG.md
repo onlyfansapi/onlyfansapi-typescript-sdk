@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.0 (2026-05-25)
+
+Full Changelog: [v0.1.1...v0.2.0](https://github.com/onlyfansapi/onlyfansapi-typescript-sdk/compare/v0.1.1...v0.2.0)
+
+### Features
+
+* **api:** api update ([a9b3780](https://github.com/onlyfansapi/onlyfansapi-typescript-sdk/commit/a9b3780e73f89381424e45adc2824213d2320f8f))
+* **api:** api update ([a1a8f23](https://github.com/onlyfansapi/onlyfansapi-typescript-sdk/commit/a1a8f23989900d186de781fdcbc02beb972c78b2))
+
 ## 0.1.1 (2026-05-24)
 
 Full Changelog: [v0.1.0...v0.1.1](https://github.com/onlyfansapi/onlyfansapi-typescript-sdk/compare/v0.1.0...v0.1.1)
