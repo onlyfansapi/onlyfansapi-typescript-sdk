@@ -256,7 +256,6 @@ import {
 import {
   Media,
   MediaDownloadParams,
-  MediaDownloadResponse,
   MediaScrapeParams,
   MediaScrapeResponse,
   MediaUploadParams,
@@ -1430,7 +1429,6 @@ export declare namespace OnlyFansAPI {
 
   export {
     Media as Media,
-    type MediaDownloadResponse as MediaDownloadResponse,
     type MediaScrapeResponse as MediaScrapeResponse,
     type MediaUploadResponse as MediaUploadResponse,
     type MediaDownloadParams as MediaDownloadParams,
