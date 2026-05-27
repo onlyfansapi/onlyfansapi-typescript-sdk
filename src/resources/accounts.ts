@@ -30,7 +30,7 @@ export class Accounts extends APIResource {
    * @example
    * ```ts
    * const response = await client.accounts.disconnect(
-   *   'voluptas',
+   *   'consectetur',
    * );
    * ```
    */
