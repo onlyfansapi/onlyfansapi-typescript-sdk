@@ -29,9 +29,7 @@ export class Accounts extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.accounts.disconnect(
-   *   'laboriosam',
-   * );
+   * const response = await client.accounts.disconnect('quas');
    * ```
    */
   disconnect(id: string, options?: RequestOptions): APIPromise<AccountDisconnectResponse | null> {
