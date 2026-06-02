@@ -128,7 +128,7 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trialLinks.listSubscribers(
-   *   'facilis',
+   *   'nobis',
    *   {
    *     account: 'acct_XXXXXXXXXXXXXXX',
    *     limit: 10,
@@ -154,7 +154,7 @@ export class TrialLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.trialLinks.retrieveCohortArps('perspiciatis', {
+   * await client.trialLinks.retrieveCohortArps('rerum', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -179,7 +179,7 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trialLinks.retrieveStats(
-   *   'nesciunt',
+   *   'quo',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
