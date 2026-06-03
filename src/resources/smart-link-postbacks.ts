@@ -18,7 +18,7 @@ export class SmartLinkPostbacks extends APIResource {
    *   await client.smartLinkPostbacks.create({
    *     conversion_types: ['new_subscriber', 'new_transaction'],
    *     smart_link_scope: 'campaign_specific',
-   *     url: 'https://example.com/postback?click={click_id}&type={conversion_type}&gclid={gclid}',
+   *     url: 'https://example.com/postback?click={external_click_id}&type={conversion_type}&gclid={gclid}',
    *   });
    * ```
    */
@@ -51,7 +51,7 @@ export class SmartLinkPostbacks extends APIResource {
    *   await client.smartLinkPostbacks.update(123, {
    *     conversion_types: ['new_subscriber'],
    *     smart_link_scope: 'global',
-   *     url: 'https://example.com/postback?click={click_id}&type={conversion_type}',
+   *     url: 'https://example.com/postback?click={external_click_id}&type={conversion_type}',
    *   });
    * ```
    */
@@ -359,8 +359,8 @@ export interface SmartLinkPostbackCreateParams {
   smart_link_scope: 'global' | 'campaign_specific';
 
   /**
-   * The destination URL. Variables such as `{click_id}`, `{fbclid}`, `{gclid}`, and
-   * `{ttclid}` are replaced when the postback is dispatched.
+   * The destination URL. Variables such as `{external_click_id}`, `{fbclid}`,
+   * `{gclid}`, and `{ttclid}` are replaced when the postback is dispatched.
    */
   url: string;
 

@@ -13,7 +13,7 @@ describe('resource smartLinkPostbacks', () => {
     const responsePromise = client.smartLinkPostbacks.create({
       conversion_types: ['new_subscriber', 'new_transaction'],
       smart_link_scope: 'campaign_specific',
-      url: 'https://example.com/postback?click={click_id}&type={conversion_type}&gclid={gclid}',
+      url: 'https://example.com/postback?click={external_click_id}&type={conversion_type}&gclid={gclid}',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -29,7 +29,7 @@ describe('resource smartLinkPostbacks', () => {
     const response = await client.smartLinkPostbacks.create({
       conversion_types: ['new_subscriber', 'new_transaction'],
       smart_link_scope: 'campaign_specific',
-      url: 'https://example.com/postback?click={click_id}&type={conversion_type}&gclid={gclid}',
+      url: 'https://example.com/postback?click={external_click_id}&type={conversion_type}&gclid={gclid}',
       smart_link_ids: ['01JTESTLINK000000000000001'],
     });
   });
@@ -51,7 +51,7 @@ describe('resource smartLinkPostbacks', () => {
     const responsePromise = client.smartLinkPostbacks.update(123, {
       conversion_types: ['new_subscriber'],
       smart_link_scope: 'global',
-      url: 'https://example.com/postback?click={click_id}&type={conversion_type}',
+      url: 'https://example.com/postback?click={external_click_id}&type={conversion_type}',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -67,7 +67,7 @@ describe('resource smartLinkPostbacks', () => {
     const response = await client.smartLinkPostbacks.update(123, {
       conversion_types: ['new_subscriber'],
       smart_link_scope: 'global',
-      url: 'https://example.com/postback?click={click_id}&type={conversion_type}',
+      url: 'https://example.com/postback?click={external_click_id}&type={conversion_type}',
       smart_link_ids: ['01JTESTLINK000000000000001'],
     });
   });
