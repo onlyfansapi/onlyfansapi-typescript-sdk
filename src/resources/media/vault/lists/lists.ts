@@ -58,12 +58,13 @@ export class Lists extends APIResource {
    * ```ts
    * const list = await client.media.vault.lists.update('123', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
+   *   name: 'My renamed list',
    * });
    * ```
    */
   update(listID: string, params: ListUpdateParams, options?: RequestOptions): APIPromise<ListUpdateResponse> {
-    const { account } = params;
-    return this._client.put(path`/api/${account}/media/vault/lists/${listID}`, options);
+    const { account, ...body } = params;
+    return this._client.put(path`/api/${account}/media/vault/lists/${listID}`, { body, ...options });
   }
 
   /**
@@ -462,9 +463,15 @@ export interface ListRetrieveParams {
 
 export interface ListUpdateParams {
   /**
-   * The Account ID
+   * Path param: The Account ID
    */
   account: string;
+
+  /**
+   * Body param: The new name for the vault list. Must not be greater than 255
+   * characters.
+   */
+  name: string;
 }
 
 export interface ListListParams {
