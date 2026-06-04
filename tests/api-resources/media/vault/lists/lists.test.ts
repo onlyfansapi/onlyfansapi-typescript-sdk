@@ -44,7 +44,10 @@ describe('resource lists', () => {
 
   // Mock server tests are disabled
   test.skip('update: only required params', async () => {
-    const responsePromise = client.media.vault.lists.update('123', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.media.vault.lists.update('123', {
+      account: 'acct_XXXXXXXXXXXXXXX',
+      name: 'My renamed list',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -56,7 +59,10 @@ describe('resource lists', () => {
 
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
-    const response = await client.media.vault.lists.update('123', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const response = await client.media.vault.lists.update('123', {
+      account: 'acct_XXXXXXXXXXXXXXX',
+      name: 'My renamed list',
+    });
   });
 
   // Mock server tests are disabled
