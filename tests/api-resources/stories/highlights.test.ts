@@ -124,7 +124,7 @@ describe('resource highlights', () => {
 
   // Mock server tests are disabled
   test.skip('addStory: only required params', async () => {
-    const responsePromise = client.stories.highlights.addStory('repudiandae', {
+    const responsePromise = client.stories.highlights.addStory('nobis', {
       account: 'acct_XXXXXXXXXXXXXXX',
       highlight_id: 1234567890,
       story_id: 2345678901,
@@ -140,7 +140,7 @@ describe('resource highlights', () => {
 
   // Mock server tests are disabled
   test.skip('addStory: required and optional params', async () => {
-    const response = await client.stories.highlights.addStory('repudiandae', {
+    const response = await client.stories.highlights.addStory('nobis', {
       account: 'acct_XXXXXXXXXXXXXXX',
       highlight_id: 1234567890,
       story_id: 2345678901,
@@ -149,7 +149,7 @@ describe('resource highlights', () => {
 
   // Mock server tests are disabled
   test.skip('removeStory: only required params', async () => {
-    const responsePromise = client.stories.highlights.removeStory('repudiandae', {
+    const responsePromise = client.stories.highlights.removeStory('nobis', {
       account: 'acct_XXXXXXXXXXXXXXX',
       highlight_id: 1234567890,
     });
@@ -164,7 +164,7 @@ describe('resource highlights', () => {
 
   // Mock server tests are disabled
   test.skip('removeStory: required and optional params', async () => {
-    const response = await client.stories.highlights.removeStory('repudiandae', {
+    const response = await client.stories.highlights.removeStory('nobis', {
       account: 'acct_XXXXXXXXXXXXXXX',
       highlight_id: 1234567890,
     });
