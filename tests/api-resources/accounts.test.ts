@@ -37,7 +37,7 @@ describe('resource accounts', () => {
 
   // Mock server tests are disabled
   test.skip('disconnect', async () => {
-    const responsePromise = client.accounts.disconnect('asperiores');
+    const responsePromise = client.accounts.disconnect('placeat');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
