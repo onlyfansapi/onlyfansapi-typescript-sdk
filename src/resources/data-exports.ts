@@ -230,6 +230,8 @@ export namespace DataExportRetrieveResponse {
 
     failed_at?: string | null;
 
+    failed_downloads?: number;
+
     failed_reason?: string | null;
 
     file_type?: string;
@@ -326,6 +328,8 @@ export namespace DataExportListResponse {
       export_columns?: Array<string>;
 
       failed_at?: string | null;
+
+      failed_downloads?: number;
 
       failed_reason?: string | null;
 
