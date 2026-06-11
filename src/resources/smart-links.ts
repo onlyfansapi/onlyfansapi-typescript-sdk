@@ -75,9 +75,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listClicks(
-   *   'vitae',
-   * );
+   * const response = await client.smartLinks.listClicks('aut');
    * ```
    */
   listClicks(
@@ -95,7 +93,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listConversions(
-   *   'aliquam',
+   *   'excepturi',
    * );
    * ```
    */
@@ -113,9 +111,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listFans(
-   *   'laboriosam',
-   * );
+   * const response = await client.smartLinks.listFans('maxime');
    * ```
    */
   listFans(
@@ -132,7 +128,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listSpenders(
-   *   'vel',
+   *   'odit',
    * );
    * ```
    */
@@ -149,7 +145,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.smartLinks.retrieveCohortArps('accusamus');
+   * await client.smartLinks.retrieveCohortArps('libero');
    * ```
    */
   retrieveCohortArps(
@@ -171,7 +167,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.retrieveStats(
-   *   'dolorem',
+   *   'quia',
    * );
    * ```
    */
@@ -1050,7 +1046,7 @@ export interface SmartLinkListParams {
   limit?: number;
 
   /**
-   * Comma-separated Meta Pixel IDs to include.
+   * Deprecated alias for `pixel_ids`. Comma-separated Pixel IDs to include.
    */
   meta_pixel_ids?: string | null;
 
@@ -1063,6 +1059,11 @@ export interface SmartLinkListParams {
    * The offset used for pagination. Default `0`. Must be at least 0.
    */
   offset?: number;
+
+  /**
+   * Comma-separated ad platform Pixel IDs to include.
+   */
+  pixel_ids?: string | null;
 }
 
 export interface SmartLinkListClicksParams {
