@@ -30,6 +30,9 @@ describe('resource smartLinkPostbacks', () => {
       conversion_types: ['new_subscriber', 'new_transaction'],
       smart_link_scope: 'campaign_specific',
       url: 'https://example.com/postback?click={external_click_id}&type={conversion_type}&gclid={gclid}',
+      body: '{"click_id":"{click_id}","value":"{amount_gross}"}',
+      headers: [{ name: 'Authorization', value: 'Bearer token' }],
+      http_method: 'POST',
       smart_link_ids: ['01JTESTLINK000000000000001'],
     });
   });
@@ -68,6 +71,9 @@ describe('resource smartLinkPostbacks', () => {
       conversion_types: ['new_subscriber'],
       smart_link_scope: 'global',
       url: 'https://example.com/postback?click={external_click_id}&type={conversion_type}',
+      body: '{"click_id":"{click_id}","value":"{amount_gross}"}',
+      headers: [{ name: 'Authorization', value: 'Bearer token' }],
+      http_method: 'POST',
       smart_link_ids: ['01JTESTLINK000000000000001'],
     });
   });
