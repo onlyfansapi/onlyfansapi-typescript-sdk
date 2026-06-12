@@ -1146,7 +1146,7 @@ export class OnlyFansAPI {
   trialLinks: API.TrialLinks = new API.TrialLinks(this);
   giphy: API.Giphy = new API.Giphy(this);
   /**
-   * APIs for managing tags on free trial links and tracking links
+   * APIs for managing tags on free trial links, tracking links, and Smart Links
    */
   linkTags: API.LinkTags = new API.LinkTags(this);
   massMessaging: API.MassMessaging = new API.MassMessaging(this);
