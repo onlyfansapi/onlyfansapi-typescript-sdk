@@ -75,7 +75,9 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listClicks('sit');
+   * const response = await client.smartLinks.listClicks(
+   *   'dolor',
+   * );
    * ```
    */
   listClicks(
@@ -93,7 +95,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listConversions(
-   *   'eum',
+   *   'unde',
    * );
    * ```
    */
@@ -111,7 +113,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listFans('est');
+   * const response = await client.smartLinks.listFans('quis');
    * ```
    */
   listFans(
@@ -127,7 +129,9 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listSpenders('et');
+   * const response = await client.smartLinks.listSpenders(
+   *   'quo',
+   * );
    * ```
    */
   listSpenders(
@@ -143,7 +147,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.smartLinks.retrieveCohortArps('voluptates');
+   * await client.smartLinks.retrieveCohortArps('tenetur');
    * ```
    */
   retrieveCohortArps(
@@ -165,7 +169,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.retrieveStats(
-   *   'blanditiis',
+   *   'amet',
    * );
    * ```
    */
@@ -1037,6 +1041,8 @@ export interface SmartLinkListParams {
    */
   account_ids?: string | null;
 
+  filter?: SmartLinkListParams.Filter;
+
   /**
    * The number of Smart Links to return. Default `50`. Must be at least 1. Must not
    * be greater than 1000.
@@ -1062,6 +1068,15 @@ export interface SmartLinkListParams {
    * Comma-separated ad platform Pixel IDs to include.
    */
   pixel_ids?: string | null;
+}
+
+export namespace SmartLinkListParams {
+  export interface Filter {
+    /**
+     * Must not be greater than 50 characters.
+     */
+    tags?: Array<string>;
+  }
 }
 
 export interface SmartLinkListClicksParams {
