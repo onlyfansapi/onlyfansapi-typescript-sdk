@@ -65,7 +65,7 @@ describe('resource smartLinks', () => {
       client.smartLinks.list(
         {
           account_ids: 'acct_abc123,acct_def456',
-          filter: { tags: ['phvquwdbberbhomvkawzbno'] },
+          filter: { tags: ['whpvoffpnxqegnfro'] },
           limit: 50,
           meta_pixel_ids: '1,2',
           name: 'Instagram',
@@ -91,7 +91,7 @@ describe('resource smartLinks', () => {
 
   // Mock server tests are disabled
   test.skip('listClicks', async () => {
-    const responsePromise = client.smartLinks.listClicks('enim');
+    const responsePromise = client.smartLinks.listClicks('eaque');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -106,7 +106,7 @@ describe('resource smartLinks', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.smartLinks.listClicks(
-        'enim',
+        'eaque',
         {
           date_end: '2026-01-07T23:59:59Z',
           date_start: '2026-01-01T00:00:00Z',
@@ -122,7 +122,7 @@ describe('resource smartLinks', () => {
 
   // Mock server tests are disabled
   test.skip('listConversions', async () => {
-    const responsePromise = client.smartLinks.listConversions('aperiam');
+    const responsePromise = client.smartLinks.listConversions('omnis');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -137,7 +137,7 @@ describe('resource smartLinks', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.smartLinks.listConversions(
-        'aperiam',
+        'omnis',
         {
           conversion_type: 'new_transaction',
           date_end: '2026-01-07T23:59:59Z',
@@ -155,7 +155,7 @@ describe('resource smartLinks', () => {
 
   // Mock server tests are disabled
   test.skip('listFans', async () => {
-    const responsePromise = client.smartLinks.listFans('iste');
+    const responsePromise = client.smartLinks.listFans('nihil');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -170,7 +170,7 @@ describe('resource smartLinks', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.smartLinks.listFans(
-        'iste',
+        'nihil',
         {
           has_messages: true,
           limit: 100,
@@ -187,7 +187,7 @@ describe('resource smartLinks', () => {
 
   // Mock server tests are disabled
   test.skip('listSpenders', async () => {
-    const responsePromise = client.smartLinks.listSpenders('quos');
+    const responsePromise = client.smartLinks.listSpenders('suscipit');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -202,7 +202,7 @@ describe('resource smartLinks', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.smartLinks.listSpenders(
-        'quos',
+        'suscipit',
         {
           limit: 50,
           minSpend: 1,
@@ -215,7 +215,7 @@ describe('resource smartLinks', () => {
 
   // Mock server tests are disabled
   test.skip('retrieveCohortArps', async () => {
-    const responsePromise = client.smartLinks.retrieveCohortArps('est');
+    const responsePromise = client.smartLinks.retrieveCohortArps('minima');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -230,7 +230,7 @@ describe('resource smartLinks', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.smartLinks.retrieveCohortArps(
-        'est',
+        'minima',
         {
           acquisition_end: '2026-01-31T23:59:59Z',
           acquisition_start: '2026-01-01T00:00:00Z',
@@ -243,7 +243,7 @@ describe('resource smartLinks', () => {
 
   // Mock server tests are disabled
   test.skip('retrieveStats', async () => {
-    const responsePromise = client.smartLinks.retrieveStats('necessitatibus');
+    const responsePromise = client.smartLinks.retrieveStats('aspernatur');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -258,7 +258,7 @@ describe('resource smartLinks', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.smartLinks.retrieveStats(
-        'necessitatibus',
+        'aspernatur',
         { date_end: '2026-01-31T23:59:59Z', date_start: '2026-01-01T00:00:00Z' },
         { path: '/_stainless_unknown_path' },
       ),
