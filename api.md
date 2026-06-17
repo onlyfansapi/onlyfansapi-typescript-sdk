@@ -192,14 +192,6 @@ Methods:
 
 # Messages
 
-Types:
-
-- <code><a href="./src/resources/messages.ts">MessageAttachTagsResponse</a></code>
-
-Methods:
-
-- <code title="post /api/{account}/messages/{message_id}/attach-tags">client.messages.<a href="./src/resources/messages.ts">attachTags</a>(messageID, { ...params }) -> MessageAttachTagsResponse</code>
-
 # ClientSessions
 
 Types:
