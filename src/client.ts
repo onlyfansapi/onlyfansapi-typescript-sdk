@@ -104,7 +104,7 @@ import {
   MeGetTopPercentageResponse,
   MeRetrieveResponse,
 } from './resources/me';
-import { MessageAttachTagsParams, MessageAttachTagsResponse, Messages } from './resources/messages';
+import { Messages } from './resources/messages';
 import {
   PayoutListRequestsParams,
   PayoutListRequestsResponse,
@@ -1321,11 +1321,7 @@ export declare namespace OnlyFansAPI {
     type ChatUnmuteParams as ChatUnmuteParams,
   };
 
-  export {
-    Messages as Messages,
-    type MessageAttachTagsResponse as MessageAttachTagsResponse,
-    type MessageAttachTagsParams as MessageAttachTagsParams,
-  };
+  export { Messages as Messages };
 
   export {
     ClientSessions as ClientSessions,
