@@ -24,7 +24,7 @@ describe('resource profiles', () => {
   test.skip('retrieve: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.profiles.retrieve('madison420ivy', { fresh: false }, { path: '/_stainless_unknown_path' }),
+      client.profiles.retrieve('madison420ivy', { fresh: true }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(OnlyFansAPI.NotFoundError);
   });
 });
