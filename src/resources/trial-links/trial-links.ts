@@ -50,7 +50,7 @@ export class TrialLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const trialLink = await client.trialLinks.retrieve('quod', {
+   * const trialLink = await client.trialLinks.retrieve('nisi', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -88,7 +88,7 @@ export class TrialLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const trialLink = await client.trialLinks.delete('quod', {
+   * const trialLink = await client.trialLinks.delete('nisi', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -128,7 +128,7 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trialLinks.listSubscribers(
-   *   'distinctio',
+   *   'et',
    *   {
    *     account: 'acct_XXXXXXXXXXXXXXX',
    *     limit: 10,
@@ -154,7 +154,7 @@ export class TrialLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.trialLinks.retrieveCohortArps('corrupti', {
+   * await client.trialLinks.retrieveCohortArps('officia', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -179,7 +179,7 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trialLinks.retrieveStats(
-   *   'illo',
+   *   'perspiciatis',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
