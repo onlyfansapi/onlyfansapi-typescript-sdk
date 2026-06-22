@@ -47,7 +47,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const trackingLink = await client.trackingLinks.retrieve(
-   *   'impedit',
+   *   'totam',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -85,7 +85,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const trackingLink = await client.trackingLinks.delete(
-   *   'impedit',
+   *   'totam',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -104,7 +104,7 @@ export class TrackingLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.trackingLinks.getCohortArps('ut', {
+   * await client.trackingLinks.getCohortArps('dolor', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -134,7 +134,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trackingLinks.getStats(
-   *   'ipsum',
+   *   'laborum',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
