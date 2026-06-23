@@ -37,7 +37,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.trialLinks.retrieve('dolor', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.trialLinks.retrieve('et', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -49,7 +49,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
-    const response = await client.trialLinks.retrieve('dolor', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const response = await client.trialLinks.retrieve('et', { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 
   // Mock server tests are disabled
@@ -77,7 +77,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
-    const responsePromise = client.trialLinks.delete('dolor', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.trialLinks.delete('et', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -89,7 +89,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
-    const response = await client.trialLinks.delete('dolor', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const response = await client.trialLinks.delete('et', { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 
   // Mock server tests are disabled
@@ -118,7 +118,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('listSubscribers: only required params', async () => {
-    const responsePromise = client.trialLinks.listSubscribers('sunt', {
+    const responsePromise = client.trialLinks.listSubscribers('nemo', {
       account: 'acct_XXXXXXXXXXXXXXX',
       limit: 10,
       offset: 0,
@@ -134,7 +134,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('listSubscribers: required and optional params', async () => {
-    const response = await client.trialLinks.listSubscribers('sunt', {
+    const response = await client.trialLinks.listSubscribers('nemo', {
       account: 'acct_XXXXXXXXXXXXXXX',
       limit: 10,
       offset: 0,
@@ -165,9 +165,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('retrieveStats: only required params', async () => {
-    const responsePromise = client.trialLinks.retrieveStats('asperiores', {
-      account: 'acct_XXXXXXXXXXXXXXX',
-    });
+    const responsePromise = client.trialLinks.retrieveStats('tempora', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -179,7 +177,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('retrieveStats: required and optional params', async () => {
-    const response = await client.trialLinks.retrieveStats('asperiores', {
+    const response = await client.trialLinks.retrieveStats('tempora', {
       account: 'acct_XXXXXXXXXXXXXXX',
       date_end: '2026-01-31T23:59:59Z',
       date_start: '2026-01-01T00:00:00Z',
