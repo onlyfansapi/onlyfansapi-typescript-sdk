@@ -12,7 +12,7 @@ export class Comments extends APIResource {
    * @example
    * ```ts
    * const comment = await client.posts.comments.create(
-   *   'quasi',
+   *   'ipsum',
    *   {
    *     account: 'acct_XXXXXXXXXXXXXXX',
    *     text: 'This is a comment.',
@@ -37,7 +37,7 @@ export class Comments extends APIResource {
    *
    * @example
    * ```ts
-   * const comments = await client.posts.comments.list('quasi', {
+   * const comments = await client.posts.comments.list('ipsum', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
