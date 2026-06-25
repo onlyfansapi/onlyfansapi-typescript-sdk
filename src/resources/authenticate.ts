@@ -460,8 +460,6 @@ export interface AuthenticateSubmit2faResponse {
 }
 
 export interface AuthenticateStartParams {
-  _internal_automatic_syncs_disabled?: boolean;
-
   /**
    * The auth_id from OnlyFans session cookies. Required when auth_type is
    * `raw_data`.
