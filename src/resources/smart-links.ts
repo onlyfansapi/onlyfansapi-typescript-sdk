@@ -75,7 +75,9 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listClicks('aut');
+   * const response = await client.smartLinks.listClicks(
+   *   'rerum',
+   * );
    * ```
    */
   listClicks(
@@ -93,7 +95,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listConversions(
-   *   'sed',
+   *   'sint',
    * );
    * ```
    */
@@ -111,7 +113,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listFans('illum');
+   * const response = await client.smartLinks.listFans('id');
    * ```
    */
   listFans(
@@ -128,7 +130,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listSpenders(
-   *   'recusandae',
+   *   'explicabo',
    * );
    * ```
    */
@@ -145,7 +147,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.smartLinks.retrieveCohortArps('voluptatem');
+   * await client.smartLinks.retrieveCohortArps('est');
    * ```
    */
   retrieveCohortArps(
@@ -167,7 +169,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.retrieveStats(
-   *   'in',
+   *   'ab',
    * );
    * ```
    */
@@ -849,7 +851,11 @@ export namespace SmartLinkListFansResponse {
 
       offset?: number;
 
+      previously_subscribed?: string | null;
+
       sort?: string;
+
+      subscribed_using_promo?: string | null;
     }
 
     export interface Row {
@@ -873,9 +879,39 @@ export namespace SmartLinkListFansResponse {
 
       revenue_net?: number;
 
+      subscription_insights?: Row.SubscriptionInsights;
+
       tips_net?: number;
 
       username?: string;
+    }
+
+    export namespace Row {
+      export interface SubscriptionInsights {
+        current_subscription?: SubscriptionInsights.CurrentSubscription;
+
+        current_subscription_from_smart_link?: boolean;
+
+        has_subscription_data?: boolean;
+
+        previously_subscribed?: boolean;
+
+        subscribed_using_promo?: boolean;
+      }
+
+      export namespace SubscriptionInsights {
+        export interface CurrentSubscription {
+          action?: string;
+
+          is_free?: boolean;
+
+          price?: number;
+
+          regular_price?: number;
+
+          type?: string;
+        }
+      }
     }
 
     export interface Summary {
@@ -1183,6 +1219,12 @@ export interface SmartLinkListFansParams {
   offset?: number;
 
   /**
+   * Optional - Filter to returning subscribers (fans previously subscribed before
+   * this subscription)
+   */
+  previously_subscribed?: boolean;
+
+  /**
    * Optional sort field. Default `-revenue_net`
    */
   sort?:
@@ -1194,6 +1236,11 @@ export interface SmartLinkListFansParams {
     | '-messages_sent_by_fan'
     | 'converted_at'
     | '-converted_at';
+
+  /**
+   * Optional - Filter to fans who subscribed via a promotion/offer
+   */
+  subscribed_using_promo?: boolean;
 }
 
 export interface SmartLinkListSpendersParams {
