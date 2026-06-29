@@ -39,7 +39,7 @@ describe('resource welcomeMessage', () => {
       client.settings.welcomeMessage.update(
         'acct_XXXXXXXXXXXXXXX',
         {
-          isForward: false,
+          isForward: true,
           lockedText: false,
           mediaFiles: ['ofapi_media_abc123', 1234567890],
           previews: ['ofapi_media_abc123', 1234567890],

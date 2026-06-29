@@ -50,10 +50,9 @@ export class TrialLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const trialLink = await client.trialLinks.retrieve(
-   *   'voluptas',
-   *   { account: 'acct_XXXXXXXXXXXXXXX' },
-   * );
+   * const trialLink = await client.trialLinks.retrieve('ab', {
+   *   account: 'acct_XXXXXXXXXXXXXXX',
+   * });
    * ```
    */
   retrieve(
@@ -89,10 +88,9 @@ export class TrialLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const trialLink = await client.trialLinks.delete(
-   *   'voluptas',
-   *   { account: 'acct_XXXXXXXXXXXXXXX' },
-   * );
+   * const trialLink = await client.trialLinks.delete('ab', {
+   *   account: 'acct_XXXXXXXXXXXXXXX',
+   * });
    * ```
    */
   delete(
@@ -130,7 +128,7 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trialLinks.listSubscribers(
-   *   'non',
+   *   'totam',
    *   {
    *     account: 'acct_XXXXXXXXXXXXXXX',
    *     limit: 10,
@@ -156,7 +154,7 @@ export class TrialLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.trialLinks.retrieveCohortArps('id', {
+   * await client.trialLinks.retrieveCohortArps('numquam', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -181,7 +179,7 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trialLinks.retrieveStats(
-   *   'veritatis',
+   *   'amet',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
