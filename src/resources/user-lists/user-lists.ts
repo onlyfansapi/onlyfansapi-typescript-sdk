@@ -31,7 +31,7 @@ export class UserLists extends APIResource {
    * ```ts
    * const userList = await client.userLists.create(
    *   'acct_XXXXXXXXXXXXXXX',
-   *   { name: 'uobdhgqjbtzxkujlpqul' },
+   *   { name: 'hxodkcv' },
    * );
    * ```
    */
