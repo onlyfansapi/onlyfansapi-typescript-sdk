@@ -56,45 +56,87 @@ export class Profitability extends APIResource {
   }
 }
 
-export type ProfitabilityGetHistoryResponse =
-  Array<ProfitabilityGetHistoryResponse.ProfitabilityGetHistoryResponseItem>;
+export interface ProfitabilityGetHistoryResponse {
+  data?: Array<ProfitabilityGetHistoryResponse.Data>;
+}
 
 export namespace ProfitabilityGetHistoryResponse {
-  export interface ProfitabilityGetHistoryResponseItem {
-    gross_revenue?: number;
+  export interface Data {
+    activeMilestones?: string | null;
 
-    margin?: number;
+    agencyEarnings?: string;
+
+    commissionAmount?: string;
+
+    commissionRate?: string;
+
+    costs?: Array<unknown>;
+
+    creatorName?: string;
+
+    hasCommissionForPeriod?: boolean;
+
+    hasCostsForPeriod?: boolean;
+
+    marginPercentage?: string;
 
     month?: number;
 
-    net_revenue?: number;
+    onlyFansUserId?: number;
 
-    profit?: number;
+    profit?: string;
+
+    projectedNet?: string;
+
+    ratePeriods?: Array<unknown>;
+
+    referralNote?: string | null;
+
+    totalCosts?: string;
 
     year?: number;
   }
 }
 
-export type ProfitabilityGetProfitabilityResponse =
-  Array<ProfitabilityGetProfitabilityResponse.ProfitabilityGetProfitabilityResponseItem>;
+export interface ProfitabilityGetProfitabilityResponse {
+  data?: Array<ProfitabilityGetProfitabilityResponse.Data>;
+}
 
 export namespace ProfitabilityGetProfitabilityResponse {
-  export interface ProfitabilityGetProfitabilityResponseItem {
-    commission?: number;
+  export interface Data {
+    activeMilestones?: string | null;
 
-    creator_id?: number;
+    agencyEarnings?: string;
 
-    gross_revenue?: number;
+    commissionAmount?: string;
 
-    margin?: number;
+    commissionRate?: string;
 
-    name?: string;
+    costs?: Array<unknown>;
 
-    net_revenue?: number;
+    creatorName?: string;
 
-    profit?: number;
+    hasCommissionForPeriod?: boolean;
 
-    total_costs?: number;
+    hasCostsForPeriod?: boolean;
+
+    marginPercentage?: string;
+
+    month?: number;
+
+    onlyFansUserId?: number;
+
+    profit?: string;
+
+    projectedNet?: string;
+
+    ratePeriods?: Array<unknown>;
+
+    referralNote?: string | null;
+
+    totalCosts?: string;
+
+    year?: number;
   }
 }
 
