@@ -121,7 +121,7 @@ export class Highlights extends APIResource {
    * @example
    * ```ts
    * const response = await client.stories.highlights.addStory(
-   *   'sequi',
+   *   'cumque',
    *   {
    *     account: 'acct_XXXXXXXXXXXXXXX',
    *     highlight_id: 1234567890,
@@ -148,7 +148,7 @@ export class Highlights extends APIResource {
    * @example
    * ```ts
    * const response =
-   *   await client.stories.highlights.removeStory('sequi', {
+   *   await client.stories.highlights.removeStory('cumque', {
    *     account: 'acct_XXXXXXXXXXXXXXX',
    *     highlight_id: 1234567890,
    *   });
