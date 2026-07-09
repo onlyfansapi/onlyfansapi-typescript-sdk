@@ -511,7 +511,7 @@ export interface AuthenticateStartParams {
    * The country of the managed proxy server you want to use. Eg. "us" for United
    * States. Cannot be used together with customProxy.
    */
-  proxyCountry?: 'us' | 'uk';
+  proxyCountry?: 'us' | 'uk' | 'gb';
 
   /**
    * The browser User-Agent string. Required when auth_type is `raw_data`.
