@@ -367,8 +367,9 @@ export namespace WebhookListEventsResponse {
 
 export interface WebhookCreateParams {
   /**
-   * The account scope for the webhook. Use "global" for all accounts, "inclusive"
-   * for only selected accounts, or "exclusive" for all except selected accounts.
+   * The account scope for the webhook (OnlyFans and Fansly webhooks alike). Use
+   * "global" for all accounts, "inclusive" for only selected accounts, or
+   * "exclusive" for all except selected accounts.
    */
   account_scope: string;
 
@@ -379,13 +380,15 @@ export interface WebhookCreateParams {
 
   /**
    * An array of webhook events to subscribe to. For all options, refer to our **List
-   * Available Events** endpoint.
+   * Available Events** endpoint. A webhook is single-platform: subscribe to either
+   * OnlyFans events or Fansly (`fansly.*`) events, never both in one webhook.
    */
   events: Array<string>;
 
   /**
-   * An array of account IDs to apply the scope to. Required unless account_scope is
-   * "global".
+   * An array of account IDs to apply the scope to. Use OnlyFans account IDs
+   * (`acct_...`) for OnlyFans webhooks and Fansly account IDs (`fansly_acct_...`)
+   * for Fansly webhooks. Required unless account_scope is "global".
    */
   account_ids?: Array<string>;
 
@@ -397,8 +400,9 @@ export interface WebhookCreateParams {
 
 export interface WebhookUpdateParams {
   /**
-   * The account scope for the webhook. Use "global" for all accounts, "inclusive"
-   * for only selected accounts, or "exclusive" for all except selected accounts.
+   * The account scope for the webhook (OnlyFans and Fansly webhooks alike). Use
+   * "global" for all accounts, "inclusive" for only selected accounts, or
+   * "exclusive" for all except selected accounts.
    */
   account_scope: string;
 
@@ -409,13 +413,15 @@ export interface WebhookUpdateParams {
 
   /**
    * An array of webhook events to subscribe to. For all options, refer to our **List
-   * Available Events** endpoint.
+   * Available Events** endpoint. A webhook is single-platform: subscribe to either
+   * OnlyFans events or Fansly (`fansly.*`) events, never both in one webhook.
    */
   events: Array<string>;
 
   /**
-   * An array of account IDs to apply the scope to. Required unless account_scope is
-   * "global".
+   * An array of account IDs to apply the scope to. Use OnlyFans account IDs
+   * (`acct_...`) for OnlyFans webhooks and Fansly account IDs (`fansly_acct_...`)
+   * for Fansly webhooks. Required unless account_scope is "global".
    */
   account_ids?: Array<string>;
 
