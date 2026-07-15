@@ -66,6 +66,8 @@ export interface SummaryGetSummaryResponse {
 
   last_analyzed_at?: string;
 
+  last_buy_date?: string;
+
   status?: string;
 
   summary_data?: SummaryGetSummaryResponse.SummaryData;
@@ -90,6 +92,8 @@ export namespace SummaryGetSummaryResponse {
     preferred_name?: string;
 
     requests?: string;
+
+    spend_cadence?: string;
 
     themes?: string;
 
