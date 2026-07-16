@@ -47,7 +47,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const trackingLink = await client.trackingLinks.retrieve(
-   *   'quaerat',
+   *   'amet',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -85,7 +85,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const trackingLink = await client.trackingLinks.delete(
-   *   'quaerat',
+   *   'amet',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -134,7 +134,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trackingLinks.getStats(
-   *   'dolores',
+   *   'praesentium',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
