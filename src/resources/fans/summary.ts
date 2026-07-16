@@ -75,7 +75,11 @@ export interface SummaryGetSummaryResponse {
 
 export namespace SummaryGetSummaryResponse {
   export interface SummaryData {
+    content_dislikes?: string;
+
     content_preferences?: string;
+
+    dos_and_donts?: string;
 
     family_pets?: string;
 
