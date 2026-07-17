@@ -62,6 +62,8 @@ export interface SummaryGenerateSummaryResponse {
 export interface SummaryGetSummaryResponse {
   analyzed_message_count?: number;
 
+  custom_fields?: Array<SummaryGetSummaryResponse.CustomField>;
+
   error_message?: string | null;
 
   last_analyzed_at?: string;
@@ -74,6 +76,12 @@ export interface SummaryGetSummaryResponse {
 }
 
 export namespace SummaryGetSummaryResponse {
+  export interface CustomField {
+    key?: string;
+
+    label?: string;
+  }
+
   export interface SummaryData {
     content_dislikes?: string;
 
