@@ -21,16 +21,12 @@ export class Statistics extends APIResource {
    * const response =
    *   await client.statistics.calculateTotalTransactions(
    *     'acct_XXXXXXXXXXXXXXX',
-   *     {
-   *       end_date: '2025-03-31 23:59:59',
-   *       start_date: '2025-01-01 00:00:00',
-   *     },
    *   );
    * ```
    */
   calculateTotalTransactions(
     account: string,
-    query: StatisticCalculateTotalTransactionsParams,
+    query: StatisticCalculateTotalTransactionsParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<StatisticCalculateTotalTransactionsResponse> {
     return this._client.get(path`/api/${account}/statistics/total-transactions`, { query, ...options });
@@ -390,12 +386,12 @@ export interface StatisticCalculateTotalTransactionsParams {
   /**
    * The end date for the period. Keep empty to calculate everything.
    */
-  end_date: string;
+  end_date?: string;
 
   /**
    * The start date for the period. Keep empty to calculate everything.
    */
-  start_date: string;
+  start_date?: string;
 }
 
 export interface StatisticGetOverviewParams {

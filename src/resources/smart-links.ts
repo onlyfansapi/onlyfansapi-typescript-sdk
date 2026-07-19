@@ -75,7 +75,9 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listClicks('quis');
+   * const response = await client.smartLinks.listClicks(
+   *   'minus',
+   * );
    * ```
    */
   listClicks(
@@ -93,7 +95,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listConversions(
-   *   'harum',
+   *   'fugit',
    * );
    * ```
    */
@@ -111,7 +113,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listFans('culpa');
+   * const response = await client.smartLinks.listFans('quo');
    * ```
    */
   listFans(
@@ -128,7 +130,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listSpenders(
-   *   'iure',
+   *   'autem',
    * );
    * ```
    */
@@ -145,7 +147,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.smartLinks.retrieveCohortArps('aliquam');
+   * await client.smartLinks.retrieveCohortArps('rerum');
    * ```
    */
   retrieveCohortArps(
@@ -167,7 +169,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.retrieveStats(
-   *   'laborum',
+   *   'quia',
    * );
    * ```
    */
@@ -1080,11 +1082,6 @@ export interface SmartLinkListParams {
    * be greater than 1000.
    */
   limit?: number;
-
-  /**
-   * Deprecated alias for `pixel_ids`. Comma-separated Pixel IDs to include.
-   */
-  meta_pixel_ids?: string | null;
 
   /**
    * Filter Smart Links by name. Must not be greater than 255 characters.

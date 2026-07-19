@@ -31,7 +31,7 @@ export class Messages extends APIResource {
    * @example
    * ```ts
    * const response =
-   *   await client.engagement.messages.getMessageBuyers('ea', {
+   *   await client.engagement.messages.getMessageBuyers('aut', {
    *     account: 'acct_XXXXXXXXXXXXXXX',
    *   });
    * ```
@@ -434,7 +434,7 @@ export interface MessageGetMessageBuyersParams {
   offset?: number;
 
   /**
-   * Query param: Optional flag for subsequent pages (example: all)
+   * Query param: Optional flag for subsequent pages (example: all).
    */
   skip_users?: string;
 
@@ -446,8 +446,8 @@ export interface MessageGetMessageBuyersParams {
 
 export interface MessageGetTopMessageParams {
   /**
-   * The end date for the period. Keep empty to retrieve until now. MUST BE DATE
-   * AFTER `startDate`.
+   * The end date for the period. Keep empty to retrieve until now. It must be after
+   * `startDate`.
    */
   endDate?: string;
 

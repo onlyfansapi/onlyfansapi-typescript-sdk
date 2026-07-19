@@ -853,7 +853,7 @@ export interface MessageListParams {
   order?: string;
 
   /**
-   * Query param: Whether to skip user details (all or none)
+   * Query param: Whether to skip user details (`all` or `none`).
    */
   skip_users?: string;
 }
