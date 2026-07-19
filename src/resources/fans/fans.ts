@@ -2082,8 +2082,8 @@ export namespace FanListExpiredParams {
 
 export interface FanListLatestParams {
   /**
-   * End date for filtering (required with start_date). This field is required when
-   * <code>start_date</code> is present.
+   * End date for filtering (required with start_date). Must be a valid date. Must
+   * not be greater than 255 characters.
    */
   end_date?: string | null;
 
@@ -2099,8 +2099,8 @@ export interface FanListLatestParams {
   offset?: number;
 
   /**
-   * Start date for filtering (required with end_date). This field is required when
-   * <code>end_date</code> is present.
+   * Start date for filtering (required with end_date). Must be a valid date. Must
+   * not be greater than 255 characters.
    */
   start_date?: string | null;
 
@@ -2117,14 +2117,14 @@ export interface FanListTopParams {
   by?: 'total' | 'subscribes' | 'tips' | 'messages' | 'post' | 'streams' | null;
 
   /**
-   * End date for filtering (required with start_date). This field is required when
-   * <code>start_date</code> is present.
+   * End date for filtering (required with start_date). Must be a valid date. Must
+   * not be greater than 255 characters.
    */
   end_date?: string | null;
 
   /**
-   * Start date for filtering (required with end_date). This field is required when
-   * <code>end_date</code> is present.
+   * Start date for filtering (required with end_date). Must be a valid date. Must
+   * not be greater than 255 characters.
    */
   start_date?: string | null;
 }

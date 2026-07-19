@@ -731,8 +731,8 @@ export interface MassMessagingDeleteParams {
 
 export interface MassMessagingRetrieveOverviewParams {
   /**
-   * The latest mass message to retrieve. Keep empty to get all. MUST BE DATE AFTER
-   * `startDate`. This is also used for pagination.
+   * The latest mass message to retrieve. Keep empty to get all. It must be after
+   * `startDate` and is also used for pagination.
    */
   endDate?: string;
 

@@ -14,7 +14,10 @@ export class Statements extends APIResource {
    * const response =
    *   await client.statistics.statements.getEarnings(
    *     'acct_XXXXXXXXXXXXXXX',
-   *     { start_date: '2025-01-01 00:00:00' },
+   *     {
+   *       end_date: '2025-03-31 23:59:59',
+   *       start_date: '2025-01-01 00:00:00',
+   *     },
    *   );
    * ```
    */
@@ -103,14 +106,14 @@ export namespace StatementGetEarningsResponse {
 
 export interface StatementGetEarningsParams {
   /**
-   * The start date for the period
-   */
-  start_date: string;
-
-  /**
    * The end date for the period.
    */
-  end_date?: string;
+  end_date: string;
+
+  /**
+   * The start date for the period.
+   */
+  start_date: string;
 
   /**
    * Filter by All / Subscriptions / Tips / Posts / Messages / Streams
