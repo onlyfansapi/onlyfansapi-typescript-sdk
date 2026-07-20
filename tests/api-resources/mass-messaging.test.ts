@@ -45,6 +45,7 @@ describe('resource massMessaging', () => {
     const response = await client.massMessaging.update('id', {
       account: 'acct_XXXXXXXXXXXXXXX',
       text: 'Hello!',
+      blockBannedWords: 'strict_ban',
       giphyId: 'WAGC3LeqJvXglm5H7a',
       lockedText: true,
       mediaFiles: ['ofapi_media_abc123', 'string'],
@@ -130,6 +131,7 @@ describe('resource massMessaging', () => {
   test.skip('send: required and optional params', async () => {
     const response = await client.massMessaging.send('acct_XXXXXXXXXXXXXXX', {
       text: 'Hello!',
+      blockBannedWords: 'strict_ban',
       excludedLists: ['fans', 'recent', 'following', 'rebill_off', 'tagged', 'string'],
       giphyId: 'WAGC3LeqJvXglm5H7a',
       lockedText: true,

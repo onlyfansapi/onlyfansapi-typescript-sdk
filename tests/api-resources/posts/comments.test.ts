@@ -10,7 +10,7 @@ const client = new OnlyFansAPI({
 describe('resource comments', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.posts.comments.create('quaerat', {
+    const responsePromise = client.posts.comments.create('ea', {
       account: 'acct_XXXXXXXXXXXXXXX',
       text: 'This is a comment.',
     });
@@ -25,7 +25,7 @@ describe('resource comments', () => {
 
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.posts.comments.create('quaerat', {
+    const response = await client.posts.comments.create('ea', {
       account: 'acct_XXXXXXXXXXXXXXX',
       text: 'This is a comment.',
       answerTo: 123,
@@ -35,7 +35,7 @@ describe('resource comments', () => {
 
   // Mock server tests are disabled
   test.skip('list: only required params', async () => {
-    const responsePromise = client.posts.comments.list('quaerat', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.posts.comments.list('ea', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -47,7 +47,7 @@ describe('resource comments', () => {
 
   // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
-    const response = await client.posts.comments.list('quaerat', {
+    const response = await client.posts.comments.list('ea', {
       account: 'acct_XXXXXXXXXXXXXXX',
       limit: 10,
       offset: 0,

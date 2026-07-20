@@ -913,6 +913,14 @@ export interface MessageSendParams {
   account: string;
 
   /**
+   * Body param: Screen `text` for OnlyFans banned words and block the send if any
+   * are found (returns a 422 listing the offending words). `strict_ban` blocks all
+   * tiers, `risky` blocks Risky + Replace/soften, `replace_soften` blocks
+   * Replace/soften only. Omit to disable screening.
+   */
+  blockBannedWords?: 'strict_ban' | 'risky' | 'replace_soften';
+
+  /**
    * Body param: The ID of the Giphy GIF to attach to the message. Get IDs from the
    * Giphy listing endpoints (`/giphy/trending`, `/giphy/search`).
    */
