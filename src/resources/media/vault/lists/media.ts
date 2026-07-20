@@ -12,7 +12,7 @@ export class Media extends APIResource {
    * @example
    * ```ts
    * const response = await client.media.vault.lists.media.add(
-   *   'recusandae',
+   *   'rerum',
    *   { account: 'acct_XXXXXXXXXXXXXXX', mediaIds: ['string'] },
    * );
    * ```
@@ -28,7 +28,7 @@ export class Media extends APIResource {
    * @example
    * ```ts
    * const media = await client.media.vault.lists.media.remove(
-   *   'recusandae',
+   *   'rerum',
    *   { account: 'acct_XXXXXXXXXXXXXXX', mediaIds: ['string'] },
    * );
    * ```
