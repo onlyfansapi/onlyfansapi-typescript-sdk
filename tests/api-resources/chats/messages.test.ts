@@ -164,6 +164,7 @@ describe('resource messages', () => {
   test.skip('send: required and optional params', async () => {
     const response = await client.chats.messages.send('123', {
       account: 'acct_XXXXXXXXXXXXXXX',
+      blockBannedWords: 'strict_ban',
       giphyId: 'WAGC3LeqJvXglm5H7a',
       lockedText: true,
       mediaFiles: ['ofapi_media_abc123', 1234567890],
