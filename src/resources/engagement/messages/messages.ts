@@ -31,7 +31,7 @@ export class Messages extends APIResource {
    * @example
    * ```ts
    * const response =
-   *   await client.engagement.messages.getMessageBuyers('ut', {
+   *   await client.engagement.messages.getMessageBuyers('sit', {
    *     account: 'acct_XXXXXXXXXXXXXXX',
    *   });
    * ```
