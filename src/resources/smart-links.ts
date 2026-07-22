@@ -75,7 +75,9 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listClicks('quis');
+   * const response = await client.smartLinks.listClicks(
+   *   'minima',
+   * );
    * ```
    */
   listClicks(
@@ -93,7 +95,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listConversions(
-   *   'sint',
+   *   'magnam',
    * );
    * ```
    */
@@ -111,9 +113,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listFans(
-   *   'blanditiis',
-   * );
+   * const response = await client.smartLinks.listFans('cum');
    * ```
    */
   listFans(
@@ -130,7 +130,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listSpenders(
-   *   'dolores',
+   *   'aut',
    * );
    * ```
    */
@@ -147,7 +147,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.smartLinks.retrieveCohortArps('porro');
+   * await client.smartLinks.retrieveCohortArps('libero');
    * ```
    */
   retrieveCohortArps(
@@ -169,7 +169,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.retrieveStats(
-   *   'et',
+   *   'culpa',
    * );
    * ```
    */
@@ -917,6 +917,8 @@ export namespace SmartLinkListFansResponse {
     export interface Summary {
       fans_total?: number;
 
+      fans_with_1_plus_messages_total?: number;
+
       fans_with_3_plus_messages_total?: number;
 
       revenue_net_total?: number;
@@ -1144,7 +1146,12 @@ export interface SmartLinkListConversionsParams {
   /**
    * Optional conversion type filter
    */
-  conversion_type?: 'new_subscriber' | 'new_transaction' | 'message_received' | 'fan_sent_3_messages';
+  conversion_type?:
+    | 'new_subscriber'
+    | 'new_transaction'
+    | 'message_received'
+    | 'fan_sent_1_message'
+    | 'fan_sent_3_messages';
 
   /**
    * Optional report range end date
