@@ -52,7 +52,13 @@ export class Fans extends APIResource {
   }
 
   /**
-   * Get a paginated list of fans for an Account. Newest fans are first.
+   * Get a paginated list of fans for an Account. Newest fans are first. Paginate by
+   * following `_pagination.next_page` until it is null (`data.hasMore` is the
+   * authoritative flag). Do NOT use the page's item count to detect the last page —
+   * OnlyFans occasionally returns fewer than `limit` items (e.g. 19 for limit=20) on
+   * a non-final page because it filters entries server-side; no fans are skipped. To
+   * track progress, GET /{account}/me returns data.subscribersCount (the current
+   * active-subscriber count) as a total.
    *
    * @example
    * ```ts
@@ -70,7 +76,11 @@ export class Fans extends APIResource {
   }
 
   /**
-   * Get a paginated list of fans for an Account. Newest fans are first.
+   * Get a paginated list of fans for an Account. Newest fans are first. Paginate by
+   * following `_pagination.next_page` until it is null (`data.hasMore` is the
+   * authoritative flag). Do NOT use the page's item count to detect the last page —
+   * OnlyFans occasionally returns fewer than `limit` items (e.g. 19 for limit=20) on
+   * a non-final page because it filters entries server-side; no fans are skipped.
    *
    * @example
    * ```ts
@@ -89,6 +99,11 @@ export class Fans extends APIResource {
 
   /**
    * Get a paginated list of expired fans for an Account. Newest fans are first.
+   * Paginate by following `_pagination.next_page` until it is null (`data.hasMore`
+   * is the authoritative flag). Do NOT use the page's item count to detect the last
+   * page — OnlyFans occasionally returns fewer than `limit` items (e.g. 19 for
+   * limit=20) on a non-final page because it filters entries server-side; no fans
+   * are skipped.
    *
    * @example
    * ```ts
@@ -1937,8 +1952,8 @@ export interface FanListActiveParams {
   filter?: FanListActiveParams.Filter;
 
   /**
-   * Number of fans to return (1-50). Must be at least 1. Must not be greater
-   * than 20.
+   * Number of fans to return (1-20). OnlyFans does not allow more than 20 per page.
+   * Must be at least 1. Must not be greater than 20.
    */
   limit?: number;
 
@@ -1961,22 +1976,29 @@ export interface FanListActiveParams {
 export namespace FanListActiveParams {
   export interface Filter {
     /**
-     * Filter by minimum subscription duration in months. Must be at least 0.
+     * Filter by minimum subscription duration in months. Must use bracket syntax:
+     * filter[duration]=1 — the dot form (filter.duration=1) is NOT supported and will
+     * be ignored. Must be at least 0.
      */
     duration?: number;
 
     /**
-     * Filter by online status (`1` for online fans).
+     * Filter by online status (`1` for online fans). Must use bracket syntax:
+     * filter[online]=1 — the dot form (filter.online=1) is NOT supported and will be
+     * ignored.
      */
     online?: 1 | 0 | null;
 
     /**
-     * Filter by minimum tips. Must be at least 0.
+     * Filter by minimum tips. Must use bracket syntax: filter[tips]=100 — the dot form
+     * (filter.tips=100) is NOT supported and will be ignored. Must be at least 0.
      */
     tips?: number;
 
     /**
-     * Filter by minimum amount total spent by a fan. Must be at least 0.
+     * Filter by minimum amount total spent by a fan. Must use bracket syntax:
+     * filter[total_spent]=100 — the dot form (filter.total_spent=100) is NOT supported
+     * and will be ignored. Must be at least 0.
      */
     total_spent?: number;
   }
@@ -1986,8 +2008,8 @@ export interface FanListAllParams {
   filter?: FanListAllParams.Filter;
 
   /**
-   * Number of fans to return (1-50). Must be at least 1. Must not be greater
-   * than 20.
+   * Number of fans to return (1-20). OnlyFans does not allow more than 20 per page.
+   * Must be at least 1. Must not be greater than 20.
    */
   limit?: number;
 
@@ -2010,22 +2032,29 @@ export interface FanListAllParams {
 export namespace FanListAllParams {
   export interface Filter {
     /**
-     * Filter by minimum subscription duration in months. Must be at least 0.
+     * Filter by minimum subscription duration in months. Must use bracket syntax:
+     * filter[duration]=1 — the dot form (filter.duration=1) is NOT supported and will
+     * be ignored. Must be at least 0.
      */
     duration?: number;
 
     /**
-     * Filter by online status (`1` for online fans).
+     * Filter by online status (`1` for online fans). Must use bracket syntax:
+     * filter[online]=1 — the dot form (filter.online=1) is NOT supported and will be
+     * ignored.
      */
     online?: 1 | 0 | null;
 
     /**
-     * Filter by minimum tips. Must be at least 0.
+     * Filter by minimum tips. Must use bracket syntax: filter[tips]=100 — the dot form
+     * (filter.tips=100) is NOT supported and will be ignored. Must be at least 0.
      */
     tips?: number;
 
     /**
-     * Filter by minimum amount total spent by a fan. Must be at least 0.
+     * Filter by minimum amount total spent by a fan. Must use bracket syntax:
+     * filter[total_spent]=100 — the dot form (filter.total_spent=100) is NOT supported
+     * and will be ignored. Must be at least 0.
      */
     total_spent?: number;
   }
@@ -2035,8 +2064,8 @@ export interface FanListExpiredParams {
   filter?: FanListExpiredParams.Filter;
 
   /**
-   * Number of fans to return (1-50). Must be at least 1. Must not be greater
-   * than 20.
+   * Number of fans to return (1-20). OnlyFans does not allow more than 20 per page.
+   * Must be at least 1. Must not be greater than 20.
    */
   limit?: number;
 
@@ -2059,22 +2088,29 @@ export interface FanListExpiredParams {
 export namespace FanListExpiredParams {
   export interface Filter {
     /**
-     * Filter by minimum subscription duration in months. Must be at least 0.
+     * Filter by minimum subscription duration in months. Must use bracket syntax:
+     * filter[duration]=1 — the dot form (filter.duration=1) is NOT supported and will
+     * be ignored. Must be at least 0.
      */
     duration?: number;
 
     /**
-     * Filter by online status (`1` for online fans).
+     * Filter by online status (`1` for online fans). Must use bracket syntax:
+     * filter[online]=1 — the dot form (filter.online=1) is NOT supported and will be
+     * ignored.
      */
     online?: 1 | 0 | null;
 
     /**
-     * Filter by minimum tips. Must be at least 0.
+     * Filter by minimum tips. Must use bracket syntax: filter[tips]=100 — the dot form
+     * (filter.tips=100) is NOT supported and will be ignored. Must be at least 0.
      */
     tips?: number;
 
     /**
-     * Filter by minimum amount total spent by a fan. Must be at least 0.
+     * Filter by minimum amount total spent by a fan. Must use bracket syntax:
+     * filter[total_spent]=100 — the dot form (filter.total_spent=100) is NOT supported
+     * and will be ignored. Must be at least 0.
      */
     total_spent?: number;
   }
@@ -2089,7 +2125,7 @@ export interface FanListLatestParams {
 
   /**
    * Number of fans to return (1-50). Must be at least 1. Must not be greater
-   * than 100.
+   * than 50.
    */
   limit?: number;
 
