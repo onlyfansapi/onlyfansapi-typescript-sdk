@@ -50,7 +50,7 @@ export class Settings extends APIResource {
    * const response =
    *   await client.savedForLater.messages.settings.enableOrUpdateAutomaticMessaging(
    *     'acct_XXXXXXXXXXXXXXX',
-   *     { period: 24 },
+   *     { period: 6 },
    *   );
    * ```
    */
