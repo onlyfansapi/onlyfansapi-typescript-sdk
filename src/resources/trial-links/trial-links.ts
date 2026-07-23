@@ -51,7 +51,7 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const trialLink = await client.trialLinks.retrieve(
-   *   'neque',
+   *   'rerum',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -88,7 +88,7 @@ export class TrialLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const trialLink = await client.trialLinks.delete('neque', {
+   * const trialLink = await client.trialLinks.delete('rerum', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -154,9 +154,10 @@ export class TrialLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.trialLinks.retrieveCohortArps('enim', {
-   *   account: 'acct_XXXXXXXXXXXXXXX',
-   * });
+   * await client.trialLinks.retrieveCohortArps(
+   *   'reprehenderit',
+   *   { account: 'acct_XXXXXXXXXXXXXXX' },
+   * );
    * ```
    */
   retrieveCohortArps(
@@ -179,7 +180,7 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trialLinks.retrieveStats(
-   *   'temporibus',
+   *   'saepe',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
