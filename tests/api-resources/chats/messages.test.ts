@@ -169,7 +169,7 @@ describe('resource messages', () => {
       lockedText: true,
       mediaFiles: ['ofapi_media_abc123', 1234567890],
       previews: ['ofapi_media_abc123', 1234567890],
-      price: 10,
+      price: 6.97,
       replyToMessageId: 123456789,
       rfGuest: 'rfGuest',
       rfPartner: 'rfPartner',
