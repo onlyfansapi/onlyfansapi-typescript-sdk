@@ -945,8 +945,8 @@ export interface MessageSendParams {
   previews?: Array<unknown>;
 
   /**
-   * Body param: Price for paid content (0 or between 3-200). In case this is not
-   * zero, **mediaFiles** is required
+   * Body param: Price for paid content in USD (0 or between 3-200). In case this is
+   * not zero, **mediaFiles** is required
    */
   price?: number;
 

@@ -709,8 +709,8 @@ export interface MassMessagingUpdateParams {
   previews?: Array<string>;
 
   /**
-   * Body param: Price for paid content (0 or between 3-200). In case this is not
-   * zero, **mediaFiles** is required
+   * Body param: Price for paid content in USD (0 or between 3-200). In case this is
+   * not zero, **mediaFiles** is required
    */
   price?: number;
 
@@ -804,7 +804,7 @@ export interface MassMessagingSendParams {
   previews?: Array<unknown>;
 
   /**
-   * Price for paid content (0 or between 3-200). In case this is not zero,
+   * Price for paid content in USD (0 or between 3-200). In case this is not zero,
    * **mediaFiles** is required
    */
   price?: number;
