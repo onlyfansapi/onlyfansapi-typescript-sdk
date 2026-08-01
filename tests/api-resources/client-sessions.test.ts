@@ -27,7 +27,7 @@ describe('resource clientSessions', () => {
     const response = await client.clientSessions.create({
       display_name: 'STRLCxGLVC Agency / Model: Stella',
       client_reference_id: 'my_crm_model_12345',
-      proxy_country: 'us',
+      proxy_country: 'gb',
     });
   });
 });
