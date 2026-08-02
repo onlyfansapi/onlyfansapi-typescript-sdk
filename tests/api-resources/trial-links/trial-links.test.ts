@@ -37,7 +37,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.trialLinks.retrieve('mollitia', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.trialLinks.retrieve('quod', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -49,7 +49,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
-    const response = await client.trialLinks.retrieve('mollitia', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const response = await client.trialLinks.retrieve('quod', { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 
   // Mock server tests are disabled
@@ -86,7 +86,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
-    const responsePromise = client.trialLinks.delete('mollitia', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.trialLinks.delete('quod', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -98,7 +98,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
-    const response = await client.trialLinks.delete('mollitia', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const response = await client.trialLinks.delete('quod', { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 
   // Mock server tests are disabled
@@ -152,9 +152,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('retrieveCohortArps: only required params', async () => {
-    const responsePromise = client.trialLinks.retrieveCohortArps('possimus', {
-      account: 'acct_XXXXXXXXXXXXXXX',
-    });
+    const responsePromise = client.trialLinks.retrieveCohortArps('et', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -166,7 +164,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('retrieveCohortArps: required and optional params', async () => {
-    const response = await client.trialLinks.retrieveCohortArps('possimus', {
+    const response = await client.trialLinks.retrieveCohortArps('et', {
       account: 'acct_XXXXXXXXXXXXXXX',
       acquisition_end: '2026-01-31T23:59:59Z',
       acquisition_start: '2026-01-01T00:00:00Z',
@@ -176,7 +174,9 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('retrieveStats: only required params', async () => {
-    const responsePromise = client.trialLinks.retrieveStats('minus', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.trialLinks.retrieveStats('aspernatur', {
+      account: 'acct_XXXXXXXXXXXXXXX',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -188,7 +188,7 @@ describe('resource trialLinks', () => {
 
   // Mock server tests are disabled
   test.skip('retrieveStats: required and optional params', async () => {
-    const response = await client.trialLinks.retrieveStats('minus', {
+    const response = await client.trialLinks.retrieveStats('aspernatur', {
       account: 'acct_XXXXXXXXXXXXXXX',
       date_end: '2026-01-31T23:59:59Z',
       date_start: '2026-01-01T00:00:00Z',
