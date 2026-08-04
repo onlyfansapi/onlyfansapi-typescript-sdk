@@ -75,7 +75,9 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listClicks('est');
+   * const response = await client.smartLinks.listClicks(
+   *   'laudantium',
+   * );
    * ```
    */
   listClicks(
@@ -93,7 +95,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listConversions(
-   *   'delectus',
+   *   'totam',
    * );
    * ```
    */
@@ -111,7 +113,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listFans('rem');
+   * const response = await client.smartLinks.listFans('sunt');
    * ```
    */
   listFans(
@@ -128,7 +130,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listSpenders(
-   *   'odit',
+   *   'qui',
    * );
    * ```
    */
@@ -145,7 +147,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.smartLinks.retrieveCohortArps('et');
+   * await client.smartLinks.retrieveCohortArps('recusandae');
    * ```
    */
   retrieveCohortArps(
@@ -167,7 +169,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.retrieveStats(
-   *   'repellat',
+   *   'quam',
    * );
    * ```
    */
@@ -240,7 +242,7 @@ export namespace SmartLinkCreateResponse {
 
     name?: string;
 
-    revenue?: string | null;
+    revenue?: string;
 
     subscribers_count?: number;
 
