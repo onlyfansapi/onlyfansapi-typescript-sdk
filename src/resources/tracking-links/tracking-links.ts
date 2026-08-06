@@ -47,7 +47,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const trackingLink = await client.trackingLinks.retrieve(
-   *   'odit',
+   *   'inventore',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -85,7 +85,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const trackingLink = await client.trackingLinks.delete(
-   *   'odit',
+   *   'inventore',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -104,7 +104,7 @@ export class TrackingLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.trackingLinks.getCohortArps('minus', {
+   * await client.trackingLinks.getCohortArps('maiores', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -134,7 +134,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trackingLinks.getStats(
-   *   'est',
+   *   'sunt',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
