@@ -30,7 +30,7 @@ describe('resource trackingLinks', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.trackingLinks.retrieve('voluptas', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.trackingLinks.retrieve('possimus', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -42,7 +42,7 @@ describe('resource trackingLinks', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
-    const response = await client.trackingLinks.retrieve('voluptas', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const response = await client.trackingLinks.retrieve('possimus', { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 
   // Mock server tests are disabled
@@ -67,7 +67,7 @@ describe('resource trackingLinks', () => {
           endDate: '2025-01-31 23:59:59',
           limit: 10,
           offset: 0,
-          pagination: 1,
+          pagination: 0,
           sort: 'desc',
           sortby: 'claims',
           startDate: '2025-01-01 00:00:00',
@@ -81,7 +81,7 @@ describe('resource trackingLinks', () => {
 
   // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
-    const responsePromise = client.trackingLinks.delete('voluptas', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.trackingLinks.delete('possimus', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -93,12 +93,14 @@ describe('resource trackingLinks', () => {
 
   // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
-    const response = await client.trackingLinks.delete('voluptas', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const response = await client.trackingLinks.delete('possimus', { account: 'acct_XXXXXXXXXXXXXXX' });
   });
 
   // Mock server tests are disabled
   test.skip('getCohortArps: only required params', async () => {
-    const responsePromise = client.trackingLinks.getCohortArps('in', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.trackingLinks.getCohortArps('numquam', {
+      account: 'acct_XXXXXXXXXXXXXXX',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -110,7 +112,7 @@ describe('resource trackingLinks', () => {
 
   // Mock server tests are disabled
   test.skip('getCohortArps: required and optional params', async () => {
-    const response = await client.trackingLinks.getCohortArps('in', {
+    const response = await client.trackingLinks.getCohortArps('numquam', {
       account: 'acct_XXXXXXXXXXXXXXX',
       acquisition_end: '2026-01-31T23:59:59Z',
       acquisition_start: '2026-01-01T00:00:00Z',
@@ -120,7 +122,7 @@ describe('resource trackingLinks', () => {
 
   // Mock server tests are disabled
   test.skip('getStats: only required params', async () => {
-    const responsePromise = client.trackingLinks.getStats('rerum', { account: 'acct_XXXXXXXXXXXXXXX' });
+    const responsePromise = client.trackingLinks.getStats('est', { account: 'acct_XXXXXXXXXXXXXXX' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -132,7 +134,7 @@ describe('resource trackingLinks', () => {
 
   // Mock server tests are disabled
   test.skip('getStats: required and optional params', async () => {
-    const response = await client.trackingLinks.getStats('rerum', {
+    const response = await client.trackingLinks.getStats('est', {
       account: 'acct_XXXXXXXXXXXXXXX',
       date_end: '2026-01-31T23:59:59Z',
       date_start: '2026-01-01T00:00:00Z',
