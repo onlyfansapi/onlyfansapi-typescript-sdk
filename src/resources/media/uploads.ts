@@ -17,6 +17,11 @@ export class Uploads extends APIResource {
    * - `completed` — Upload finished, `media` and `credits_used` are included
    * - `failed` — Upload failed, `error` is included
    *
+   * Instead of polling, you can subscribe to the `media_uploads.completed` and
+   * `media_uploads.failed` webhook events. They carry the same fields as this
+   * endpoint and are only sent for async (`async=true`) uploads — synchronous
+   * uploads return their result directly.
+   *
    * @example
    * ```ts
    * const response = await client.media.uploads.getStatus(

@@ -175,6 +175,7 @@ describe('resource messages', () => {
       rfPartner: 'rfPartner',
       rfTag: 'rfTag',
       text: 'Hello!',
+      'Idempotency-Key': 'a1b2c3d4-5e6f-4789-a0b1-c2d3e4f5a6b7',
     });
   });
 
