@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -123,6 +124,30 @@ export class Messages extends APIResource {
   /**
    * Send a new message to a chat.
    *
+   * **Idempotency.** Pass an `Idempotency-Key` header to make retries safe. The
+   * first request with a given key is executed normally and its response is stored
+   * for **24 hours**; any later request with the same key returns that stored
+   * response, plus an `Idempotent-Replayed: true` header, without contacting
+   * OnlyFans and without consuming credits. The replayed body is the original
+   * response with its `_meta._credits` block rewritten to show `used: 0` and your
+   * current balance.
+   *
+   * Keys are scoped to your team, this endpoint and the account in the URL, so the
+   * same value can be reused safely against a different account. Use a fresh, unique
+   * value (a UUID works well) for each message you send; it must be 1-255 printable
+   * ASCII characters.
+   *
+   * - `400 IDEMPOTENCY_KEY_INVALID` — the header value is empty, too long, or
+   *   contains non-ASCII characters.
+   * - `409 IDEMPOTENCY_CONFLICT` — an earlier request with this key is still
+   *   running. Retry once it finishes.
+   * - `422 IDEMPOTENCY_KEY_MISMATCH` — this key was already used with a different
+   *   request body or chat.
+   *
+   * Responses with a `5xx` status (and `408`/`429`) are never stored, so a failed
+   * send can be retried with the same key. The header is optional: omit it and the
+   * endpoint behaves exactly as before.
+   *
    * @example
    * ```ts
    * const response = await client.chats.messages.send('123', {
@@ -131,8 +156,15 @@ export class Messages extends APIResource {
    * ```
    */
   send(chatID: string, params: MessageSendParams, options?: RequestOptions): APIPromise<MessageSendResponse> {
-    const { account, ...body } = params;
-    return this._client.post(path`/api/${account}/chats/${chatID}/messages`, { body, ...options });
+    const { account, 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post(path`/api/${account}/chats/${chatID}/messages`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -975,6 +1007,11 @@ export interface MessageSendParams {
    * Body param: The message text content. Required unless a media file is present.
    */
   text?: string;
+
+  /**
+   * Header param
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface MessageUnlikeParams {
