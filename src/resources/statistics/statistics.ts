@@ -428,6 +428,12 @@ export interface StatisticGetSubscriberMetricsParams {
    * time out if timeframe is too large. Default = `false`
    */
   detailed?: boolean | null;
+
+  /**
+   * Use only with `detailed=true` - otherwise, it has no effect. Filter the
+   * subscriber statistics (default = total)
+   */
+  detailed_type?: 'total' | 'renew' | 'new' | null;
 }
 
 Statistics.Statements = Statements;
