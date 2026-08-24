@@ -11,7 +11,6 @@ describe('resource queue', () => {
   // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.queue.list('acct_XXXXXXXXXXXXXXX', {
-      limit: 20,
       publishDateEnd: '2025-01-01',
       publishDateStart: '2025-01-01',
       timezone: 'Europe/Prague',
@@ -28,10 +27,11 @@ describe('resource queue', () => {
   // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.queue.list('acct_XXXXXXXXXXXXXXX', {
-      limit: 20,
       publishDateEnd: '2025-01-01',
       publishDateStart: '2025-01-01',
       timezone: 'Europe/Prague',
+      limit: 20,
+      type: ['post'],
     });
   });
 
