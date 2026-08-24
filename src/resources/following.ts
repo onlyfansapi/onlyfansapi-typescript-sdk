@@ -10,9 +10,11 @@ import { path } from '../internal/utils/path';
  */
 export class Following extends APIResource {
   /**
-   * Get a paginated list of followings for an Account. OnlyFans returns this list
-   * newest-first, sorted by `subscribedByData.subscribeAt` descending. The expired
-   * list does not share this order, so do not assume it applies there.
+   * Get a paginated list of followings for an Account. By default OnlyFans returns
+   * this list newest-first, sorted by `subscribedByData.subscribeAt` descending. The
+   * expired list does not share this order, so do not assume it applies there. Pass
+   * `sort` (optionally with `sortDirection`) to reorder the list — see the parameter
+   * description for the caveat that OnlyFans persists the chosen order account-wide.
    *
    * @example
    * ```ts
@@ -30,9 +32,11 @@ export class Following extends APIResource {
   }
 
   /**
-   * Get a paginated list of followings for an Account. OnlyFans returns this list
-   * newest-first, sorted by `subscribedByData.subscribeAt` descending. The expired
-   * list does not share this order, so do not assume it applies there.
+   * Get a paginated list of followings for an Account. By default OnlyFans returns
+   * this list newest-first, sorted by `subscribedByData.subscribeAt` descending. The
+   * expired list does not share this order, so do not assume it applies there. Pass
+   * `sort` (optionally with `sortDirection`) to reorder the list — see the parameter
+   * description for the caveat that OnlyFans persists the chosen order account-wide.
    *
    * @example
    * ```ts
@@ -56,7 +60,10 @@ export class Following extends APIResource {
    * expirations, page through the full list each cycle (`limit=50`, follow
    * `_pagination.next_page` until it is null) and diff it against your own store
    * using `subscribedByData.expiredAt`. Do NOT stop early at the first entry you
-   * have already seen, as that can silently skip real expirations.
+   * have already seen, as that can silently skip real expirations. Pass
+   * `sort=expire_date` (optionally with `sortDirection`) to get a deterministic
+   * order instead — see the parameter description for the caveat that OnlyFans
+   * persists the chosen order account-wide.
    *
    * @example
    * ```ts
@@ -896,6 +903,23 @@ export interface FollowingListActiveParams {
    * Search within following name/username.
    */
   query?: string | null;
+
+  /**
+   * Order the list by `last_activity` (the followed creator's last activity),
+   * `expire_date` (subscription expiry), `subscribe_date` (subscription start) or
+   * `is_expired` (expired first — OnlyFans only offers this one on the expired
+   * list). Omit it to keep whichever order is currently stored for the account.
+   * **Note:** OnlyFans persists this order account-wide, so it also applies to later
+   * requests that omit `sort` and to the creator's own onlyfans.com UI, until it is
+   * changed again. This field is required when <code>sortDirection</code> is
+   * present.
+   */
+  sort?: 'last_activity' | 'expire_date' | 'subscribe_date' | 'is_expired' | null;
+
+  /**
+   * Direction for `sort`: `desc` (default) or `asc`. Requires `sort` to be set.
+   */
+  sortDirection?: 'asc' | 'desc' | null;
 }
 
 export namespace FollowingListActiveParams {
@@ -930,6 +954,23 @@ export interface FollowingListAllParams {
    * Search within following name/username.
    */
   query?: string | null;
+
+  /**
+   * Order the list by `last_activity` (the followed creator's last activity),
+   * `expire_date` (subscription expiry), `subscribe_date` (subscription start) or
+   * `is_expired` (expired first — OnlyFans only offers this one on the expired
+   * list). Omit it to keep whichever order is currently stored for the account.
+   * **Note:** OnlyFans persists this order account-wide, so it also applies to later
+   * requests that omit `sort` and to the creator's own onlyfans.com UI, until it is
+   * changed again. This field is required when <code>sortDirection</code> is
+   * present.
+   */
+  sort?: 'last_activity' | 'expire_date' | 'subscribe_date' | 'is_expired' | null;
+
+  /**
+   * Direction for `sort`: `desc` (default) or `asc`. Requires `sort` to be set.
+   */
+  sortDirection?: 'asc' | 'desc' | null;
 }
 
 export namespace FollowingListAllParams {
@@ -964,6 +1005,23 @@ export interface FollowingListExpiredParams {
    * Search within following name/username.
    */
   query?: string | null;
+
+  /**
+   * Order the list by `last_activity` (the followed creator's last activity),
+   * `expire_date` (subscription expiry), `subscribe_date` (subscription start) or
+   * `is_expired` (expired first — OnlyFans only offers this one on the expired
+   * list). Omit it to keep whichever order is currently stored for the account.
+   * **Note:** OnlyFans persists this order account-wide, so it also applies to later
+   * requests that omit `sort` and to the creator's own onlyfans.com UI, until it is
+   * changed again. This field is required when <code>sortDirection</code> is
+   * present.
+   */
+  sort?: 'last_activity' | 'expire_date' | 'subscribe_date' | 'is_expired' | null;
+
+  /**
+   * Direction for `sort`: `desc` (default) or `asc`. Requires `sort` to be set.
+   */
+  sortDirection?: 'asc' | 'desc' | null;
 }
 
 export namespace FollowingListExpiredParams {
