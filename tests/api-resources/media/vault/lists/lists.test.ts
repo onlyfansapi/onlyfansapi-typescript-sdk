@@ -84,6 +84,7 @@ describe('resource lists', () => {
       client.media.vault.lists.list(
         'acct_XXXXXXXXXXXXXXX',
         {
+          lightweight: true,
           limit: 24,
           offset: 0,
           query: 'My list name',
