@@ -30,7 +30,9 @@ export class Stories extends APIResource {
   highlights: HighlightsAPI.Highlights = new HighlightsAPI.Highlights(this._client);
 
   /**
-   * Post a new media or vault file to your story.
+   * Post a new media or vault file to your story, optionally with text overlays,
+   * @mentions, and a question sticker. Overlay elements are rendered by OnlyFans on
+   * top of your story media at view time.
    *
    * @example
    * ```ts
@@ -228,6 +230,10 @@ export namespace StoryCreateResponse {
 
     canDelete?: boolean;
 
+    canvasHeight?: number;
+
+    canvasWidth?: number;
+
     commentsCount?: number;
 
     createdAt?: string;
@@ -246,9 +252,11 @@ export namespace StoryCreateResponse {
 
     media?: Array<Data.Media>;
 
-    question?: string | null;
+    question?: Data.Question;
 
-    releaseForms?: Array<unknown>;
+    releaseForms?: Array<Data.ReleaseForm>;
+
+    texts?: Array<Data.Text>;
 
     tipsAmount?: string;
 
@@ -310,6 +318,114 @@ export namespace StoryCreateResponse {
           width?: number;
         }
       }
+    }
+
+    export interface Question {
+      entity?: Question.Entity;
+
+      positions?: Question.Positions;
+
+      type?: string;
+    }
+
+    export namespace Question {
+      export interface Entity {
+        id?: number;
+
+        createdAt?: string;
+
+        text?: string;
+      }
+
+      export interface Positions {
+        angle?: number;
+
+        color?: string;
+
+        height?: number;
+
+        left?: number;
+
+        top?: number;
+
+        width?: number;
+
+        x?: string | null;
+
+        y?: string | null;
+
+        zIndex?: number;
+      }
+    }
+
+    export interface ReleaseForm {
+      id?: number;
+
+      name?: string;
+
+      partnerSource?: string;
+
+      type?: string;
+
+      user?: ReleaseForm.User;
+    }
+
+    export namespace ReleaseForm {
+      export interface User {
+        id?: number;
+
+        avatar?: string | null;
+
+        avatarThumbs?: string | null;
+
+        isFromGuest?: boolean;
+
+        isIdentityVerified?: boolean;
+
+        ivStatus?: string;
+
+        name?: string;
+
+        username?: string;
+
+        view?: string;
+      }
+    }
+
+    export interface Text {
+      angle?: number;
+
+      bgColor?: string;
+
+      color?: string;
+
+      fontFamily?: string;
+
+      fontSize?: string;
+
+      fontStyle?: string | null;
+
+      fontWeight?: number;
+
+      left?: number;
+
+      scale?: number;
+
+      text?: string;
+
+      textAlign?: string;
+
+      textHeight?: number;
+
+      textWidth?: number;
+
+      top?: number;
+
+      type?: string;
+
+      users?: Array<unknown>;
+
+      zIndex?: number;
     }
   }
 }
@@ -1232,10 +1348,160 @@ export namespace StoryRetrieveStatsResponse {
 
 export interface StoryCreateParams {
   /**
-   * Array of media file upload prefixed_ids, or OF media IDs (required if price is
-   * not 0).
+   * Array of media file upload prefixed_ids, or OF vault media IDs.
    */
   mediaFiles: Array<string>;
+
+  /**
+   * Canvas height overlay positions are relative to. Default `1920`.
+   */
+  canvasHeight?: number;
+
+  /**
+   * Canvas width overlay positions are relative to. Default `1080`.
+   */
+  canvasWidth?: number;
+
+  /**
+   * Interactive question sticker viewers can answer.
+   */
+  question?: StoryCreateParams.Question;
+
+  /**
+   * Text and @mention overlays.
+   */
+  texts?: Array<StoryCreateParams.Text>;
+}
+
+export namespace StoryCreateParams {
+  /**
+   * Interactive question sticker viewers can answer.
+   */
+  export interface Question {
+    /**
+     * Sticker accent color (hex). Default `#FF51DC`.
+     */
+    color?: string;
+
+    /**
+     * Sticker height in canvas px. Default `160`.
+     */
+    height?: number;
+
+    /**
+     * Horizontal position as a percentage of the canvas width (0-100). Default `25`.
+     */
+    left?: number;
+
+    /**
+     * The question to ask.
+     */
+    text?: string;
+
+    /**
+     * Vertical position as a percentage of the canvas height (0-100). Default `30`.
+     */
+    top?: number;
+
+    /**
+     * Sticker width in canvas px. Default `257`.
+     */
+    width?: number;
+  }
+
+  export interface Text {
+    /**
+     * The overlay text. For mentions this must be the `@username` to mention (OnlyFans
+     * resolves the user and adds them to the story's release forms).
+     */
+    text: string;
+
+    /**
+     * Rotation in degrees. Default `0`.
+     */
+    angle?: number;
+
+    /**
+     * Background color (hex, `#00000000` = transparent). Native editor palette:
+     * #FFFFFF #000000 #69818C #FF51DC #FF4081 #FA3240 #FF8040 #FCA800 #70CF27 #00C864
+     * #00B1CC #2196F3 #7953F5 #A832BF. Default: transparent for texts, white for
+     * mentions.
+     */
+    bgColor?: string;
+
+    /**
+     * Text color (hex). Defaults to the native editor behavior: white on a colored
+     * background, black on a white background (mentions: OnlyFans blue `#0091EA` on
+     * white).
+     */
+    color?: string;
+
+    /**
+     * Font family. Families support specific weights only: Roboto (400/500/700),
+     * PTMono (400), ShantellSans (400), SofiaSans (400, renders uppercase),
+     * YanoneKaffeesatz (700), RubikMedium (500), RubikBlack (700). Default `Roboto`.
+     * Ignored for mentions (always Roboto 500).
+     */
+    fontFamily?:
+      | 'Roboto'
+      | 'PTMono'
+      | 'ShantellSans'
+      | 'SofiaSans'
+      | 'YanoneKaffeesatz'
+      | 'RubikMedium'
+      | 'RubikBlack';
+
+    /**
+     * Font size in canvas px (8-100). The native editor uses 9-36. Default `20`.
+     */
+    fontSize?: number;
+
+    /**
+     * Font weight; must match the chosen family (see `fontFamily`).
+     */
+    fontWeight?: 400 | 500 | 700;
+
+    /**
+     * Horizontal position as a percentage of the canvas width (0-100). Default `25`.
+     */
+    left?: number;
+
+    /**
+     * Scale factor. Default `1`.
+     */
+    scale?: number;
+
+    /**
+     * Text alignment. Default `left`.
+     */
+    textAlign?: 'left' | 'center' | 'right';
+
+    /**
+     * Rendered text box height in canvas px. Estimated automatically when omitted.
+     */
+    textHeight?: number;
+
+    /**
+     * Rendered text box width in canvas px. Estimated automatically when omitted.
+     */
+    textWidth?: number;
+
+    /**
+     * Vertical position as a percentage of the canvas height (0-100). Defaults stagger
+     * each overlay below the previous one.
+     */
+    top?: number;
+
+    /**
+     * Overlay type. Default `text`.
+     */
+    type?: 'text' | 'mention';
+
+    /**
+     * Stacking order. Defaults to placement order.
+     */
+    zIndex?: number;
+  }
 }
 
 export interface StoryRetrieveParams {
