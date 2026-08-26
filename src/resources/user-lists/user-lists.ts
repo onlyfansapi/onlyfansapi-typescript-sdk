@@ -31,7 +31,7 @@ export class UserLists extends APIResource {
    * ```ts
    * const userList = await client.userLists.create(
    *   'acct_XXXXXXXXXXXXXXX',
-   *   { name: 'i' },
+   *   { name: 'llscmhd' },
    * );
    * ```
    */
@@ -87,7 +87,8 @@ export class UserLists extends APIResource {
   }
 
   /**
-   * Get a list of OnlyFans Collections - User Lists
+   * Get a list of OnlyFans Collections - User Lists. If you only want to get User
+   * Lists available for sending a Mass-Message, use `?view=queue`
    *
    * @example
    * ```ts
@@ -552,6 +553,12 @@ export interface UserListListParams {
    * Must be at least 0.
    */
   offset?: number | null;
+
+  /**
+   * How to return the results. `queue` returns the user lists that are available for
+   * Mass-Messaging.
+   */
+  view?: 'queue';
 }
 
 export interface UserListDeleteParams {

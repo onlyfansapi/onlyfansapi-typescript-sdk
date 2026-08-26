@@ -10,7 +10,7 @@ const client = new OnlyFansAPI({
 describe('resource userLists', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'i' });
+    const responsePromise = client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'llscmhd' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource userLists', () => {
 
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'i' });
+    const response = await client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'llscmhd' });
   });
 
   // Mock server tests are disabled
@@ -84,7 +84,11 @@ describe('resource userLists', () => {
     await expect(
       client.userLists.list(
         'acct_XXXXXXXXXXXXXXX',
-        { limit: 10, offset: 0 },
+        {
+          limit: 10,
+          offset: 0,
+          view: 'queue',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(OnlyFansAPI.NotFoundError);
