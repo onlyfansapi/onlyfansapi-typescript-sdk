@@ -37,7 +37,7 @@ describe('resource settings', () => {
   test.skip('enableOrUpdateAutomaticMessaging: only required params', async () => {
     const responsePromise = client.savedForLater.messages.settings.enableOrUpdateAutomaticMessaging(
       'acct_XXXXXXXXXXXXXXX',
-      { period: 48 },
+      { period: 24 },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -52,7 +52,7 @@ describe('resource settings', () => {
   test.skip('enableOrUpdateAutomaticMessaging: required and optional params', async () => {
     const response = await client.savedForLater.messages.settings.enableOrUpdateAutomaticMessaging(
       'acct_XXXXXXXXXXXXXXX',
-      { period: 48 },
+      { period: 24 },
     );
   });
 });
