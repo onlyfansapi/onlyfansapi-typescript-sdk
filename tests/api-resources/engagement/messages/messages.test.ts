@@ -10,7 +10,7 @@ const client = new OnlyFansAPI({
 describe('resource messages', () => {
   // Mock server tests are disabled
   test.skip('getMessageBuyers: only required params', async () => {
-    const responsePromise = client.engagement.messages.getMessageBuyers('sed', {
+    const responsePromise = client.engagement.messages.getMessageBuyers('est', {
       account: 'acct_XXXXXXXXXXXXXXX',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -24,7 +24,7 @@ describe('resource messages', () => {
 
   // Mock server tests are disabled
   test.skip('getMessageBuyers: required and optional params', async () => {
-    const response = await client.engagement.messages.getMessageBuyers('sed', {
+    const response = await client.engagement.messages.getMessageBuyers('est', {
       account: 'acct_XXXXXXXXXXXXXXX',
       limit: 10,
       marker: 0,
