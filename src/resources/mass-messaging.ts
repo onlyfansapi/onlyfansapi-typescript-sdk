@@ -838,6 +838,13 @@ export interface MassMessagingSendParams {
   scheduledDate?: string;
 
   /**
+   * Only send to fans who subscribed within the last N calendar days (1-30,
+   * including today). Can be combined with `userLists` and `userIds`. Cannot be
+   * combined with `scheduledDate` or `saveForLater`.
+   */
+  subscribedWithinLastDays?: number;
+
+  /**
    * Array of user IDs that the mass message will be sent to.
    */
   userIds?: Array<string>;
