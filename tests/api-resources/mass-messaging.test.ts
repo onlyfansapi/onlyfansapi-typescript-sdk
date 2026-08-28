@@ -143,6 +143,7 @@ describe('resource massMessaging', () => {
       rfTag: 'rfTag',
       saveForLater: true,
       scheduledDate: '2025-01-01T00:00:00.000Z',
+      subscribedWithinLastDays: 0,
       userIds: ['string'],
       userLists: ['fans', 'recent', 'following', 'rebill_off', 'tagged', 'string'],
     });
