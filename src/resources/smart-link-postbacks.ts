@@ -140,6 +140,10 @@ export namespace SmartLinkPostbackCreateResponse {
 
     smart_links?: Array<unknown>;
 
+    traffic_source_ids?: Array<unknown>;
+
+    traffic_sources?: Array<unknown>;
+
     updated_at?: string;
 
     url?: string;
@@ -203,6 +207,10 @@ export namespace SmartLinkPostbackRetrieveResponse {
     smart_link_scope?: string;
 
     smart_links?: Array<Data.SmartLink>;
+
+    traffic_source_ids?: Array<unknown>;
+
+    traffic_sources?: Array<unknown>;
 
     updated_at?: string;
 
@@ -278,6 +286,10 @@ export namespace SmartLinkPostbackUpdateResponse {
 
     smart_links?: Array<Data.SmartLink>;
 
+    traffic_source_ids?: Array<unknown>;
+
+    traffic_sources?: Array<unknown>;
+
     updated_at?: string;
 
     url?: string;
@@ -352,6 +364,10 @@ export namespace SmartLinkPostbackListResponse {
 
     smart_links?: Array<Data.SmartLink>;
 
+    traffic_source_ids?: Array<unknown>;
+
+    traffic_sources?: Array<unknown>;
+
     updated_at?: string;
 
     url?: string;
@@ -410,7 +426,8 @@ export interface SmartLinkPostbackCreateParams {
 
   /**
    * The destination URL. Variables such as `{external_click_id}`, `{fbclid}`,
-   * `{gclid}`, and `{ttclid}` are replaced when the postback is dispatched.
+   * `{gclid}`, `{gbraid}`, `{wbraid}`, `{ttclid}`, and `{sccid}` are replaced when
+   * the postback is dispatched.
    */
   url: string;
 
