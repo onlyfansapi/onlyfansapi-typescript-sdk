@@ -47,7 +47,8 @@ export type UploadGetStatusResponse =
   | UploadGetStatusResponse.UnionMember0
   | UploadGetStatusResponse.UnionMember1
   | UploadGetStatusResponse.UnionMember2
-  | UploadGetStatusResponse.UnionMember3;
+  | UploadGetStatusResponse.UnionMember3
+  | UploadGetStatusResponse.UnionMember4;
 
 export namespace UploadGetStatusResponse {
   /**
@@ -71,19 +72,30 @@ export namespace UploadGetStatusResponse {
   }
 
   /**
-   * Completed POST /media/vault upload
+   * Upload rejected by OnlyFans — `error` carries the upstream reason verbatim
    */
   export interface UnionMember2 {
-    credits_used?: number;
-
-    media?: UnionMember2.Media;
+    error?: string;
 
     prefixed_id?: string;
 
     status?: string;
   }
 
-  export namespace UnionMember2 {
+  /**
+   * Completed POST /media/vault upload
+   */
+  export interface UnionMember3 {
+    credits_used?: number;
+
+    media?: UnionMember3.Media;
+
+    prefixed_id?: string;
+
+    status?: string;
+  }
+
+  export namespace UnionMember3 {
     export interface Media {
       id?: number;
 
@@ -138,17 +150,17 @@ export namespace UploadGetStatusResponse {
   /**
    * Completed POST /media/upload upload
    */
-  export interface UnionMember3 {
+  export interface UnionMember4 {
     credits_used?: number;
 
-    media?: UnionMember3.Media;
+    media?: UnionMember4.Media;
 
     prefixed_id?: string;
 
     status?: string;
   }
 
-  export namespace UnionMember3 {
+  export namespace UnionMember4 {
     export interface Media {
       additional?: Media.Additional;
 
