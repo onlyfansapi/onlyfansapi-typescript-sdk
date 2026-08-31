@@ -75,7 +75,9 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listClicks('est');
+   * const response = await client.smartLinks.listClicks(
+   *   'velit',
+   * );
    * ```
    */
   listClicks(
@@ -93,7 +95,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listConversions(
-   *   'debitis',
+   *   'et',
    * );
    * ```
    */
@@ -111,9 +113,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listFans(
-   *   'corporis',
-   * );
+   * const response = await client.smartLinks.listFans('quasi');
    * ```
    */
   listFans(
@@ -130,7 +130,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listSpenders(
-   *   'ducimus',
+   *   'modi',
    * );
    * ```
    */
@@ -147,7 +147,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.smartLinks.retrieveCohortArps('non');
+   * await client.smartLinks.retrieveCohortArps('occaecati');
    * ```
    */
   retrieveCohortArps(
@@ -169,7 +169,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.retrieveStats(
-   *   'vero',
+   *   'fugit',
    * );
    * ```
    */
@@ -607,6 +607,8 @@ export namespace SmartLinkListClicksResponse {
 
       fbclid?: string | null;
 
+      gbraid?: string | null;
+
       gclid?: string;
 
       gross_clicks?: number;
@@ -618,6 +620,8 @@ export namespace SmartLinkListClicksResponse {
       is_duplicate?: boolean;
 
       referrer?: string;
+
+      sccid?: string | null;
 
       ttclid?: string;
 
@@ -632,6 +636,8 @@ export namespace SmartLinkListClicksResponse {
       utm_source?: string;
 
       utm_term?: string;
+
+      wbraid?: string | null;
     }
 
     export interface Summary {
@@ -750,6 +756,8 @@ export namespace SmartLinkListConversionsResponse {
 
         fbclid?: string | null;
 
+        gbraid?: string | null;
+
         gclid?: string;
 
         gross_clicks?: number;
@@ -761,6 +769,8 @@ export namespace SmartLinkListConversionsResponse {
         is_duplicate?: boolean;
 
         referrer?: string;
+
+        sccid?: string | null;
 
         ttclid?: string;
 
@@ -775,6 +785,8 @@ export namespace SmartLinkListConversionsResponse {
         utm_source?: string;
 
         utm_term?: string;
+
+        wbraid?: string | null;
       }
 
       export interface Fan {
