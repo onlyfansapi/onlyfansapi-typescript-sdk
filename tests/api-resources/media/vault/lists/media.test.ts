@@ -10,7 +10,7 @@ const client = new OnlyFansAPI({
 describe('resource media', () => {
   // Mock server tests are disabled
   test.skip('add: only required params', async () => {
-    const responsePromise = client.media.vault.lists.media.add('perspiciatis', {
+    const responsePromise = client.media.vault.lists.media.add('inventore', {
       account: 'acct_XXXXXXXXXXXXXXX',
       mediaIds: ['string'],
     });
@@ -25,7 +25,7 @@ describe('resource media', () => {
 
   // Mock server tests are disabled
   test.skip('add: required and optional params', async () => {
-    const response = await client.media.vault.lists.media.add('perspiciatis', {
+    const response = await client.media.vault.lists.media.add('inventore', {
       account: 'acct_XXXXXXXXXXXXXXX',
       mediaIds: ['string'],
     });
@@ -33,7 +33,7 @@ describe('resource media', () => {
 
   // Mock server tests are disabled
   test.skip('remove: only required params', async () => {
-    const responsePromise = client.media.vault.lists.media.remove('perspiciatis', {
+    const responsePromise = client.media.vault.lists.media.remove('inventore', {
       account: 'acct_XXXXXXXXXXXXXXX',
       mediaIds: ['string'],
     });
@@ -48,7 +48,7 @@ describe('resource media', () => {
 
   // Mock server tests are disabled
   test.skip('remove: required and optional params', async () => {
-    const response = await client.media.vault.lists.media.remove('perspiciatis', {
+    const response = await client.media.vault.lists.media.remove('inventore', {
       account: 'acct_XXXXXXXXXXXXXXX',
       mediaIds: ['string'],
     });
