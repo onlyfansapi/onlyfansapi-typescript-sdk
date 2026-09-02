@@ -32,7 +32,7 @@ export class Messages extends APIResource {
    * ```ts
    * const response =
    *   await client.engagement.messages.getMessageBuyers(
-   *     'quasi',
+   *     'illo',
    *     { account: 'acct_XXXXXXXXXXXXXXX' },
    *   );
    * ```
