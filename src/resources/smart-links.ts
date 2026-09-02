@@ -75,7 +75,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listClicks('at');
+   * const response = await client.smartLinks.listClicks('a');
    * ```
    */
   listClicks(
@@ -93,7 +93,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listConversions(
-   *   'non',
+   *   'a',
    * );
    * ```
    */
@@ -111,9 +111,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listFans(
-   *   'voluptatem',
-   * );
+   * const response = await client.smartLinks.listFans('et');
    * ```
    */
   listFans(
@@ -129,7 +127,9 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listSpenders('id');
+   * const response = await client.smartLinks.listSpenders(
+   *   'nobis',
+   * );
    * ```
    */
   listSpenders(
@@ -145,7 +145,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.smartLinks.retrieveCohortArps('et');
+   * await client.smartLinks.retrieveCohortArps('qui');
    * ```
    */
   retrieveCohortArps(
@@ -167,7 +167,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.retrieveStats(
-   *   'est',
+   *   'nostrum',
    * );
    * ```
    */
