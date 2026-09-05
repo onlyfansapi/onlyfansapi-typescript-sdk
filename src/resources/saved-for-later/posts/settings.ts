@@ -50,7 +50,7 @@ export class Settings extends APIResource {
    * const response =
    *   await client.savedForLater.posts.settings.enableOrUpdateAutomaticPosting(
    *     'acct_XXXXXXXXXXXXXXX',
-   *     { period: 24 },
+   *     { period: 48 },
    *   );
    * ```
    */
