@@ -30,21 +30,22 @@ export class Media extends APIResource {
    * Downloads a file directly from a `https://cdn*.onlyfans.com/*` URL. When the
    * file is already cached on our CDN, this endpoint returns a `302` redirect to a
    * `https://cdn.fansapi.com/*` URL. Most HTTP clients follow redirects
-   * automatically (`curl` requires `-L`). Otherwise, the file is streamed through
-   * our proxies and queued for caching.
+   * automatically (`curl` requires `-L`). Otherwise, the file is redirected to
+   * `dl.fansapi.com`, which streams it through the account proxy and reports billing
+   * back to the API.
    *
    * @example
    * ```ts
-   * const response = await client.media.download('cdnUrl', {
+   * await client.media.download('cdnUrl', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
    */
-  download(cdnURL: string, params: MediaDownloadParams, options?: RequestOptions): APIPromise<string> {
+  download(cdnURL: string, params: MediaDownloadParams, options?: RequestOptions): APIPromise<void> {
     const { account } = params;
     return this._client.get(path`/api/${account}/media/download/${cdnURL}`, {
       ...options,
-      headers: buildHeaders([{ Accept: 'text/plain' }, options?.headers]),
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
 
@@ -92,8 +93,6 @@ export class Media extends APIResource {
     );
   }
 }
-
-export type MediaDownloadResponse = string;
 
 export interface MediaScrapeResponse {
   expiration_date?: string;
@@ -173,7 +172,9 @@ export interface MediaScrapeParams {
 export interface MediaUploadParams {
   /**
    * Set to `true` to process uploads in the background. Returns a `polling_url` to
-   * check status. Recommended for large files.
+   * check status. Recommended for large files. Instead of polling, you can subscribe
+   * to the `media_uploads.completed` and `media_uploads.failed` webhook events —
+   * they only fire for async uploads.
    */
   async?: boolean;
 
@@ -201,7 +202,6 @@ Media.Vault = Vault;
 
 export declare namespace Media {
   export {
-    type MediaDownloadResponse as MediaDownloadResponse,
     type MediaScrapeResponse as MediaScrapeResponse,
     type MediaUploadResponse as MediaUploadResponse,
     type MediaDownloadParams as MediaDownloadParams,

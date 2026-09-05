@@ -7,14 +7,14 @@ import { path } from '../internal/utils/path';
 
 export class Queue extends APIResource {
   /**
-   * List posts and messages in the queue.
+   * List scheduled posts and mass messages for a date range. Use the type filter to
+   * return only posts, messages, or both.
    *
    * @example
    * ```ts
    * const queues = await client.queue.list(
    *   'acct_XXXXXXXXXXXXXXX',
    *   {
-   *     limit: 20,
    *     publishDateEnd: '2025-01-01',
    *     publishDateStart: '2025-01-01',
    *     timezone: 'Europe/Prague',
@@ -308,25 +308,31 @@ export namespace QueuePublishResponse {
 
 export interface QueueListParams {
   /**
-   * Maximum number of queue items to return (default = 20)
-   */
-  limit: number;
-
-  /**
-   * Latest publish date to return
+   * Latest publish date to return. Must be a valid date. Must be a valid date. Must
+   * be a date after or equal to <code>publishDateStart</code>.
    */
   publishDateEnd: string;
 
   /**
-   * Earliest publish date to return (must be at least today)
+   * Earliest publish date to return (must be at least today). Must be a valid date.
+   * Must be a valid date. Must be a date after or equal to <code>today</code>.
    */
   publishDateStart: string;
 
   /**
-   * Time timezone of the provided dates.
-   * [View available timezone values](https://www.php.net/manual/en/timezones.php)
+   * Timezone of the provided dates.
+   * [View available timezone values](https://www.php.net/manual/en/timezones.php).
+   * Must be a valid time zone, such as <code>Africa/Accra</code>.
    */
   timezone: string;
+
+  /**
+   * Maximum number of queue items to return (default 20). Must be at least 1. Must
+   * not be greater than 100.
+   */
+  limit?: number;
+
+  type?: Array<'chat' | 'post'>;
 }
 
 export interface QueueCountParams {

@@ -76,7 +76,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listClicks(
-   *   'rerum',
+   *   'optio',
    * );
    * ```
    */
@@ -95,7 +95,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listConversions(
-   *   'facilis',
+   *   'quos',
    * );
    * ```
    */
@@ -113,9 +113,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.smartLinks.listFans(
-   *   'ducimus',
-   * );
+   * const response = await client.smartLinks.listFans('vel');
    * ```
    */
   listFans(
@@ -132,7 +130,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.listSpenders(
-   *   'nam',
+   *   'pariatur',
    * );
    * ```
    */
@@ -149,7 +147,7 @@ export class SmartLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.smartLinks.retrieveCohortArps('eaque');
+   * await client.smartLinks.retrieveCohortArps('fuga');
    * ```
    */
   retrieveCohortArps(
@@ -171,7 +169,7 @@ export class SmartLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.smartLinks.retrieveStats(
-   *   'impedit',
+   *   'suscipit',
    * );
    * ```
    */
@@ -244,7 +242,7 @@ export namespace SmartLinkCreateResponse {
 
     name?: string;
 
-    revenue?: string | null;
+    revenue?: string;
 
     subscribers_count?: number;
 
@@ -609,6 +607,8 @@ export namespace SmartLinkListClicksResponse {
 
       fbclid?: string | null;
 
+      gbraid?: string | null;
+
       gclid?: string;
 
       gross_clicks?: number;
@@ -620,6 +620,8 @@ export namespace SmartLinkListClicksResponse {
       is_duplicate?: boolean;
 
       referrer?: string;
+
+      sccid?: string | null;
 
       ttclid?: string;
 
@@ -634,6 +636,8 @@ export namespace SmartLinkListClicksResponse {
       utm_source?: string;
 
       utm_term?: string;
+
+      wbraid?: string | null;
     }
 
     export interface Summary {
@@ -752,6 +756,8 @@ export namespace SmartLinkListConversionsResponse {
 
         fbclid?: string | null;
 
+        gbraid?: string | null;
+
         gclid?: string;
 
         gross_clicks?: number;
@@ -763,6 +769,8 @@ export namespace SmartLinkListConversionsResponse {
         is_duplicate?: boolean;
 
         referrer?: string;
+
+        sccid?: string | null;
 
         ttclid?: string;
 
@@ -777,6 +785,8 @@ export namespace SmartLinkListConversionsResponse {
         utm_source?: string;
 
         utm_term?: string;
+
+        wbraid?: string | null;
       }
 
       export interface Fan {
@@ -853,7 +863,11 @@ export namespace SmartLinkListFansResponse {
 
       offset?: number;
 
+      previously_subscribed?: string | null;
+
       sort?: string;
+
+      subscribed_using_promo?: string | null;
     }
 
     export interface Row {
@@ -877,13 +891,45 @@ export namespace SmartLinkListFansResponse {
 
       revenue_net?: number;
 
+      subscription_insights?: Row.SubscriptionInsights;
+
       tips_net?: number;
 
       username?: string;
     }
 
+    export namespace Row {
+      export interface SubscriptionInsights {
+        current_subscription?: SubscriptionInsights.CurrentSubscription;
+
+        current_subscription_from_smart_link?: boolean;
+
+        has_subscription_data?: boolean;
+
+        previously_subscribed?: boolean;
+
+        subscribed_using_promo?: boolean;
+      }
+
+      export namespace SubscriptionInsights {
+        export interface CurrentSubscription {
+          action?: string;
+
+          is_free?: boolean;
+
+          price?: number;
+
+          regular_price?: number;
+
+          type?: string;
+        }
+      }
+    }
+
     export interface Summary {
       fans_total?: number;
+
+      fans_with_1_plus_messages_total?: number;
 
       fans_with_3_plus_messages_total?: number;
 
@@ -1043,16 +1089,13 @@ export interface SmartLinkListParams {
    */
   account_ids?: string | null;
 
+  filter?: SmartLinkListParams.Filter;
+
   /**
    * The number of Smart Links to return. Default `50`. Must be at least 1. Must not
    * be greater than 1000.
    */
   limit?: number;
-
-  /**
-   * Comma-separated Meta Pixel IDs to include.
-   */
-  meta_pixel_ids?: string | null;
 
   /**
    * Filter Smart Links by name. Must not be greater than 255 characters.
@@ -1063,6 +1106,20 @@ export interface SmartLinkListParams {
    * The offset used for pagination. Default `0`. Must be at least 0.
    */
   offset?: number;
+
+  /**
+   * Comma-separated ad platform Pixel IDs to include.
+   */
+  pixel_ids?: string | null;
+}
+
+export namespace SmartLinkListParams {
+  export interface Filter {
+    /**
+     * Must not be greater than 50 characters.
+     */
+    tags?: Array<string>;
+  }
 }
 
 export interface SmartLinkListClicksParams {
@@ -1101,7 +1158,12 @@ export interface SmartLinkListConversionsParams {
   /**
    * Optional conversion type filter
    */
-  conversion_type?: 'new_subscriber' | 'new_transaction' | 'message_received' | 'fan_sent_3_messages';
+  conversion_type?:
+    | 'new_subscriber'
+    | 'new_transaction'
+    | 'message_received'
+    | 'fan_sent_1_message'
+    | 'fan_sent_3_messages';
 
   /**
    * Optional report range end date
@@ -1171,6 +1233,12 @@ export interface SmartLinkListFansParams {
   offset?: number;
 
   /**
+   * Optional - Filter to returning subscribers (fans previously subscribed before
+   * this subscription)
+   */
+  previously_subscribed?: boolean;
+
+  /**
    * Optional sort field. Default `-revenue_net`
    */
   sort?:
@@ -1182,6 +1250,11 @@ export interface SmartLinkListFansParams {
     | '-messages_sent_by_fan'
     | 'converted_at'
     | '-converted_at';
+
+  /**
+   * Optional - Filter to fans who subscribed via a promotion/offer
+   */
+  subscribed_using_promo?: boolean;
 }
 
 export interface SmartLinkListSpendersParams {

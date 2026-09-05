@@ -58,16 +58,31 @@ export class Lists extends APIResource {
    * ```ts
    * const list = await client.media.vault.lists.update('123', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
+   *   name: 'My renamed list',
    * });
    * ```
    */
   update(listID: string, params: ListUpdateParams, options?: RequestOptions): APIPromise<ListUpdateResponse> {
-    const { account } = params;
-    return this._client.put(path`/api/${account}/media/vault/lists/${listID}`, options);
+    const { account, ...body } = params;
+    return this._client.put(path`/api/${account}/media/vault/lists/${listID}`, { body, ...options });
   }
 
   /**
    * List your Vault lists (categories).
+   *
+   * Every response carries an `ETag` computed over the `data` payload. Send it back
+   * as `If-None-Match` on your next call and you will get a `304 Not Modified` with
+   * an empty body when nothing changed, so you can keep serving your cached copy
+   * instead of re-parsing the full list. Credits are debited either way — we still
+   * have to ask OnlyFans for the current state to know whether it changed.
+   *
+   * The `ETag` covers `data` only, never `_meta` — your credits balance changes on
+   * every call, so including it would mean the `ETag` never matches. Because a `304`
+   * has no body, it also has no `_meta`: read the current credits and rate-limit
+   * counters from the `X-OFAPI-Credits-Used`, `X-OFAPI-Credits-Balance`,
+   * `X-Rate-Limit-Limit-Minute` and `X-Rate-Limit-Remaining-Minute` response
+   * headers, which are sent on `304` responses too. The `_meta` inside a body you
+   * cached earlier is stale by definition.
    *
    * @example
    * ```ts
@@ -298,104 +313,191 @@ export namespace ListUpdateResponse {
   }
 }
 
-export interface ListListResponse {
-  _meta?: ListListResponse._Meta;
-
-  data?: ListListResponse.Data;
-}
+/**
+ * Success
+ */
+export type ListListResponse = ListListResponse.UnionMember0 | ListListResponse.UnionMember1;
 
 export namespace ListListResponse {
-  export interface _Meta {
-    _cache?: _Meta._Cache;
+  /**
+   * Success
+   */
+  export interface UnionMember0 {
+    _meta?: UnionMember0._Meta;
 
-    _credits?: _Meta._Credits;
-
-    _rate_limits?: _Meta._RateLimits;
+    data?: UnionMember0.Data;
   }
 
-  export namespace _Meta {
-    export interface _Cache {
-      is_cached?: boolean;
+  export namespace UnionMember0 {
+    export interface _Meta {
+      _cache?: _Meta._Cache;
 
-      note?: string;
+      _credits?: _Meta._Credits;
+
+      _rate_limits?: _Meta._RateLimits;
     }
 
-    export interface _Credits {
-      balance?: number;
+    export namespace _Meta {
+      export interface _Cache {
+        is_cached?: boolean;
 
-      note?: string;
+        note?: string;
+      }
 
-      used?: number;
-    }
+      export interface _Credits {
+        balance?: number;
 
-    export interface _RateLimits {
-      limit_day?: number;
+        note?: string;
 
-      limit_minute?: number;
+        used?: number;
+      }
 
-      remaining_day?: number;
+      export interface _RateLimits {
+        limit_day?: number;
 
-      remaining_minute?: number;
-    }
-  }
+        limit_minute?: number;
 
-  export interface Data {
-    all?: Data.All;
+        remaining_day?: number;
 
-    canCreateVaultLists?: boolean;
-
-    hasMore?: boolean;
-
-    list?: Array<Data.List>;
-
-    order?: string;
-
-    sort?: string;
-  }
-
-  export namespace Data {
-    export interface All {
-      audiosCount?: number;
-
-      gifsCount?: number;
-
-      medias?: Array<All.Media>;
-
-      photosCount?: number;
-
-      videosCount?: number;
-    }
-
-    export namespace All {
-      export interface Media {
-        type?: string;
-
-        url?: string;
+        remaining_minute?: number;
       }
     }
 
-    export interface List {
-      id?: number;
+    export interface Data {
+      all?: Data.All;
 
-      audiosCount?: number;
+      canCreateVaultLists?: boolean;
 
-      canDelete?: boolean;
+      hasMore?: boolean;
 
-      canUpdate?: boolean;
+      list?: Array<Data.List>;
 
-      gifsCount?: number;
+      order?: string;
 
-      hasMedia?: boolean;
+      sort?: string;
+    }
 
-      medias?: Array<unknown>;
+    export namespace Data {
+      export interface All {
+        audiosCount?: number;
 
-      name?: string;
+        gifsCount?: number;
 
-      photosCount?: number;
+        medias?: Array<All.Media>;
 
-      type?: string;
+        photosCount?: number;
 
-      videosCount?: number;
+        videosCount?: number;
+      }
+
+      export namespace All {
+        export interface Media {
+          type?: string;
+
+          url?: string;
+        }
+      }
+
+      export interface List {
+        id?: number;
+
+        audiosCount?: number;
+
+        canDelete?: boolean;
+
+        canUpdate?: boolean;
+
+        gifsCount?: number;
+
+        hasMedia?: boolean;
+
+        medias?: Array<unknown>;
+
+        name?: string;
+
+        photosCount?: number;
+
+        type?: string;
+
+        videosCount?: number;
+      }
+    }
+  }
+
+  /**
+   * Success (lightweight=true)
+   */
+  export interface UnionMember1 {
+    _meta?: UnionMember1._Meta;
+
+    data?: UnionMember1.Data;
+  }
+
+  export namespace UnionMember1 {
+    export interface _Meta {
+      _cache?: _Meta._Cache;
+
+      _credits?: _Meta._Credits;
+
+      _rate_limits?: _Meta._RateLimits;
+    }
+
+    export namespace _Meta {
+      export interface _Cache {
+        is_cached?: boolean;
+
+        note?: string;
+      }
+
+      export interface _Credits {
+        balance?: number;
+
+        note?: string;
+
+        used?: number;
+      }
+
+      export interface _RateLimits {
+        limit_day?: number;
+
+        limit_minute?: number;
+
+        remaining_day?: number;
+
+        remaining_minute?: number;
+      }
+    }
+
+    export interface Data {
+      all?: Data.All;
+
+      canCreateVaultLists?: boolean;
+
+      hasMore?: boolean;
+
+      list?: Array<Data.List>;
+
+      order?: string;
+
+      sort?: string;
+    }
+
+    export namespace Data {
+      export interface All {
+        mediaCount?: number;
+      }
+
+      export interface List {
+        id?: number;
+
+        canUpdate?: boolean;
+
+        mediaCount?: number;
+
+        name?: string;
+
+        type?: string;
+      }
     }
   }
 }
@@ -462,12 +564,25 @@ export interface ListRetrieveParams {
 
 export interface ListUpdateParams {
   /**
-   * The Account ID
+   * Path param: The Account ID
    */
   account: string;
+
+  /**
+   * Body param: The new name for the vault list. Must not be greater than 255
+   * characters.
+   */
+  name: string;
 }
 
 export interface ListListParams {
+  /**
+   * Set to `true` to return only `id`, `name`, `type`, `canUpdate` and a rolled-up
+   * `mediaCount` per list, dropping the `medias` previews. Much smaller payload —
+   * ideal for rendering a folder picker. Default: `false`
+   */
+  lightweight?: boolean;
+
   /**
    * Number of media to return per page. Default: `24`
    */

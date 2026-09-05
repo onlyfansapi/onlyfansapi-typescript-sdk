@@ -9,11 +9,8 @@ const client = new OnlyFansAPI({
 
 describe('resource statistics', () => {
   // Mock server tests are disabled
-  test.skip('calculateTotalTransactions: only required params', async () => {
-    const responsePromise = client.statistics.calculateTotalTransactions('acct_XXXXXXXXXXXXXXX', {
-      end_date: '2025-03-31 23:59:59',
-      start_date: '2025-01-01 00:00:00',
-    });
+  test.skip('calculateTotalTransactions', async () => {
+    const responsePromise = client.statistics.calculateTotalTransactions('acct_XXXXXXXXXXXXXXX');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -24,11 +21,15 @@ describe('resource statistics', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('calculateTotalTransactions: required and optional params', async () => {
-    const response = await client.statistics.calculateTotalTransactions('acct_XXXXXXXXXXXXXXX', {
-      end_date: '2025-03-31 23:59:59',
-      start_date: '2025-01-01 00:00:00',
-    });
+  test.skip('calculateTotalTransactions: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.statistics.calculateTotalTransactions(
+        'acct_XXXXXXXXXXXXXXX',
+        { end_date: '2025-03-31 23:59:59', start_date: '2025-01-01 00:00:00' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(OnlyFansAPI.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -80,6 +81,7 @@ describe('resource statistics', () => {
       end_date: '2025-03-31 23:59:59',
       start_date: '2025-01-01 00:00:00',
       detailed: false,
+      detailed_type: 'total',
     });
   });
 });
