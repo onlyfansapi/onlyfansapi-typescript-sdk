@@ -10,9 +10,7 @@ const client = new OnlyFansAPI({
 describe('resource userLists', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.userLists.create('acct_XXXXXXXXXXXXXXX', {
-      name: 'wkiyutfpcwvrhmnhqhvpm',
-    });
+    const responsePromise = client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'iasfqjfh' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -24,7 +22,7 @@ describe('resource userLists', () => {
 
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'wkiyutfpcwvrhmnhqhvpm' });
+    const response = await client.userLists.create('acct_XXXXXXXXXXXXXXX', { name: 'iasfqjfh' });
   });
 
   // Mock server tests are disabled
