@@ -48,6 +48,7 @@ describe('resource fans', () => {
         {
           filter: {
             duration: 0,
+            max_total_spent: 0,
             online: null,
             tips: 0,
             total_spent: 0,
@@ -83,6 +84,7 @@ describe('resource fans', () => {
         {
           filter: {
             duration: 0,
+            max_total_spent: 0,
             online: null,
             tips: 0,
             total_spent: 0,
@@ -118,6 +120,7 @@ describe('resource fans', () => {
         {
           filter: {
             duration: 0,
+            max_total_spent: 0,
             online: null,
             tips: 0,
             total_spent: 0,

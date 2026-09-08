@@ -51,7 +51,7 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const trialLink = await client.trialLinks.retrieve(
-   *   'officia',
+   *   'consectetur',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -72,13 +72,12 @@ export class TrialLinks extends APIResource {
    * ```ts
    * const trialLinks = await client.trialLinks.list(
    *   'acct_XXXXXXXXXXXXXXX',
-   *   { limit: 10, offset: 0 },
    * );
    * ```
    */
   list(
     account: string,
-    query: TrialLinkListParams,
+    query: TrialLinkListParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<TrialLinkListResponse> {
     return this._client.get(path`/api/${account}/trial-links`, { query, ...options });
@@ -90,7 +89,7 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const trialLink = await client.trialLinks.delete(
-   *   'officia',
+   *   'consectetur',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -130,7 +129,7 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trialLinks.listSubscribers(
-   *   'eum',
+   *   'incidunt',
    *   {
    *     account: 'acct_XXXXXXXXXXXXXXX',
    *     limit: 10,
@@ -156,7 +155,7 @@ export class TrialLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.trialLinks.retrieveCohortArps('eius', {
+   * await client.trialLinks.retrieveCohortArps('dolore', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -181,7 +180,7 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trialLinks.retrieveStats(
-   *   'aut',
+   *   'autem',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -1077,31 +1076,42 @@ export interface TrialLinkRetrieveParams {
 
 export interface TrialLinkListParams {
   /**
-   * The number of trial links to return. Default `10`
+   * The end date for trial links. Keep empty to get all. Must not be greater than
+   * 255 characters.
    */
-  limit: number;
+  endDate?: string | null;
 
   /**
-   * The offset used for pagination. Default `0`
+   * Field to sort by. Default `create_date`.
    */
-  offset: number;
+  field?: 'create_date' | 'expire_date' | 'subscribe_counts' | 'subscribe_days' | 'claims_count';
 
   /**
-   * Sort the results by a field. Default `create_date`
+   * The number of trial links to return. Default `10`. Must be at least 1. Must not
+   * be greater than 100.
    */
-  field?: 'create_date' | 'expire_date' | 'subscribe_counts' | 'subscribe_days' | 'claims_count' | null;
+  limit?: number;
 
   /**
-   * Sort the results. Default `desc`
+   * The offset used for pagination. Default `0`. Must be at least 0.
    */
-  sort?: 'desc' | 'asc' | null;
+  offset?: number;
 
   /**
-   * Wait for the revenue data to finish processing, instead of processing in the
-   * background. **Will result in longer response times, use with caution**. Default
-   * `false`
+   * Sort direction. Default `desc`.
    */
-  synchronous?: boolean | null;
+  sort?: 'asc' | 'desc';
+
+  /**
+   * The start date for trial links. Keep empty to get all. Must not be greater than
+   * 255 characters.
+   */
+  startDate?: string | null;
+
+  /**
+   * Wait for revenue calculation instead of processing it in the background.
+   */
+  synchronous?: boolean;
 }
 
 export interface TrialLinkDeleteParams {

@@ -5,12 +5,12 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
 /**
- * APIs for managing tags on free trial links and tracking links
+ * APIs for managing tags on free trial links, tracking links, and Smart Links
  */
 export class LinkTags extends APIResource {
   /**
-   * Get all existing tags that have been used on free trial links and/or tracking
-   * links for this account. This is a free endpoint.
+   * Get all existing tags that have been used on free trial links, tracking links,
+   * and/or Smart Links for this account. This is a free endpoint.
    *
    * @example
    * ```ts
@@ -73,9 +73,9 @@ export namespace LinkTagListResponse {
 
 export interface LinkTagListParams {
   /**
-   * Filter by link type. If not provided, returns tags for both types.
+   * Filter by link type. If not provided, returns tags for all types.
    */
-  type?: 'trial_links' | 'tracking_links';
+  type?: 'trial_links' | 'tracking_links' | 'smart_links';
 }
 
 export declare namespace LinkTags {

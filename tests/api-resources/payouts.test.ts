@@ -79,7 +79,7 @@ describe('resource payouts', () => {
     await expect(
       client.payouts.retrieveEarningStatistics(
         'acct_XXXXXXXXXXXXXXX',
-        { endDate: '2025-01-01 00:00:00, +30days', startDate: '2025-01-01 00:00:00, -30days' },
+        { endDate: '2025-01-31 23:59:59', startDate: '2025-01-01 00:00:00' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(OnlyFansAPI.NotFoundError);

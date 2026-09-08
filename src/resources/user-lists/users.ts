@@ -491,49 +491,117 @@ export namespace UserListResponse {
   }
 }
 
-export interface UserAddResponse {
-  _meta?: UserAddResponse._Meta;
-
-  data?: UserAddResponse.Data;
-}
+/**
+ * Default: OnlyFans accepted every User ID
+ */
+export type UserAddResponse = UserAddResponse.UnionMember0 | UserAddResponse.UnionMember1;
 
 export namespace UserAddResponse {
-  export interface _Meta {
-    _cache?: _Meta._Cache;
+  /**
+   * Default: OnlyFans accepted every User ID
+   */
+  export interface UnionMember0 {
+    _meta?: UnionMember0._Meta;
 
-    _credits?: _Meta._Credits;
-
-    _rate_limits?: _Meta._RateLimits;
+    data?: UnionMember0.Data;
   }
 
-  export namespace _Meta {
-    export interface _Cache {
-      is_cached?: boolean;
+  export namespace UnionMember0 {
+    export interface _Meta {
+      _cache?: _Meta._Cache;
 
-      note?: string;
+      _credits?: _Meta._Credits;
+
+      _rate_limits?: _Meta._RateLimits;
     }
 
-    export interface _Credits {
-      balance?: number;
+    export namespace _Meta {
+      export interface _Cache {
+        is_cached?: boolean;
 
-      note?: string;
+        note?: string;
+      }
 
-      used?: number;
+      export interface _Credits {
+        balance?: number;
+
+        note?: string;
+
+        used?: number;
+      }
+
+      export interface _RateLimits {
+        limit_day?: number;
+
+        limit_minute?: number;
+
+        remaining_day?: number;
+
+        remaining_minute?: number;
+      }
     }
 
-    export interface _RateLimits {
-      limit_day?: number;
-
-      limit_minute?: number;
-
-      remaining_day?: number;
-
-      remaining_minute?: number;
+    export interface Data {
+      '1224114714'?: Array<number>;
     }
   }
 
-  export interface Data {
-    '1224114714'?: Array<number>;
+  /**
+   * With `skip_invalid=true`: the rejected User IDs are reported instead of failing
+   * the batch
+   */
+  export interface UnionMember1 {
+    _meta?: UnionMember1._Meta;
+
+    data?: UnionMember1.Data;
+  }
+
+  export namespace UnionMember1 {
+    export interface _Meta {
+      _cache?: _Meta._Cache;
+
+      _credits?: _Meta._Credits;
+
+      _rate_limits?: _Meta._RateLimits;
+    }
+
+    export namespace _Meta {
+      export interface _Cache {
+        is_cached?: boolean;
+
+        note?: string;
+      }
+
+      export interface _Credits {
+        balance?: number;
+
+        note?: string;
+
+        used?: number;
+      }
+
+      export interface _RateLimits {
+        limit_day?: number;
+
+        limit_minute?: number;
+
+        remaining_day?: number;
+
+        remaining_minute?: number;
+      }
+    }
+
+    export interface Data {
+      added?: Array<number>;
+
+      failed?: Data.Failed;
+    }
+
+    export namespace Data {
+      export interface Failed {
+        '123456'?: string;
+      }
+    }
   }
 }
 
@@ -1190,6 +1258,17 @@ export interface UserAddParams {
    * Body param: Array of OnlyFans User IDs to be added into the list
    */
   ids: Array<string>;
+
+  /**
+   * Body param: Set to `true` to skip the User IDs OnlyFans refuses instead of
+   * failing the whole batch. We drop the rejected IDs and retry the remainder for
+   * you (up to 5 OnlyFans attempts, each costing 1 credit), then respond `200` with
+   * `data.added` (the IDs that made it in) and `data.failed` (an object mapping each
+   * rejected User ID to the reason OnlyFans gave). Note this changes the shape of
+   * `data` — see the example responses. Failures that are not about individual users
+   * (e.g. an invalid or inaccessible list ID) still return the regular `400`.
+   */
+  skip_invalid?: boolean;
 }
 
 export interface UserClearParams {

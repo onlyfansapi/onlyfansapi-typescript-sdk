@@ -29,7 +29,7 @@ describe('resource transactions', () => {
         {
           limit: 'limit',
           marker: '1739155047',
-          startDate: '2025-01-01 00:00:00, -30days',
+          startDate: '2025-01-01 00:00:00',
           tipsSource: 'post_all',
           type: 'tips',
         },
