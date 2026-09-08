@@ -37,7 +37,7 @@ describe('resource settings', () => {
   test.skip('enableOrUpdateAutomaticPosting: only required params', async () => {
     const responsePromise = client.savedForLater.posts.settings.enableOrUpdateAutomaticPosting(
       'acct_XXXXXXXXXXXXXXX',
-      { period: 12 },
+      { period: 24 },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -52,7 +52,7 @@ describe('resource settings', () => {
   test.skip('enableOrUpdateAutomaticPosting: required and optional params', async () => {
     const response = await client.savedForLater.posts.settings.enableOrUpdateAutomaticPosting(
       'acct_XXXXXXXXXXXXXXX',
-      { period: 12 },
+      { period: 24 },
     );
   });
 });
