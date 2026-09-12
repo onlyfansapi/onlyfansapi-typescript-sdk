@@ -17,7 +17,7 @@ import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 /**
- * APIs for managing tracking links
+ * APIs for managing tracking links. Revenue totals are net earnings after refunds and chargebacks. `revenue.chargebacks` (or `summary.chargebacks_total` in stats) is the positive cached net amount already excluded from revenue; do not subtract it again. Spender responses include chargebacks across all attributed periods for each fan with positive net revenue.
  */
 export class TrackingLinks extends APIResource {
   tags: TagsAPI.Tags = new TagsAPI.Tags(this._client);
@@ -47,7 +47,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const trackingLink = await client.trackingLinks.retrieve(
-   *   'similique',
+   *   'temporibus',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -85,7 +85,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const trackingLink = await client.trackingLinks.delete(
-   *   'similique',
+   *   'temporibus',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -104,7 +104,7 @@ export class TrackingLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.trackingLinks.getCohortArps('repellat', {
+   * await client.trackingLinks.getCohortArps('adipisci', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -134,7 +134,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trackingLinks.getStats(
-   *   'explicabo',
+   *   'magnam',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -361,6 +361,8 @@ export namespace TrackingLinkRetrieveResponse {
     export interface Revenue {
       calculatedAt?: string;
 
+      chargebacks?: number;
+
       isLoading?: boolean;
 
       revenuePerClick?: number;
@@ -465,6 +467,8 @@ export namespace TrackingLinkListResponse {
 
       export interface Revenue {
         calculatedAt?: string;
+
+        chargebacks?: number;
 
         isLoading?: boolean;
 
@@ -589,6 +593,8 @@ export namespace TrackingLinkGetStatsResponse {
     }
 
     export interface Summary {
+      chargebacks_total?: number;
+
       clicks_total?: number;
 
       revenue_cached_at?: string;
@@ -654,6 +660,8 @@ export namespace TrackingLinkListSpendersResponse {
   export namespace Data {
     export interface Revenue {
       calculated_at?: string;
+
+      chargebacks?: number;
 
       total?: number;
     }
