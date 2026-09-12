@@ -390,6 +390,8 @@ export namespace StoredListTrackingLinksResponse {
       export interface Revenue {
         calculatedAt?: string;
 
+        chargebacks?: number;
+
         isLoading?: boolean;
 
         revenuePerClick?: number;
@@ -519,6 +521,8 @@ export namespace StoredListTrialLinksResponse {
 
       export interface Revenue {
         calculatedAt?: string;
+
+        chargebacks?: number;
 
         isLoading?: boolean;
 

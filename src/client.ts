@@ -1149,7 +1149,7 @@ export class OnlyFansAPI {
    */
   following: API.Following = new API.Following(this);
   /**
-   * APIs for managing Free Trial Links
+   * APIs for managing Free Trial Links. Revenue totals are net earnings after refunds and chargebacks. `revenue.chargebacks` (or `summary.chargebacks_total` in stats) is the positive cached net amount already excluded from revenue; do not subtract it again. Spender responses include chargebacks across all attributed periods for each fan with positive net revenue.
    */
   trialLinks: API.TrialLinks = new API.TrialLinks(this);
   giphy: API.Giphy = new API.Giphy(this);
@@ -1203,7 +1203,7 @@ export class OnlyFansAPI {
   stories: API.Stories = new API.Stories(this);
   bundles: API.Bundles = new API.Bundles(this);
   /**
-   * APIs for managing tracking links
+   * APIs for managing tracking links. Revenue totals are net earnings after refunds and chargebacks. `revenue.chargebacks` (or `summary.chargebacks_total` in stats) is the positive cached net amount already excluded from revenue; do not subtract it again. Spender responses include chargebacks across all attributed periods for each fan with positive net revenue.
    */
   trackingLinks: API.TrackingLinks = new API.TrackingLinks(this);
   /**

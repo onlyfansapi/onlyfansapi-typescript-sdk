@@ -17,7 +17,7 @@ import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 /**
- * APIs for managing Free Trial Links
+ * APIs for managing Free Trial Links. Revenue totals are net earnings after refunds and chargebacks. `revenue.chargebacks` (or `summary.chargebacks_total` in stats) is the positive cached net amount already excluded from revenue; do not subtract it again. Spender responses include chargebacks across all attributed periods for each fan with positive net revenue.
  */
 export class TrialLinks extends APIResource {
   tags: TagsAPI.Tags = new TagsAPI.Tags(this._client);
@@ -50,10 +50,9 @@ export class TrialLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const trialLink = await client.trialLinks.retrieve(
-   *   'consectetur',
-   *   { account: 'acct_XXXXXXXXXXXXXXX' },
-   * );
+   * const trialLink = await client.trialLinks.retrieve('ex', {
+   *   account: 'acct_XXXXXXXXXXXXXXX',
+   * });
    * ```
    */
   retrieve(
@@ -88,10 +87,9 @@ export class TrialLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const trialLink = await client.trialLinks.delete(
-   *   'consectetur',
-   *   { account: 'acct_XXXXXXXXXXXXXXX' },
-   * );
+   * const trialLink = await client.trialLinks.delete('ex', {
+   *   account: 'acct_XXXXXXXXXXXXXXX',
+   * });
    * ```
    */
   delete(
@@ -129,7 +127,7 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trialLinks.listSubscribers(
-   *   'incidunt',
+   *   'et',
    *   {
    *     account: 'acct_XXXXXXXXXXXXXXX',
    *     limit: 10,
@@ -155,7 +153,7 @@ export class TrialLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.trialLinks.retrieveCohortArps('dolore', {
+   * await client.trialLinks.retrieveCohortArps('voluptates', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -180,7 +178,7 @@ export class TrialLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trialLinks.retrieveStats(
-   *   'autem',
+   *   'occaecati',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -366,6 +364,8 @@ export namespace TrialLinkRetrieveResponse {
     export interface Revenue {
       calculatedAt?: string;
 
+      chargebacks?: number;
+
       isLoading?: boolean;
 
       revenuePerSubscriber?: number;
@@ -472,6 +472,8 @@ export namespace TrialLinkListResponse {
 
       export interface Revenue {
         calculatedAt?: string;
+
+        chargebacks?: number;
 
         isLoading?: boolean;
 
@@ -583,6 +585,8 @@ export namespace TrialLinkListSpendersResponse {
   export namespace Data {
     export interface Revenue {
       calculated_at?: string;
+
+      chargebacks?: number;
 
       total?: number;
     }
@@ -1024,6 +1028,8 @@ export namespace TrialLinkRetrieveStatsResponse {
     }
 
     export interface Summary {
+      chargebacks_total?: number;
+
       clicks_total?: number;
 
       revenue_cached_at?: string;
