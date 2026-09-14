@@ -47,7 +47,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const trackingLink = await client.trackingLinks.retrieve(
-   *   'explicabo',
+   *   'sit',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -85,7 +85,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const trackingLink = await client.trackingLinks.delete(
-   *   'explicabo',
+   *   'sit',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -104,7 +104,7 @@ export class TrackingLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.trackingLinks.getCohortArps('pariatur', {
+   * await client.trackingLinks.getCohortArps('recusandae', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -134,7 +134,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trackingLinks.getStats(
-   *   'voluptas',
+   *   'veritatis',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
