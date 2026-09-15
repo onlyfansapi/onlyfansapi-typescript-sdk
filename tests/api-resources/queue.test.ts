@@ -31,7 +31,7 @@ describe('resource queue', () => {
       publishDateStart: '2025-01-01',
       timezone: 'Europe/Prague',
       limit: 20,
-      type: ['chat'],
+      type: ['post'],
     });
   });
 
