@@ -29,6 +29,7 @@ describe('resource sharedTrialLinks', () => {
         {
           limit: 10,
           offset: 0,
+          pagination: 1,
           synchronous: false,
         },
         { path: '/_stainless_unknown_path' },

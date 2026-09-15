@@ -209,20 +209,22 @@ export namespace SharedTrialLinkRevokeAccessResponse {
 
 export interface SharedTrialLinkListParams {
   /**
-   * The number of shared trial links to return. Default `10`
+   * The number of shared trial links to return. Default `10`. Must be at least 1.
+   * Must not be greater than 100.
    */
   limit?: number;
 
   /**
-   * The offset used for pagination. Default `0`
+   * The offset used for pagination. Default `0`. Must be at least 0.
    */
   offset?: number;
 
+  pagination?: 0 | 1;
+
   /**
-   * Wait for the database sync to finish, instead of running it in the background.
-   * **Will result in longer response times, use with caution**. Default `false`
+   * Wait for the database sync instead of processing it in the background.
    */
-  synchronous?: boolean | null;
+  synchronous?: boolean;
 }
 
 export interface SharedTrialLinkRevokeAccessParams {

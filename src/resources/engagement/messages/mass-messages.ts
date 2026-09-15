@@ -231,8 +231,8 @@ export namespace MassMessageChartResponse {
 
 export interface MassMessageListParams {
   /**
-   * The latest message to retrieve. Keep empty to get all. MUST BE DATE AFTER
-   * `startDate`. This is also used for pagination.
+   * The latest message to retrieve. Keep empty to get all. It must be after
+   * `startDate` and is also used for pagination.
    */
   endDate?: string;
 
@@ -254,7 +254,7 @@ export interface MassMessageListParams {
 
 export interface MassMessageChartParams {
   /**
-   * End of the chart window in `Y-m-d H:i:s` format. Must be after `startDate`.
+   * End of the chart window in `Y-m-d H:i:s` format. It must be after `startDate`.
    */
   endDate?: string;
 

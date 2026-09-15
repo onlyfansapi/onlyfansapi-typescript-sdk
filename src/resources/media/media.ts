@@ -27,24 +27,31 @@ export class Media extends APIResource {
   vault: VaultAPI.Vault = new VaultAPI.Vault(this._client);
 
   /**
-   * Downloads a file directly from a `https://cdn*.onlyfans.com/*` URL. When the
-   * file is already cached on our CDN, this endpoint returns a `302` redirect to a
-   * `https://cdn.fansapi.com/*` URL. Most HTTP clients follow redirects
-   * automatically (`curl` requires `-L`). Otherwise, the file is streamed through
-   * our proxies and queued for caching.
+   * Downloads a file from a `https://cdn*.onlyfans.com/*` URL through a `302`
+   * redirect. Follow redirects (`curl -L`). Cached `cdn.fansapi.com` files are free;
+   * otherwise `dl.fansapi.com` streams through the account proxy. Send one
+   * `Range: bytes=start-end` header to request a chunk for playback or a preview. A
+   * supported range returns `206`, `Content-Range`, and the chunk Content-Length; an
+   * upstream that ignores Range can return a full `200`, so check the response. Each
+   * nonempty transfer costs 3 credits per decimal MB streamed (minimum 1 credit).
+   * Credits for the selected response are reserved before streaming; unused reserved
+   * credits are released on completion, including an interrupted transfer. HEAD
+   * follows the same redirects and returns metadata without a body or download
+   * charge. HEAD does not populate the media cache. This regular endpoint does not
+   * decrypt DRM media.
    *
    * @example
    * ```ts
-   * const response = await client.media.download('cdnUrl', {
+   * await client.media.download('cdnUrl', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
    */
-  download(cdnURL: string, params: MediaDownloadParams, options?: RequestOptions): APIPromise<string> {
+  download(cdnURL: string, params: MediaDownloadParams, options?: RequestOptions): APIPromise<void> {
     const { account } = params;
     return this._client.get(path`/api/${account}/media/download/${cdnURL}`, {
       ...options,
-      headers: buildHeaders([{ Accept: 'text/plain' }, options?.headers]),
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
 
@@ -92,8 +99,6 @@ export class Media extends APIResource {
     );
   }
 }
-
-export type MediaDownloadResponse = string;
 
 export interface MediaScrapeResponse {
   expiration_date?: string;
@@ -173,7 +178,9 @@ export interface MediaScrapeParams {
 export interface MediaUploadParams {
   /**
    * Set to `true` to process uploads in the background. Returns a `polling_url` to
-   * check status. Recommended for large files.
+   * check status. Recommended for large files. Instead of polling, you can subscribe
+   * to the `media_uploads.completed` and `media_uploads.failed` webhook events —
+   * they only fire for async uploads.
    */
   async?: boolean;
 
@@ -201,7 +208,6 @@ Media.Vault = Vault;
 
 export declare namespace Media {
   export {
-    type MediaDownloadResponse as MediaDownloadResponse,
     type MediaScrapeResponse as MediaScrapeResponse,
     type MediaUploadResponse as MediaUploadResponse,
     type MediaDownloadParams as MediaDownloadParams,

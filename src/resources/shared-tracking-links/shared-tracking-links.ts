@@ -208,20 +208,41 @@ export namespace SharedTrackingLinkRevokeAccessResponse {
 
 export interface SharedTrackingLinkListParams {
   /**
-   * The number of shared tracking links to return. Default `10`
+   * The number of shared tracking links to return. Default `10`. Must be at least 1.
+   * Must not be greater than 100.
    */
   limit?: number;
 
   /**
-   * The offset used for pagination. Default `0`
+   * The offset used for pagination. Default `0`. Must be at least 0.
    */
   offset?: number;
 
   /**
-   * Wait for the database sync to finish, instead of running it in the background.
-   * **Will result in longer response times, use with caution**. Default `false`
+   * Whether pagination metadata is enabled. Default `1`.
    */
-  synchronous?: boolean | null;
+  pagination?: 0 | 1;
+
+  /**
+   * Whether deleted links participate in sorting. Default `1`.
+   */
+  sorting_deleted?: 0 | 1;
+
+  /**
+   * Whether statistics are included. Default `true`. Must not be greater than 10
+   * characters.
+   */
+  stats?: string;
+
+  /**
+   * Wait for the database sync instead of processing it in the background.
+   */
+  synchronous?: boolean;
+
+  /**
+   * Whether to include deleted shared tracking links. Default `1`.
+   */
+  with_deleted?: 0 | 1;
 }
 
 export interface SharedTrackingLinkRevokeAccessParams {

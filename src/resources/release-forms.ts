@@ -55,7 +55,8 @@ export class ReleaseForms extends APIResource {
   /**
    * Get a paginated list of users that can be tagged in release forms. These are
    * verified creators who have signed release forms to appear in your content. Use
-   * `offset` and `limit` for pagination.
+   * `offset` and `limit` for pagination, following `_pagination.next_page` until it
+   * is `null`.
    *
    * @example
    * ```ts
@@ -331,11 +332,11 @@ export namespace ReleaseFormListTaggableUsersResponse {
 
   export interface _Pagination {
     next_page?: string;
+
+    notice?: string;
   }
 
   export interface Data {
-    hasMore?: boolean;
-
     items?: Array<Data.Item>;
   }
 
