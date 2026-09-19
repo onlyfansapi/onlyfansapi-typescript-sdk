@@ -372,7 +372,7 @@ export interface ReachGetProfileVisitorsParams {
   end_date: string;
 
   /**
-   * The start date for the period
+   * The start date for the period.
    */
   start_date: string;
 

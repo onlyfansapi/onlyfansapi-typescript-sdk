@@ -52,7 +52,19 @@ export class Fans extends APIResource {
   }
 
   /**
-   * Get a paginated list of fans for an Account. Newest fans are first.
+   * Get a paginated list of fans for an Account. Newest fans are first. Paginate by
+   * following `_pagination.next_page` until it is null (`data.hasMore` is the
+   * authoritative flag). Do NOT use the page's item count to detect the last page —
+   * OnlyFans occasionally returns fewer than `limit` items (e.g. 19 for limit=20) on
+   * a non-final page because it filters entries server-side; no fans are skipped. To
+   * track progress, GET `/{account}/me` returns data.subscribersCount (the current
+   * active-subscriber count) as a total.
+   *
+   * Supports `filter[max_total_spent]` (e.g. `filter[max_total_spent]=0` for fans
+   * who have never spent), which OnlyFans itself cannot do. Those requests are
+   * answered from OnlyFansAPI's own fan index rather than proxied, so the page is
+   * limited to fans we have already indexed for this account — see `data._source` in
+   * the response.
    *
    * @example
    * ```ts
@@ -70,7 +82,17 @@ export class Fans extends APIResource {
   }
 
   /**
-   * Get a paginated list of fans for an Account. Newest fans are first.
+   * Get a paginated list of fans for an Account. Newest fans are first. Paginate by
+   * following `_pagination.next_page` until it is null (`data.hasMore` is the
+   * authoritative flag). Do NOT use the page's item count to detect the last page —
+   * OnlyFans occasionally returns fewer than `limit` items (e.g. 19 for limit=20) on
+   * a non-final page because it filters entries server-side; no fans are skipped.
+   *
+   * Supports `filter[max_total_spent]` (e.g. `filter[max_total_spent]=0` for fans
+   * who have never spent), which OnlyFans itself cannot do. Those requests are
+   * answered from OnlyFansAPI's own fan index rather than proxied, so the page is
+   * limited to fans we have already indexed for this account — see `data._source` in
+   * the response.
    *
    * @example
    * ```ts
@@ -89,6 +111,17 @@ export class Fans extends APIResource {
 
   /**
    * Get a paginated list of expired fans for an Account. Newest fans are first.
+   * Paginate by following `_pagination.next_page` until it is null (`data.hasMore`
+   * is the authoritative flag). Do NOT use the page's item count to detect the last
+   * page — OnlyFans occasionally returns fewer than `limit` items (e.g. 19 for
+   * limit=20) on a non-final page because it filters entries server-side; no fans
+   * are skipped.
+   *
+   * Supports `filter[max_total_spent]` (e.g. `filter[max_total_spent]=0` for fans
+   * who have never spent), which OnlyFans itself cannot do. Those requests are
+   * answered from OnlyFansAPI's own fan index rather than proxied, so the page is
+   * limited to fans we have already indexed for this account — see `data._source` in
+   * the response.
    *
    * @example
    * ```ts
@@ -1937,8 +1970,8 @@ export interface FanListActiveParams {
   filter?: FanListActiveParams.Filter;
 
   /**
-   * Number of fans to return (1-50). Must be at least 1. Must not be greater
-   * than 20.
+   * Number of fans to return (1-20). OnlyFans does not allow more than 20 per page.
+   * Must be at least 1. Must not be greater than 20.
    */
   limit?: number;
 
@@ -1961,22 +1994,56 @@ export interface FanListActiveParams {
 export namespace FanListActiveParams {
   export interface Filter {
     /**
-     * Filter by minimum subscription duration in months. Must be at least 0.
+     * Filter by minimum subscription duration in months. Must use bracket syntax:
+     * filter[duration]=1 — the dot form (filter.duration=1) is rejected with a 422,
+     * because PHP rewrites it to `filter_duration` and the filter could not be
+     * applied. Must be at least 0.
      */
     duration?: number;
 
     /**
-     * Filter by online status (`1` for online fans).
+     * Filter by **maximum** amount total spent by a fan — use
+     * `filter[max_total_spent]=0` to isolate fans who have never spent. Combine with
+     * `filter[total_spent]` for a range. Must use bracket syntax:
+     * filter[max_total_spent]=0 — the dot form is rejected with a 422, because PHP
+     * rewrites it to `filter_max_total_spent` and the filter could not be applied.
+     *
+     * OnlyFans itself has no maximum-spend filter, so this one is resolved against
+     * OnlyFansAPI's own fan index instead of being proxied. The fan objects in
+     * `data.list` are still fetched live from OnlyFans and are re-checked against your
+     * filters before being returned, but only fans we have already indexed for this
+     * account can appear. Each response reports its own coverage under `data._source`;
+     * when `data._source.is_complete` is `false` a full-base backfill is queued
+     * automatically, so retry later for a complete answer.
+     *
+     * `data._source.omitted_from_page` counts fans that matched your filters but which
+     * OnlyFans returned no usable data for on that page (a deleted account, or a
+     * partial response). They are left out of `data.list` and not revisited later in
+     * the same walk, so a non-zero value means that page was short — start a fresh
+     * walk to retry them. Cannot be combined with `filter[online]`. Must be at
+     * least 0.
+     */
+    max_total_spent?: number;
+
+    /**
+     * Filter by online status (`1` for online fans). Must use bracket syntax:
+     * filter[online]=1 — the dot form (filter.online=1) is rejected with a 422,
+     * because PHP rewrites it to `filter_online` and the filter could not be applied.
      */
     online?: 1 | 0 | null;
 
     /**
-     * Filter by minimum tips. Must be at least 0.
+     * Filter by minimum tips. Must use bracket syntax: filter[tips]=100 — the dot form
+     * (filter.tips=100) is rejected with a 422, because PHP rewrites it to
+     * `filter_tips` and the filter could not be applied. Must be at least 0.
      */
     tips?: number;
 
     /**
-     * Filter by minimum amount total spent by a fan. Must be at least 0.
+     * Filter by minimum amount total spent by a fan. Must use bracket syntax:
+     * filter[total_spent]=100 — the dot form (filter.total_spent=100) is rejected with
+     * a 422, because PHP rewrites it to `filter_total_spent` and the filter could not
+     * be applied. Must be at least 0.
      */
     total_spent?: number;
   }
@@ -1986,8 +2053,8 @@ export interface FanListAllParams {
   filter?: FanListAllParams.Filter;
 
   /**
-   * Number of fans to return (1-50). Must be at least 1. Must not be greater
-   * than 20.
+   * Number of fans to return (1-20). OnlyFans does not allow more than 20 per page.
+   * Must be at least 1. Must not be greater than 20.
    */
   limit?: number;
 
@@ -2010,22 +2077,56 @@ export interface FanListAllParams {
 export namespace FanListAllParams {
   export interface Filter {
     /**
-     * Filter by minimum subscription duration in months. Must be at least 0.
+     * Filter by minimum subscription duration in months. Must use bracket syntax:
+     * filter[duration]=1 — the dot form (filter.duration=1) is rejected with a 422,
+     * because PHP rewrites it to `filter_duration` and the filter could not be
+     * applied. Must be at least 0.
      */
     duration?: number;
 
     /**
-     * Filter by online status (`1` for online fans).
+     * Filter by **maximum** amount total spent by a fan — use
+     * `filter[max_total_spent]=0` to isolate fans who have never spent. Combine with
+     * `filter[total_spent]` for a range. Must use bracket syntax:
+     * filter[max_total_spent]=0 — the dot form is rejected with a 422, because PHP
+     * rewrites it to `filter_max_total_spent` and the filter could not be applied.
+     *
+     * OnlyFans itself has no maximum-spend filter, so this one is resolved against
+     * OnlyFansAPI's own fan index instead of being proxied. The fan objects in
+     * `data.list` are still fetched live from OnlyFans and are re-checked against your
+     * filters before being returned, but only fans we have already indexed for this
+     * account can appear. Each response reports its own coverage under `data._source`;
+     * when `data._source.is_complete` is `false` a full-base backfill is queued
+     * automatically, so retry later for a complete answer.
+     *
+     * `data._source.omitted_from_page` counts fans that matched your filters but which
+     * OnlyFans returned no usable data for on that page (a deleted account, or a
+     * partial response). They are left out of `data.list` and not revisited later in
+     * the same walk, so a non-zero value means that page was short — start a fresh
+     * walk to retry them. Cannot be combined with `filter[online]`. Must be at
+     * least 0.
+     */
+    max_total_spent?: number;
+
+    /**
+     * Filter by online status (`1` for online fans). Must use bracket syntax:
+     * filter[online]=1 — the dot form (filter.online=1) is rejected with a 422,
+     * because PHP rewrites it to `filter_online` and the filter could not be applied.
      */
     online?: 1 | 0 | null;
 
     /**
-     * Filter by minimum tips. Must be at least 0.
+     * Filter by minimum tips. Must use bracket syntax: filter[tips]=100 — the dot form
+     * (filter.tips=100) is rejected with a 422, because PHP rewrites it to
+     * `filter_tips` and the filter could not be applied. Must be at least 0.
      */
     tips?: number;
 
     /**
-     * Filter by minimum amount total spent by a fan. Must be at least 0.
+     * Filter by minimum amount total spent by a fan. Must use bracket syntax:
+     * filter[total_spent]=100 — the dot form (filter.total_spent=100) is rejected with
+     * a 422, because PHP rewrites it to `filter_total_spent` and the filter could not
+     * be applied. Must be at least 0.
      */
     total_spent?: number;
   }
@@ -2035,8 +2136,8 @@ export interface FanListExpiredParams {
   filter?: FanListExpiredParams.Filter;
 
   /**
-   * Number of fans to return (1-50). Must be at least 1. Must not be greater
-   * than 20.
+   * Number of fans to return (1-20). OnlyFans does not allow more than 20 per page.
+   * Must be at least 1. Must not be greater than 20.
    */
   limit?: number;
 
@@ -2059,22 +2160,56 @@ export interface FanListExpiredParams {
 export namespace FanListExpiredParams {
   export interface Filter {
     /**
-     * Filter by minimum subscription duration in months. Must be at least 0.
+     * Filter by minimum subscription duration in months. Must use bracket syntax:
+     * filter[duration]=1 — the dot form (filter.duration=1) is rejected with a 422,
+     * because PHP rewrites it to `filter_duration` and the filter could not be
+     * applied. Must be at least 0.
      */
     duration?: number;
 
     /**
-     * Filter by online status (`1` for online fans).
+     * Filter by **maximum** amount total spent by a fan — use
+     * `filter[max_total_spent]=0` to isolate fans who have never spent. Combine with
+     * `filter[total_spent]` for a range. Must use bracket syntax:
+     * filter[max_total_spent]=0 — the dot form is rejected with a 422, because PHP
+     * rewrites it to `filter_max_total_spent` and the filter could not be applied.
+     *
+     * OnlyFans itself has no maximum-spend filter, so this one is resolved against
+     * OnlyFansAPI's own fan index instead of being proxied. The fan objects in
+     * `data.list` are still fetched live from OnlyFans and are re-checked against your
+     * filters before being returned, but only fans we have already indexed for this
+     * account can appear. Each response reports its own coverage under `data._source`;
+     * when `data._source.is_complete` is `false` a full-base backfill is queued
+     * automatically, so retry later for a complete answer.
+     *
+     * `data._source.omitted_from_page` counts fans that matched your filters but which
+     * OnlyFans returned no usable data for on that page (a deleted account, or a
+     * partial response). They are left out of `data.list` and not revisited later in
+     * the same walk, so a non-zero value means that page was short — start a fresh
+     * walk to retry them. Cannot be combined with `filter[online]`. Must be at
+     * least 0.
+     */
+    max_total_spent?: number;
+
+    /**
+     * Filter by online status (`1` for online fans). Must use bracket syntax:
+     * filter[online]=1 — the dot form (filter.online=1) is rejected with a 422,
+     * because PHP rewrites it to `filter_online` and the filter could not be applied.
      */
     online?: 1 | 0 | null;
 
     /**
-     * Filter by minimum tips. Must be at least 0.
+     * Filter by minimum tips. Must use bracket syntax: filter[tips]=100 — the dot form
+     * (filter.tips=100) is rejected with a 422, because PHP rewrites it to
+     * `filter_tips` and the filter could not be applied. Must be at least 0.
      */
     tips?: number;
 
     /**
-     * Filter by minimum amount total spent by a fan. Must be at least 0.
+     * Filter by minimum amount total spent by a fan. Must use bracket syntax:
+     * filter[total_spent]=100 — the dot form (filter.total_spent=100) is rejected with
+     * a 422, because PHP rewrites it to `filter_total_spent` and the filter could not
+     * be applied. Must be at least 0.
      */
     total_spent?: number;
   }
@@ -2082,14 +2217,14 @@ export namespace FanListExpiredParams {
 
 export interface FanListLatestParams {
   /**
-   * End date for filtering (required with start_date). This field is required when
-   * <code>start_date</code> is present.
+   * End date for filtering (required with start_date). Must be a valid date. Must
+   * not be greater than 255 characters.
    */
   end_date?: string | null;
 
   /**
    * Number of fans to return (1-50). Must be at least 1. Must not be greater
-   * than 100.
+   * than 50.
    */
   limit?: number;
 
@@ -2099,8 +2234,8 @@ export interface FanListLatestParams {
   offset?: number;
 
   /**
-   * Start date for filtering (required with end_date). This field is required when
-   * <code>end_date</code> is present.
+   * Start date for filtering (required with end_date). Must be a valid date. Must
+   * not be greater than 255 characters.
    */
   start_date?: string | null;
 
@@ -2117,14 +2252,14 @@ export interface FanListTopParams {
   by?: 'total' | 'subscribes' | 'tips' | 'messages' | 'post' | 'streams' | null;
 
   /**
-   * End date for filtering (required with start_date). This field is required when
-   * <code>start_date</code> is present.
+   * End date for filtering (required with start_date). Must be a valid date. Must
+   * not be greater than 255 characters.
    */
   end_date?: string | null;
 
   /**
-   * Start date for filtering (required with end_date). This field is required when
-   * <code>end_date</code> is present.
+   * Start date for filtering (required with end_date). Must be a valid date. Must
+   * not be greater than 255 characters.
    */
   start_date?: string | null;
 }
