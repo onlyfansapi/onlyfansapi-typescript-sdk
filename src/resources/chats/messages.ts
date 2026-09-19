@@ -29,7 +29,10 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Get messages from a specific chat.
+   * Get messages from a specific chat. Use `filter=pinned` or
+   * [List Pinned Chat Messages](https://docs.onlyfansapi.com/api-reference/chat-messages/list-pinned-chat-messages)
+   * to retrieve only pinned messages. Follow `_pagination.next_page` until it is
+   * null; a short page can still have more results.
    *
    * @example
    * ```ts
@@ -85,7 +88,10 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Pin a message from a chat.
+   * Pin a message from a chat. Requires API-key write permission. No request body is
+   * needed. Use
+   * [List Pinned Chat Messages](https://docs.onlyfansapi.com/api-reference/chat-messages/list-pinned-chat-messages)
+   * to read the current pins.
    *
    * @example
    * ```ts
@@ -188,7 +194,10 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Unpin a message from a chat.
+   * Unpin a message from a chat. Requires API-key delete permission; a read_write
+   * key cannot unpin. No request body is needed. Use
+   * [List Pinned Chat Messages](https://docs.onlyfansapi.com/api-reference/chat-messages/list-pinned-chat-messages)
+   * to read the current pins.
    *
    * @example
    * ```ts
@@ -860,9 +869,9 @@ export interface MessageListParams {
   filter?: 'pinned';
 
   /**
-   * Query param: Use for pagination when `order=desc` (newest to oldest). Include
-   * this message ID as the first message in the results. Used to retrieve messages
-   * from e.g. the Search Chat Messages endpoint IDs.
+   * Query param: Use for pagination when `order=desc` (newest to oldest). Pass the
+   * last message ID from the previous page to retrieve older messages, excluding
+   * that cursor message.
    */
   first_id?: string | null;
 
