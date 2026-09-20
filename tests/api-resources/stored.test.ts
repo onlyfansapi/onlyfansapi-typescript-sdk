@@ -27,7 +27,7 @@ describe('resource stored', () => {
       client.stored.listSharedTrackingLinks(
         'acct_XXXXXXXXXXXXXXX',
         {
-          filter: { search: 'zkdv', tags: ['qaumtnj'] },
+          filter: { search: 'bymdezhsvwgjskclhyyuric', tags: ['auwyaerdx'] },
           limit: 10,
           offset: 0,
         },
@@ -55,7 +55,7 @@ describe('resource stored', () => {
       client.stored.listSharedTrialLinks(
         'acct_XXXXXXXXXXXXXXX',
         {
-          filter: { search: 'kjmbeyxtumrcezevrt', tags: ['furkhy'] },
+          filter: { search: 'upnqaiuvdwrlklcq', tags: ['kelgjsfwndbtapebwgm'] },
           limit: 10,
           offset: 0,
         },
@@ -84,9 +84,9 @@ describe('resource stored', () => {
         'acct_XXXXXXXXXXXXXXX',
         {
           filter: {
-            include_smart_links: false,
-            search: 'wwhbauzxizrdv',
-            tags: ['ezc'],
+            include_smart_links: true,
+            search: 'rpkf',
+            tags: ['xtnltqobdws'],
           },
           limit: 10,
           offset: 0,
@@ -116,9 +116,9 @@ describe('resource stored', () => {
         'acct_XXXXXXXXXXXXXXX',
         {
           filter: {
-            include_smart_links: false,
-            search: 'wckrliouqfzhxegsubkbgc',
-            tags: ['vmnkeeswwiniygkczpaquj'],
+            include_smart_links: true,
+            search: 'ggplhkiypgnzdsoucsyxgtyh',
+            tags: ['tpxdjeoj'],
           },
           limit: 10,
           offset: 0,
