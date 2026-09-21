@@ -9,41 +9,6 @@ const client = new OnlyFansAPI({
 
 describe('resource dataExports', () => {
   // Mock server tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.dataExports.create({
-      end_date: '2024-12-31T23:59:59Z',
-      file_type: 'csv',
-      start_date: '2024-01-01T00:00:00Z',
-      type: 'transactions',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.dataExports.create({
-      end_date: '2024-12-31T23:59:59Z',
-      file_type: 'csv',
-      start_date: '2024-01-01T00:00:00Z',
-      type: 'transactions',
-      account_ids: ['acc_abc123', 'acc_def456'],
-      auto_start: true,
-      export_columns: ['transaction_id', 'amount', 'created_at'],
-      options: {
-        maxChats: 'bar',
-        maxMessages: 'bar',
-        skipMassMessages: 'bar',
-      },
-    });
-  });
-
-  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.dataExports.retrieve('data_export_abc123');
     const rawResponse = await responsePromise.asResponse();
