@@ -67,11 +67,13 @@ export {
 } from './client-sessions';
 export {
   DataExports,
+  type DataExportCreateResponse,
   type DataExportRetrieveResponse,
   type DataExportListResponse,
   type DataExportCancelResponse,
   type DataExportRetryResponse,
   type DataExportStartResponse,
+  type DataExportCreateParams,
   type DataExportRetrieveParams,
   type DataExportListParams,
 } from './data-exports';
