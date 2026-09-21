@@ -29,7 +29,9 @@ export class Accounts extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.accounts.disconnect('fuga');
+   * const response = await client.accounts.disconnect(
+   *   'acct_992d030de9f849e59e7eb74cc0c77f12',
+   * );
    * ```
    */
   disconnect(id: string, options?: RequestOptions): APIPromise<AccountDisconnectResponse | null> {

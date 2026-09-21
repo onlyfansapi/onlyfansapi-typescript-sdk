@@ -57,8 +57,6 @@ import {
 } from './resources/client-sessions';
 import {
   DataExportCancelResponse,
-  DataExportCreateParams,
-  DataExportCreateResponse,
   DataExportListParams,
   DataExportListResponse,
   DataExportRetrieveParams,
@@ -1342,13 +1340,11 @@ export declare namespace OnlyFansAPI {
 
   export {
     DataExports as DataExports,
-    type DataExportCreateResponse as DataExportCreateResponse,
     type DataExportRetrieveResponse as DataExportRetrieveResponse,
     type DataExportListResponse as DataExportListResponse,
     type DataExportCancelResponse as DataExportCancelResponse,
     type DataExportRetryResponse as DataExportRetryResponse,
     type DataExportStartResponse as DataExportStartResponse,
-    type DataExportCreateParams as DataExportCreateParams,
     type DataExportRetrieveParams as DataExportRetrieveParams,
     type DataExportListParams as DataExportListParams,
   };
