@@ -10,6 +10,24 @@ import { path } from '../internal/utils/path';
  */
 export class DataExports extends APIResource {
   /**
+   * Create a new data export request. This will calculate the required credits and
+   * prepare the export for starting.
+   *
+   * @example
+   * ```ts
+   * const dataExport = await client.dataExports.create({
+   *   end_date: '2024-12-31T23:59:59Z',
+   *   file_type: 'csv',
+   *   start_date: '2024-01-01T00:00:00Z',
+   *   type: 'transactions',
+   * });
+   * ```
+   */
+  create(body: DataExportCreateParams, options?: RequestOptions): APIPromise<DataExportCreateResponse> {
+    return this._client.post('/api/data-exports', { body, ...options });
+  }
+
+  /**
    * Get the current status and progress of a data export
    *
    * @example
@@ -85,6 +103,70 @@ export class DataExports extends APIResource {
    */
   start(dataExportID: string, options?: RequestOptions): APIPromise<DataExportStartResponse> {
     return this._client.post(path`/api/data-exports/${dataExportID}/start`, options);
+  }
+}
+
+export interface DataExportCreateResponse {
+  _meta?: DataExportCreateResponse._Meta;
+
+  data?: DataExportCreateResponse.Data;
+}
+
+export namespace DataExportCreateResponse {
+  export interface _Meta {
+    _cache?: _Meta._Cache;
+
+    _credits?: _Meta._Credits;
+
+    _rate_limits?: _Meta._RateLimits;
+  }
+
+  export namespace _Meta {
+    export interface _Cache {
+      is_cached?: boolean;
+
+      note?: string;
+    }
+
+    export interface _Credits {
+      balance?: number;
+
+      note?: string;
+
+      used?: number;
+    }
+
+    export interface _RateLimits {
+      limit_day?: string | null;
+
+      limit_minute?: number;
+
+      notice?: string;
+
+      remaining_day?: string | null;
+
+      remaining_minute?: number;
+    }
+  }
+
+  export interface Data {
+    id?: string;
+
+    created_at?: string;
+
+    credit_calculation_note?: string;
+
+    end_date?: string;
+
+    file_type?: string;
+
+    requires_scraping?: boolean;
+
+    start_date?: string;
+
+    status?: string;
+
+    type?: string;
   }
 }
 
@@ -446,6 +528,90 @@ export namespace DataExportStartResponse {
   }
 }
 
+export interface DataExportCreateParams {
+  /**
+   * The end date for the export (ISO 8601 format).
+   */
+  end_date: string;
+
+  /**
+   * The output file format. Supported formats vary by export type: `csv` or `xlsx`
+   * for transactions, chat_messages, fansly_chat_messages, trial_links,
+   * tracking_links, smart_links, payouts, chargebacks, public_profiles, fans,
+   * followings, profile_visitors; `zip` for media_vault.
+   */
+  file_type: 'csv' | 'xlsx' | 'zip';
+
+  /**
+   * The start date for the export (ISO 8601 format).
+   */
+  start_date: string;
+
+  /**
+   * The type of data to export. Use `fansly_chat_messages` to export Fansly chat
+   * messages (all other types are OnlyFans). `profile_visitors` returns one row per
+   * account per day, scraped one day at a time so the daily numbers are not
+   * aggregated away by OnlyFans.
+   */
+  type:
+    | 'transactions'
+    | 'chat_messages'
+    | 'media_vault'
+    | 'trial_links'
+    | 'tracking_links'
+    | 'smart_links'
+    | 'payouts'
+    | 'chargebacks'
+    | 'public_profiles'
+    | 'fans'
+    | 'followings'
+    | 'profile_visitors'
+    | 'fansly_chat_messages';
+
+  /**
+   * Array of account prefixed IDs to export data from. Not required for
+   * `public_profiles` type. For `fansly_chat_messages`, pass Fansly account prefixed
+   * IDs (`fansly_acct_...`); all other types take OnlyFans account IDs.
+   */
+  account_ids?: Array<string>;
+
+  /**
+   * When true, automatically starts the export after creation.
+   */
+  auto_start?: boolean;
+
+  /**
+   * Array of column names to include in the export (optional, defaults to all
+   * columns for the export type)
+   */
+  export_columns?: Array<string>;
+
+  /**
+   * Type-specific export options. For `chat_messages`: `maxMessages` (required per
+   * account, max 10,000,000), `maxChats` (optional per-account chat scrape limit),
+   * `skipMassMessages` (optional, bool), `chatIds` (optional array of numeric
+   * fan/chat IDs; filters output and can drastically reduce totals). For
+   * `fansly_chat_messages`: `maxMessages` (required per account, max 10,000,000),
+   * `maxChats` (optional per-account chat scrape limit), `chatIds` (optional array
+   * of Fansly group ID strings; filters output and can drastically reduce totals).
+   * For `media_vault`: `mediaType` (required, one of: `all`, `photo`, `gif`,
+   * `video`, `audio`). For `fans`: `type` (required, one of: `all`, `active`,
+   * `expired`, `latest`). For `followings`: `type` (required, one of: `all`,
+   * `active`, `expired`). For `public_profiles`: `query` (optional, full-text
+   * search), `gender` (optional, filter: male, female, trans, couple),
+   * `minSubscribePrice` (optional, USD), `maxSubscribePrice` (optional, USD),
+   * `location` (optional), `minPostsCount` (optional, minimum posts),
+   * `minPhotosCount` (optional, minimum photos), `minVideosCount` (optional, minimum
+   * videos), `minSubscribersCount` (optional, minimum subscribers),
+   * `maxSubscribersCount` (optional, maximum subscribers), `minJoinDate` (optional,
+   * ISO 8601 date), `minLastSeenAt` (optional, ISO 8601 date), `createdAtFrom`
+   * (optional, ISO 8601 date, profile added to DB after), `createdAtTo` (optional,
+   * ISO 8601 date, profile added to DB before), `instagram` (optional), `twitter`
+   * (optional), `tiktok` (optional), `maxResults` (optional, limit results).
+   */
+  options?: { [key: string]: unknown };
+}
+
 export interface DataExportRetrieveParams {
   /**
    * Number of minutes until the download URL expires. Min `1`, max `60`, default
@@ -503,11 +669,13 @@ export interface DataExportListParams {
 
 export declare namespace DataExports {
   export {
+    type DataExportCreateResponse as DataExportCreateResponse,
     type DataExportRetrieveResponse as DataExportRetrieveResponse,
     type DataExportListResponse as DataExportListResponse,
     type DataExportCancelResponse as DataExportCancelResponse,
     type DataExportRetryResponse as DataExportRetryResponse,
     type DataExportStartResponse as DataExportStartResponse,
+    type DataExportCreateParams as DataExportCreateParams,
     type DataExportRetrieveParams as DataExportRetrieveParams,
     type DataExportListParams as DataExportListParams,
   };

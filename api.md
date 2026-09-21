@@ -224,6 +224,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/data-exports.ts">DataExportCreateResponse</a></code>
 - <code><a href="./src/resources/data-exports.ts">DataExportRetrieveResponse</a></code>
 - <code><a href="./src/resources/data-exports.ts">DataExportListResponse</a></code>
 - <code><a href="./src/resources/data-exports.ts">DataExportCancelResponse</a></code>
@@ -232,6 +233,7 @@ Types:
 
 Methods:
 
+- <code title="post /api/data-exports">client.dataExports.<a href="./src/resources/data-exports.ts">create</a>({ ...params }) -> DataExportCreateResponse</code>
 - <code title="get /api/data-exports/{data_export_id}">client.dataExports.<a href="./src/resources/data-exports.ts">retrieve</a>(dataExportID, { ...params }) -> DataExportRetrieveResponse</code>
 - <code title="get /api/data-exports">client.dataExports.<a href="./src/resources/data-exports.ts">list</a>({ ...params }) -> DataExportListResponse</code>
 - <code title="delete /api/data-exports/{data_export_id}">client.dataExports.<a href="./src/resources/data-exports.ts">cancel</a>(dataExportID) -> DataExportCancelResponse</code>
