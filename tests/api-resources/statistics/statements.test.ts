@@ -11,6 +11,7 @@ describe('resource statements', () => {
   // Mock server tests are disabled
   test.skip('getEarnings: only required params', async () => {
     const responsePromise = client.statistics.statements.getEarnings('acct_XXXXXXXXXXXXXXX', {
+      end_date: '2025-03-31 23:59:59',
       start_date: '2025-01-01 00:00:00',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -25,8 +26,8 @@ describe('resource statements', () => {
   // Mock server tests are disabled
   test.skip('getEarnings: required and optional params', async () => {
     const response = await client.statistics.statements.getEarnings('acct_XXXXXXXXXXXXXXX', {
-      start_date: '2025-01-01 00:00:00',
       end_date: '2025-03-31 23:59:59',
+      start_date: '2025-01-01 00:00:00',
       type: 'total',
     });
   });

@@ -2,7 +2,6 @@
 
 export {
   Media,
-  type MediaDownloadResponse,
   type MediaScrapeResponse,
   type MediaUploadResponse,
   type MediaDownloadParams,

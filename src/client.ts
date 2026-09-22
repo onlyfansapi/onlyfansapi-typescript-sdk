@@ -104,7 +104,7 @@ import {
   MeGetTopPercentageResponse,
   MeRetrieveResponse,
 } from './resources/me';
-import { MessageAttachTagsParams, MessageAttachTagsResponse, Messages } from './resources/messages';
+import { Messages } from './resources/messages';
 import {
   PayoutListRequestsParams,
   PayoutListRequestsResponse,
@@ -256,7 +256,6 @@ import {
 import {
   Media,
   MediaDownloadParams,
-  MediaDownloadResponse,
   MediaScrapeParams,
   MediaScrapeResponse,
   MediaUploadParams,
@@ -1045,11 +1044,19 @@ export class OnlyFansAPI {
     return () => controller.abort();
   }
 
-  private buildBody({ options: { body, headers: rawHeaders } }: { options: FinalRequestOptions }): {
+  private buildBody({ options }: { options: FinalRequestOptions }): {
     bodyHeaders: HeadersLike;
     body: BodyInit | undefined;
   } {
+    const { body, headers: rawHeaders } = options;
     if (!body) {
+      // A resource method always passes a `body` key when its operation defines a
+      // request body, even if the caller omitted an optional body param. Keep the
+      // content-type for those, and only elide it for operations with no body at
+      // all (e.g. GET/DELETE).
+      if (body == null && 'body' in options) {
+        return this.#encoder({ body, headers: buildHeaders([rawHeaders]) });
+      }
       return { bodyHeaders: undefined, body: undefined };
     }
     const headers = buildHeaders([rawHeaders]);
@@ -1142,12 +1149,12 @@ export class OnlyFansAPI {
    */
   following: API.Following = new API.Following(this);
   /**
-   * APIs for managing Free Trial Links
+   * APIs for managing Free Trial Links. Revenue totals are net earnings after refunds and chargebacks. `revenue.chargebacks` (or `summary.chargebacks_total` in stats) is the positive cached net amount already excluded from revenue; do not subtract it again. Spender responses include chargebacks across all attributed periods for each fan with positive net revenue.
    */
   trialLinks: API.TrialLinks = new API.TrialLinks(this);
   giphy: API.Giphy = new API.Giphy(this);
   /**
-   * APIs for managing tags on free trial links and tracking links
+   * APIs for managing tags on free trial links, tracking links, and Smart Links
    */
   linkTags: API.LinkTags = new API.LinkTags(this);
   massMessaging: API.MassMessaging = new API.MassMessaging(this);
@@ -1196,7 +1203,7 @@ export class OnlyFansAPI {
   stories: API.Stories = new API.Stories(this);
   bundles: API.Bundles = new API.Bundles(this);
   /**
-   * APIs for managing tracking links
+   * APIs for managing tracking links. Revenue totals are net earnings after refunds and chargebacks. `revenue.chargebacks` (or `summary.chargebacks_total` in stats) is the positive cached net amount already excluded from revenue; do not subtract it again. Spender responses include chargebacks across all attributed periods for each fan with positive net revenue.
    */
   trackingLinks: API.TrackingLinks = new API.TrackingLinks(this);
   /**
@@ -1314,11 +1321,7 @@ export declare namespace OnlyFansAPI {
     type ChatUnmuteParams as ChatUnmuteParams,
   };
 
-  export {
-    Messages as Messages,
-    type MessageAttachTagsResponse as MessageAttachTagsResponse,
-    type MessageAttachTagsParams as MessageAttachTagsParams,
-  };
+  export { Messages as Messages };
 
   export {
     ClientSessions as ClientSessions,
@@ -1430,7 +1433,6 @@ export declare namespace OnlyFansAPI {
 
   export {
     Media as Media,
-    type MediaDownloadResponse as MediaDownloadResponse,
     type MediaScrapeResponse as MediaScrapeResponse,
     type MediaUploadResponse as MediaUploadResponse,
     type MediaDownloadParams as MediaDownloadParams,

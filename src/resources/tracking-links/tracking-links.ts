@@ -17,7 +17,7 @@ import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 /**
- * APIs for managing tracking links
+ * APIs for managing tracking links. Revenue totals are net earnings after refunds and chargebacks. `revenue.chargebacks` (or `summary.chargebacks_total` in stats) is the positive cached net amount already excluded from revenue; do not subtract it again. Spender responses include chargebacks across all attributed periods for each fan with positive net revenue.
  */
 export class TrackingLinks extends APIResource {
   tags: TagsAPI.Tags = new TagsAPI.Tags(this._client);
@@ -47,7 +47,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const trackingLink = await client.trackingLinks.retrieve(
-   *   'et',
+   *   'incidunt',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -85,7 +85,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const trackingLink = await client.trackingLinks.delete(
-   *   'et',
+   *   'incidunt',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -104,7 +104,7 @@ export class TrackingLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.trackingLinks.getCohortArps('et', {
+   * await client.trackingLinks.getCohortArps('in', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -134,7 +134,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const response = await client.trackingLinks.getStats(
-   *   'voluptatem',
+   *   'ipsam',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -361,6 +361,8 @@ export namespace TrackingLinkRetrieveResponse {
     export interface Revenue {
       calculatedAt?: string;
 
+      chargebacks?: number;
+
       isLoading?: boolean;
 
       revenuePerClick?: number;
@@ -465,6 +467,8 @@ export namespace TrackingLinkListResponse {
 
       export interface Revenue {
         calculatedAt?: string;
+
+        chargebacks?: number;
 
         isLoading?: boolean;
 
@@ -589,6 +593,8 @@ export namespace TrackingLinkGetStatsResponse {
     }
 
     export interface Summary {
+      chargebacks_total?: number;
+
       clicks_total?: number;
 
       revenue_cached_at?: string;
@@ -654,6 +660,8 @@ export namespace TrackingLinkListSpendersResponse {
   export namespace Data {
     export interface Revenue {
       calculated_at?: string;
+
+      chargebacks?: number;
 
       total?: number;
     }
@@ -823,47 +831,49 @@ export interface TrackingLinkRetrieveParams {
 
 export interface TrackingLinkListParams {
   /**
-   * The end date for Tracking Links. Keep empty to get all.
+   * The end date for tracking links. Keep empty to get all. Must not be greater than
+   * 255 characters.
    */
   endDate?: string | null;
 
   /**
-   * The number of tracking links to return. Default `3`
+   * The number of tracking links to return. Default `10`. Must be at least 1. Must
+   * not be greater than 100.
    */
-  limit?: number | null;
+  limit?: number;
 
   /**
-   * The offset used for pagination. Default `0`
+   * The offset used for pagination. Default `0`. Must be at least 0.
    */
-  offset?: number | null;
+  offset?: number;
+
+  pagination?: 0 | 1;
 
   /**
-   * Sort the results. Default `desc`
+   * Sort direction. Default `desc`.
    */
-  sort?: 'desc' | 'asc' | null;
+  sort?: 'asc' | 'desc';
 
   /**
-   * Sort by subscriber count (claims), or creation date
+   * Sort by subscriber count (`claims`) or creation date (`created_date`).
    */
-  sortby?: 'claims' | 'created_date' | null;
+  sortby?: 'claims' | 'created_date';
 
   /**
-   * The start date for Tracking Links. Keep empty to get all.
+   * The start date for tracking links. Keep empty to get all. Must not be greater
+   * than 255 characters.
    */
   startDate?: string | null;
 
   /**
-   * Wait for the revenue data to finish processing, instead of processing in the
-   * background. **Will result in longer response times, use with caution**. Default
-   * `false`
+   * Wait for revenue calculation instead of processing it in the background.
    */
-  synchronous?: boolean | null;
+  synchronous?: boolean;
 
   /**
-   * Whether or not to include deleted tracking links in the response. Default
-   * `false`
+   * Whether to include deleted tracking links. Default `true`.
    */
-  with_deleted?: boolean | null;
+  with_deleted?: 0 | 1;
 }
 
 export interface TrackingLinkDeleteParams {

@@ -49,6 +49,7 @@ describe('resource users', () => {
     const response = await client.userLists.users.add('userListId', {
       account: 'acct_XXXXXXXXXXXXXXX',
       ids: ['string', 'string', 'string'],
+      skip_invalid: true,
     });
   });
 

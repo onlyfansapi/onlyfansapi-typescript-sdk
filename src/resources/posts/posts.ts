@@ -1127,6 +1127,14 @@ export interface PostCreateParams {
   text: string;
 
   /**
+   * Screen `text` for OnlyFans banned words and block the post if any are found
+   * (returns a 422 listing the offending words). `strict_ban` blocks all tiers,
+   * `risky` blocks Risky + Replace/soften, `replace_soften` blocks Replace/soften
+   * only. Omit to disable screening.
+   */
+  blockBannedWords?: 'strict_ban' | 'risky' | 'replace_soften';
+
+  /**
    * Number of days after which the post will expire. Between 1 and 30 days. Keep
    * empty for no expiration.
    */
@@ -1216,6 +1224,14 @@ export interface PostUpdateParams {
    * Body param: The post text content
    */
   text: string;
+
+  /**
+   * Body param: Screen `text` for OnlyFans banned words and block the update if any
+   * are found (returns a 422 listing the offending words). `strict_ban` blocks all
+   * tiers, `risky` blocks Risky + Replace/soften, `replace_soften` blocks
+   * Replace/soften only. Omit to disable screening.
+   */
+  blockBannedWords?: 'strict_ban' | 'risky' | 'replace_soften';
 
   /**
    * Body param: Number of days after which the post will expire. Between 1 and 30
