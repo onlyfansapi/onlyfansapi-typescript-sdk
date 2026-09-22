@@ -30,7 +30,7 @@ describe('resource notifications', () => {
           from_id: 123,
           limit: 10,
           skip_users: 'all',
-          type: 'tags',
+          type: 'all',
         },
         { path: '/_stainless_unknown_path' },
       ),
