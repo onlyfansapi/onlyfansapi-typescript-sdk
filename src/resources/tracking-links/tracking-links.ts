@@ -47,7 +47,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const trackingLink = await client.trackingLinks.retrieve(
-   *   'eaque',
+   *   'neque',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -85,7 +85,7 @@ export class TrackingLinks extends APIResource {
    * @example
    * ```ts
    * const trackingLink = await client.trackingLinks.delete(
-   *   'eaque',
+   *   'neque',
    *   { account: 'acct_XXXXXXXXXXXXXXX' },
    * );
    * ```
@@ -104,7 +104,7 @@ export class TrackingLinks extends APIResource {
    *
    * @example
    * ```ts
-   * await client.trackingLinks.getCohortArps('occaecati', {
+   * await client.trackingLinks.getCohortArps('magnam', {
    *   account: 'acct_XXXXXXXXXXXXXXX',
    * });
    * ```
@@ -133,9 +133,10 @@ export class TrackingLinks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.trackingLinks.getStats('in', {
-   *   account: 'acct_XXXXXXXXXXXXXXX',
-   * });
+   * const response = await client.trackingLinks.getStats(
+   *   'dignissimos',
+   *   { account: 'acct_XXXXXXXXXXXXXXX' },
+   * );
    * ```
    */
   getStats(
