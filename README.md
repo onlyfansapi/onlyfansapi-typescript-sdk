@@ -1,12 +1,15 @@
-# Only Fans API TypeScript API Library
+# OnlyFans TypeScript SDK
 
 [![NPM version](<https://img.shields.io/npm/v/@onlyfansapi/onlyfans-sdk.svg?label=npm%20(stable)>)](https://npmjs.org/package/@onlyfansapi/onlyfans-sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@onlyfansapi/onlyfans-sdk)
 
-This library provides convenient access to the Only Fans API REST API from server-side TypeScript or JavaScript.
+The OnlyFans TypeScript SDK for Node.js and JavaScript, built for the [OnlyFans API](https://onlyfansapi.com). Call any OnlyFans API endpoint with full types from Node.js 20+, Deno, Bun or the browser, with examples for Next.js, Express, Hono and TanStack Start.
 
-The REST API documentation can be found on [docs.onlyfansapi.com](https://docs.onlyfansapi.com). The full API of this library can be found in [api.md](api.md).
+- **OnlyFans TypeScript SDK guide:** [onlyfansapi.com/sdk/typescript](https://onlyfansapi.com/sdk/typescript)
+- **OnlyFans API:** [onlyfansapi.com](https://onlyfansapi.com)
+- **API reference:** [docs.onlyfansapi.com](https://docs.onlyfansapi.com)
+- **Get an API key:** [app.onlyfansapi.com](https://app.onlyfansapi.com)
 
-It is generated with [Stainless](https://www.stainless.com/).
+The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
