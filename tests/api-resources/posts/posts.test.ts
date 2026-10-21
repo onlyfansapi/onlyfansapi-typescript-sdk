@@ -24,6 +24,7 @@ describe('resource posts', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.posts.create('acct_XXXXXXXXXXXXXXX', {
       text: 'Hello!',
+      blockBannedWords: 'strict_ban',
       expireDays: 3,
       fundRaisingTargetAmount: 30,
       fundRaisingTipsPresets: ['string', 'string', 'string'],
@@ -77,6 +78,7 @@ describe('resource posts', () => {
     const response = await client.posts.update(1234567890, {
       account: 'acct_XXXXXXXXXXXXXXX',
       text: 'Hello!',
+      blockBannedWords: 'strict_ban',
       expireDays: 3,
       fundRaisingTargetAmount: 30,
       fundRaisingTipsPresets: ['string', 'string', 'string'],

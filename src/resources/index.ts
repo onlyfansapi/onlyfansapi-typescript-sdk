@@ -134,14 +134,13 @@ export {
 } from './me';
 export {
   Media,
-  type MediaDownloadResponse,
   type MediaScrapeResponse,
   type MediaUploadResponse,
   type MediaDownloadParams,
   type MediaScrapeParams,
   type MediaUploadParams,
 } from './media/media';
-export { Messages, type MessageAttachTagsResponse, type MessageAttachTagsParams } from './messages';
+export { Messages } from './messages';
 export {
   Notifications,
   type NotificationListResponse,

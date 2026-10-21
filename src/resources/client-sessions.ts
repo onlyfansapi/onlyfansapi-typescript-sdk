@@ -82,7 +82,7 @@ export interface ClientSessionCreateParams {
    */
   client_reference_id?: string;
 
-  proxy_country?: 'us' | 'uk' | null;
+  proxy_country?: 'us' | 'uk' | 'gb' | null;
 }
 
 export declare namespace ClientSessions {

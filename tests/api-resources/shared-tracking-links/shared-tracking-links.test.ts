@@ -29,7 +29,11 @@ describe('resource sharedTrackingLinks', () => {
         {
           limit: 10,
           offset: 0,
+          pagination: 1,
+          sorting_deleted: 1,
+          stats: 'true',
           synchronous: false,
+          with_deleted: 1,
         },
         { path: '/_stainless_unknown_path' },
       ),

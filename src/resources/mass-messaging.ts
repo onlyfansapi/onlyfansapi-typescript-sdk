@@ -7,7 +7,8 @@ import { path } from '../internal/utils/path';
 
 export class MassMessaging extends APIResource {
   /**
-   * Get the content of a mass message.
+   * Get the content and settings of a mass message, including a message scheduled
+   * for later.
    *
    * @example
    * ```ts
@@ -27,7 +28,8 @@ export class MassMessaging extends APIResource {
   }
 
   /**
-   * Update a mass message.
+   * Update the content, recipients, media, price, or scheduled send time of an
+   * existing mass message.
    *
    * @example
    * ```ts
@@ -47,7 +49,8 @@ export class MassMessaging extends APIResource {
   }
 
   /**
-   * List the pending or recently sent mass messages in the message queue.
+   * List pending, scheduled, and recently sent mass messages. Use an item ID to
+   * retrieve, update, reschedule, delete, or unsend the message.
    *
    * @example
    * ```ts
@@ -677,6 +680,14 @@ export interface MassMessagingUpdateParams {
   text: string;
 
   /**
+   * Body param: Screen `text` for OnlyFans banned words and block the update if any
+   * are found (returns a 422 listing the offending words). `strict_ban` blocks all
+   * tiers, `risky` blocks Risky + Replace/soften, `replace_soften` blocks
+   * Replace/soften only. Omit to disable screening.
+   */
+  blockBannedWords?: 'strict_ban' | 'risky' | 'replace_soften';
+
+  /**
    * Body param: The ID of the Giphy GIF to attach to the message. Get IDs from the
    * Giphy listing endpoints (`/giphy/trending`, `/giphy/search`).
    */
@@ -701,8 +712,8 @@ export interface MassMessagingUpdateParams {
   previews?: Array<string>;
 
   /**
-   * Body param: Price for paid content (0 or between 3-200). In case this is not
-   * zero, **mediaFiles** is required
+   * Body param: Price for paid content in USD (0 or between 3-200). In case this is
+   * not zero, **mediaFiles** is required
    */
   price?: number;
 
@@ -731,8 +742,8 @@ export interface MassMessagingDeleteParams {
 
 export interface MassMessagingRetrieveOverviewParams {
   /**
-   * The latest mass message to retrieve. Keep empty to get all. MUST BE DATE AFTER
-   * `startDate`. This is also used for pagination.
+   * The latest mass message to retrieve. Keep empty to get all. It must be after
+   * `startDate` and is also used for pagination.
    */
   endDate?: string;
 
@@ -757,6 +768,14 @@ export interface MassMessagingSendParams {
    * The message text content
    */
   text: string;
+
+  /**
+   * Screen `text` for OnlyFans banned words and block the send if any are found
+   * (returns a 422 listing the offending words). `strict_ban` blocks all tiers,
+   * `risky` blocks Risky + Replace/soften, `replace_soften` blocks Replace/soften
+   * only. Omit to disable screening.
+   */
+  blockBannedWords?: 'strict_ban' | 'risky' | 'replace_soften';
 
   /**
    * Array of user list IDs that the mass message will NOT be sent to.
@@ -788,7 +807,7 @@ export interface MassMessagingSendParams {
   previews?: Array<unknown>;
 
   /**
-   * Price for paid content (0 or between 3-200). In case this is not zero,
+   * Price for paid content in USD (0 or between 3-200). In case this is not zero,
    * **mediaFiles** is required
    */
   price?: number;
@@ -817,6 +836,13 @@ export interface MassMessagingSendParams {
    * Schedule the chat message in the future (UTC timezone).
    */
   scheduledDate?: string;
+
+  /**
+   * Only send to fans who subscribed within the last N calendar days (1-30,
+   * including today). Can be combined with `userLists` and `userIds`. Cannot be
+   * combined with `scheduledDate` or `saveForLater`.
+   */
+  subscribedWithinLastDays?: number;
 
   /**
    * Array of user IDs that the mass message will be sent to.

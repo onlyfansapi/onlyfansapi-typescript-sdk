@@ -6,7 +6,7 @@ import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 /**
- * APIs for managing Free Trial Links
+ * APIs for managing Free Trial Links. Revenue totals are net earnings after refunds and chargebacks. `revenue.chargebacks` (or `summary.chargebacks_total` in stats) is the positive cached net amount already excluded from revenue; do not subtract it again. Spender responses include chargebacks across all attributed periods for each fan with positive net revenue.
  */
 export class Tags extends APIResource {
   /**

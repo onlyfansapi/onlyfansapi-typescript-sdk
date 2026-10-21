@@ -192,14 +192,6 @@ Methods:
 
 # Messages
 
-Types:
-
-- <code><a href="./src/resources/messages.ts">MessageAttachTagsResponse</a></code>
-
-Methods:
-
-- <code title="post /api/{account}/messages/{message_id}/attach-tags">client.messages.<a href="./src/resources/messages.ts">attachTags</a>(messageID, { ...params }) -> MessageAttachTagsResponse</code>
-
 # ClientSessions
 
 Types:
@@ -431,13 +423,12 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/media/media.ts">MediaDownloadResponse</a></code>
 - <code><a href="./src/resources/media/media.ts">MediaScrapeResponse</a></code>
 - <code><a href="./src/resources/media/media.ts">MediaUploadResponse</a></code>
 
 Methods:
 
-- <code title="get /api/{account}/media/download/{cdnUrl}">client.media.<a href="./src/resources/media/media.ts">download</a>(cdnURL, { ...params }) -> string</code>
+- <code title="get /api/{account}/media/download/{cdnUrl}">client.media.<a href="./src/resources/media/media.ts">download</a>(cdnURL, { ...params }) -> void</code>
 - <code title="post /api/{account}/media/scrape">client.media.<a href="./src/resources/media/media.ts">scrape</a>(account, { ...params }) -> MediaScrapeResponse</code>
 - <code title="post /api/{account}/media/upload">client.media.<a href="./src/resources/media/media.ts">upload</a>(account, { ...params }) -> MediaUploadResponse</code>
 

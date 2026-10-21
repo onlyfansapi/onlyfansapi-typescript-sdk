@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -28,7 +29,10 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Get messages from a specific chat.
+   * Get messages from a specific chat. Use `filter=pinned` or
+   * [List Pinned Chat Messages](https://docs.onlyfansapi.com/api-reference/chat-messages/list-pinned-chat-messages)
+   * to retrieve only pinned messages. Follow `_pagination.next_page` until it is
+   * null; a short page can still have more results.
    *
    * @example
    * ```ts
@@ -84,7 +88,10 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Pin a message from a chat.
+   * Pin a message from a chat. Requires API-key write permission. No request body is
+   * needed. Use
+   * [List Pinned Chat Messages](https://docs.onlyfansapi.com/api-reference/chat-messages/list-pinned-chat-messages)
+   * to read the current pins.
    *
    * @example
    * ```ts
@@ -123,6 +130,30 @@ export class Messages extends APIResource {
   /**
    * Send a new message to a chat.
    *
+   * **Idempotency.** Pass an `Idempotency-Key` header to make retries safe. The
+   * first request with a given key is executed normally and its response is stored
+   * for **24 hours**; any later request with the same key returns that stored
+   * response, plus an `Idempotent-Replayed: true` header, without contacting
+   * OnlyFans and without consuming credits. The replayed body is the original
+   * response with its `_meta._credits` block rewritten to show `used: 0` and your
+   * current balance.
+   *
+   * Keys are scoped to your team, this endpoint and the account in the URL, so the
+   * same value can be reused safely against a different account. Use a fresh, unique
+   * value (a UUID works well) for each message you send; it must be 1-255 printable
+   * ASCII characters.
+   *
+   * - `400 IDEMPOTENCY_KEY_INVALID` — the header value is empty, too long, or
+   *   contains non-ASCII characters.
+   * - `409 IDEMPOTENCY_CONFLICT` — an earlier request with this key is still
+   *   running. Retry once it finishes.
+   * - `422 IDEMPOTENCY_KEY_MISMATCH` — this key was already used with a different
+   *   request body or chat.
+   *
+   * Responses with a `5xx` status (and `408`/`429`) are never stored, so a failed
+   * send can be retried with the same key. The header is optional: omit it and the
+   * endpoint behaves exactly as before.
+   *
    * @example
    * ```ts
    * const response = await client.chats.messages.send('123', {
@@ -131,8 +162,15 @@ export class Messages extends APIResource {
    * ```
    */
   send(chatID: string, params: MessageSendParams, options?: RequestOptions): APIPromise<MessageSendResponse> {
-    const { account, ...body } = params;
-    return this._client.post(path`/api/${account}/chats/${chatID}/messages`, { body, ...options });
+    const { account, 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post(path`/api/${account}/chats/${chatID}/messages`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -156,7 +194,10 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Unpin a message from a chat.
+   * Unpin a message from a chat. Requires API-key delete permission; a read_write
+   * key cannot unpin. No request body is needed. Use
+   * [List Pinned Chat Messages](https://docs.onlyfansapi.com/api-reference/chat-messages/list-pinned-chat-messages)
+   * to read the current pins.
    *
    * @example
    * ```ts
@@ -828,9 +869,9 @@ export interface MessageListParams {
   filter?: 'pinned';
 
   /**
-   * Query param: Use for pagination when `order=desc` (newest to oldest). Include
-   * this message ID as the first message in the results. Used to retrieve messages
-   * from e.g. the Search Chat Messages endpoint IDs.
+   * Query param: Use for pagination when `order=desc` (newest to oldest). Pass the
+   * last message ID from the previous page to retrieve older messages, excluding
+   * that cursor message.
    */
   first_id?: string | null;
 
@@ -853,7 +894,7 @@ export interface MessageListParams {
   order?: string;
 
   /**
-   * Query param: Whether to skip user details (all or none)
+   * Query param: Whether to skip user details (`all` or `none`).
    */
   skip_users?: string;
 }
@@ -913,6 +954,14 @@ export interface MessageSendParams {
   account: string;
 
   /**
+   * Body param: Screen `text` for OnlyFans banned words and block the send if any
+   * are found (returns a 422 listing the offending words). `strict_ban` blocks all
+   * tiers, `risky` blocks Risky + Replace/soften, `replace_soften` blocks
+   * Replace/soften only. Omit to disable screening.
+   */
+  blockBannedWords?: 'strict_ban' | 'risky' | 'replace_soften';
+
+  /**
    * Body param: The ID of the Giphy GIF to attach to the message. Get IDs from the
    * Giphy listing endpoints (`/giphy/trending`, `/giphy/search`).
    */
@@ -937,8 +986,8 @@ export interface MessageSendParams {
   previews?: Array<unknown>;
 
   /**
-   * Body param: Price for paid content (0 or between 3-200). In case this is not
-   * zero, **mediaFiles** is required
+   * Body param: Price for paid content in USD (0 or between 3-200). In case this is
+   * not zero, **mediaFiles** is required
    */
   price?: number;
 
@@ -967,6 +1016,11 @@ export interface MessageSendParams {
    * Body param: The message text content. Required unless a media file is present.
    */
   text?: string;
+
+  /**
+   * Header param
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface MessageUnlikeParams {

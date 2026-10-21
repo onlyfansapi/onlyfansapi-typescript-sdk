@@ -18,7 +18,7 @@ export class SmartLinkPostbacks extends APIResource {
    *   await client.smartLinkPostbacks.create({
    *     conversion_types: ['new_subscriber', 'new_transaction'],
    *     smart_link_scope: 'campaign_specific',
-   *     url: 'https://example.com/postback?click={click_id}&type={conversion_type}&gclid={gclid}',
+   *     url: 'https://example.com/postback?click={external_click_id}&type={conversion_type}&gclid={gclid}',
    *   });
    * ```
    */
@@ -51,7 +51,7 @@ export class SmartLinkPostbacks extends APIResource {
    *   await client.smartLinkPostbacks.update(123, {
    *     conversion_types: ['new_subscriber'],
    *     smart_link_scope: 'global',
-   *     url: 'https://example.com/postback?click={click_id}&type={conversion_type}',
+   *     url: 'https://example.com/postback?click={external_click_id}&type={conversion_type}',
    *   });
    * ```
    */
@@ -122,9 +122,15 @@ export namespace SmartLinkPostbackCreateResponse {
   export interface Data {
     id?: number;
 
+    body?: string;
+
     conversion_types?: Array<string>;
 
     created_at?: string;
+
+    headers?: Array<Data.Header>;
+
+    http_method?: string;
 
     latest_response?: string | null;
 
@@ -134,9 +140,21 @@ export namespace SmartLinkPostbackCreateResponse {
 
     smart_links?: Array<unknown>;
 
+    traffic_source_ids?: Array<unknown>;
+
+    traffic_sources?: Array<unknown>;
+
     updated_at?: string;
 
     url?: string;
+  }
+
+  export namespace Data {
+    export interface Header {
+      name?: string;
+
+      value?: string;
+    }
   }
 }
 
@@ -172,9 +190,15 @@ export namespace SmartLinkPostbackRetrieveResponse {
   export interface Data {
     id?: number;
 
+    body?: string;
+
     conversion_types?: Array<string>;
 
     created_at?: string;
+
+    headers?: Array<Data.Header>;
+
+    http_method?: string;
 
     latest_response?: string | null;
 
@@ -184,12 +208,22 @@ export namespace SmartLinkPostbackRetrieveResponse {
 
     smart_links?: Array<Data.SmartLink>;
 
+    traffic_source_ids?: Array<unknown>;
+
+    traffic_sources?: Array<unknown>;
+
     updated_at?: string;
 
     url?: string;
   }
 
   export namespace Data {
+    export interface Header {
+      name?: string;
+
+      value?: string;
+    }
+
     export interface SmartLink {
       account_display_name?: string;
 
@@ -234,9 +268,15 @@ export namespace SmartLinkPostbackUpdateResponse {
   export interface Data {
     id?: number;
 
+    body?: string;
+
     conversion_types?: Array<string>;
 
     created_at?: string;
+
+    headers?: Array<Data.Header>;
+
+    http_method?: string;
 
     latest_response?: string | null;
 
@@ -246,12 +286,22 @@ export namespace SmartLinkPostbackUpdateResponse {
 
     smart_links?: Array<Data.SmartLink>;
 
+    traffic_source_ids?: Array<unknown>;
+
+    traffic_sources?: Array<unknown>;
+
     updated_at?: string;
 
     url?: string;
   }
 
   export namespace Data {
+    export interface Header {
+      name?: string;
+
+      value?: string;
+    }
+
     export interface SmartLink {
       account_display_name?: string;
 
@@ -296,9 +346,15 @@ export namespace SmartLinkPostbackListResponse {
   export interface Data {
     id?: number;
 
+    body?: string;
+
     conversion_types?: Array<string>;
 
     created_at?: string;
+
+    headers?: Array<Data.Header>;
+
+    http_method?: string;
 
     latest_response?: Data.LatestResponse;
 
@@ -308,12 +364,22 @@ export namespace SmartLinkPostbackListResponse {
 
     smart_links?: Array<Data.SmartLink>;
 
+    traffic_source_ids?: Array<unknown>;
+
+    traffic_sources?: Array<unknown>;
+
     updated_at?: string;
 
     url?: string;
   }
 
   export namespace Data {
+    export interface Header {
+      name?: string;
+
+      value?: string;
+    }
+
     export interface LatestResponse {
       id?: number;
 
@@ -359,15 +425,48 @@ export interface SmartLinkPostbackCreateParams {
   smart_link_scope: 'global' | 'campaign_specific';
 
   /**
-   * The destination URL. Variables such as `{click_id}`, `{fbclid}`, `{gclid}`, and
-   * `{ttclid}` are replaced when the postback is dispatched.
+   * The destination URL. Variables such as `{external_click_id}`, `{fbclid}`,
+   * `{gclid}`, `{gbraid}`, `{wbraid}`, `{ttclid}`, and `{sccid}` are replaced when
+   * the postback is dispatched.
    */
   url: string;
+
+  /**
+   * Optional request body template for POST postbacks. Variables are replaced when
+   * the postback is dispatched.
+   */
+  body?: string;
+
+  /**
+   * Optional request headers. Header values may include postback variables.
+   */
+  headers?: Array<SmartLinkPostbackCreateParams.Header>;
+
+  /**
+   * HTTP method used for the postback request. Defaults to `GET` when omitted.
+   */
+  http_method?: 'GET' | 'POST';
 
   /**
    * Smart Link ULIDs. Required when `smart_link_scope` is `campaign_specific`.
    */
   smart_link_ids?: Array<string>;
+}
+
+export namespace SmartLinkPostbackCreateParams {
+  export interface Header {
+    /**
+     * This field is required when <code>headers._.value</code> is present. Must match
+     * the regex /\A[A-Za-z0-9!#$%&'_+.^\_`|~-]+\z/. Must not be greater than 100
+     * characters.
+     */
+    name?: string | null;
+
+    /**
+     * Must not be greater than 2000 characters.
+     */
+    value?: string | null;
+  }
 }
 
 export interface SmartLinkPostbackUpdateParams {
@@ -387,9 +486,41 @@ export interface SmartLinkPostbackUpdateParams {
   url: string;
 
   /**
+   * Optional request body template for POST postbacks. Variables are replaced when
+   * the postback is dispatched.
+   */
+  body?: string;
+
+  /**
+   * Optional request headers. Header values may include postback variables.
+   */
+  headers?: Array<SmartLinkPostbackUpdateParams.Header>;
+
+  /**
+   * HTTP method used for the postback request. Existing value is kept when omitted.
+   */
+  http_method?: 'GET' | 'POST';
+
+  /**
    * Smart Link ULIDs. Required when `smart_link_scope` is `campaign_specific`.
    */
   smart_link_ids?: Array<string>;
+}
+
+export namespace SmartLinkPostbackUpdateParams {
+  export interface Header {
+    /**
+     * This field is required when <code>headers._.value</code> is present. Must match
+     * the regex /\A[A-Za-z0-9!#$%&'_+.^\_`|~-]+\z/. Must not be greater than 100
+     * characters.
+     */
+    name?: string | null;
+
+    /**
+     * Must not be greater than 2000 characters.
+     */
+    value?: string | null;
+  }
 }
 
 export declare namespace SmartLinkPostbacks {

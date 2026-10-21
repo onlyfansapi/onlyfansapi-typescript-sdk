@@ -623,7 +623,7 @@ export interface NotificationListParams {
   limit?: number;
 
   /**
-   * Whether to skip user details. Default `all`
+   * Whether to skip user details. Defaults to `all`.
    */
   skip_users?: 'all' | 'none';
 
