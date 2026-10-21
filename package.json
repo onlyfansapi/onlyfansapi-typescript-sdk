@@ -1,7 +1,20 @@
 {
   "name": "@onlyfansapi/onlyfans-sdk",
   "version": "0.3.0",
-  "description": "The official TypeScript library for the Only Fans API API",
+  "description": "OnlyFans TypeScript SDK for Node.js and JavaScript. Typed client for the OnlyFans API (onlyfansapi.com).",
+  "homepage": "https://onlyfansapi.com/sdk/typescript",
+  "keywords": [
+    "onlyfans",
+    "onlyfans-api",
+    "onlyfans-sdk",
+    "onlyfans-typescript",
+    "onlyfans-nodejs",
+    "onlyfans-javascript",
+    "onlyfansapi",
+    "typescript",
+    "nodejs",
+    "sdk"
+  ],
   "author": "Only Fans API <hello@onlyfansapi.com>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
